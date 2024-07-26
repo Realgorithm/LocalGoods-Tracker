@@ -1,0 +1,192 @@
+/**
+* Template Name: Medilab - v2.0.0
+* Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+  width: 100%;
+  height: calc(100%);
+}
+
+a {
+  color: #1977cc;
+}
+
+a:hover {
+  color: #3291e6;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+[data-bs-theme="light"] {
+  --bs-tbl-color: #000; /* Text color */
+  --bs-tbl-bg: #cfe2ff; /* Background color */
+  --bs-tbl-border-color: #bacbe6; /* Border color */
+  --bs-tbl-striped-bg: #c5d7f2; /* Striped row background */
+  --bs-tbl-striped-color: #000; /* Striped row text color */
+  --bs-tbl-active-bg: #bacbe6; /* Active row background */
+  --bs-tbl-active-color: #000; /* Active row text color */
+  --bs-tbl-hover-bg: #bfd1ec; /* Hover row background */
+  --bs-tbl-hover-color: #000; /* Hover row text color */
+}
+[data-bs-theme="dark"] {
+  --bs-tbl-color: #fff; /* Light text color */
+  --bs-tbl-bg: #004d40; /* Dark blue background */
+  --bs-tbl-border-color: #444; /* Darker border color */
+  --bs-tbl-striped-bg: #006064; /* Darker blue for stripes */
+  --bs-tbl-striped-color: #fff; /* Light text for striped rows */
+  --bs-tbl-active-bg: #003c71; /* Even darker blue for active rows */
+  --bs-tbl-active-color: #03a9f4; /* White text for active rows */
+  --bs-tbl-hover-bg: #002b56; /* Darker blue for hover effect */
+  --bs-tbl-hover-color: #fff; /* White text for hover effect */
+}
+
+.table-info {
+  --bs-table-color: var(--bs-tbl-color);
+  --bs-table-bg: var(--bs-tbl-bg);
+  --bs-table-border-color: var(--bs-tbl-border-color);
+  --bs-table-striped-bg: var(--bs-tbl-striped-bg);
+  --bs-table-striped-color: var(--bs-tbl-striped-color);
+  --bs-table-active-bg: var(--bs-tbl-active-bg);
+  --bs-table-active-color: var(--bs-tbl-active-color);
+  --bs-table-hover-bg: var(--bs-tbl-hover-bg);
+  --bs-table-hover-color: var(--bs-tbl-hover-color);
+  color: var(--bs-tbl-color);
+}
+@media screen and (max-width: 640px) {
+  body,
+  html,
+  .container-fluid,
+  .col-md-12,
+  .header,
+  .footer,
+  .content {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+}
+@media screen and (min-width: 642px) and (max-width: 800px) {
+  body,
+  html,
+  .container-fluid,
+  .col-md-12,
+  .header,
+  .footer,
+  .content {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+}
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
+
+.main-content {
+  width: 50%;
+  border-radius: 20px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  margin: 5em auto;
+  display: flex;
+}
+.company__info {
+  background-color: #008080;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+.fa-android {
+  font-size: 3em;
+}
+@media screen and (max-width: 640px) {
+  .main-content {
+    width: 90%;
+  }
+  .company__info {
+    display: none;
+  }
+  .login_form {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+}
+@media screen and (min-width: 642px) and (max-width: 800px) {
+  .main-content {
+    width: 70%;
+  }
+}
+.row > h2 {
+  color: #fff;
+  background-color: #008080;
+}
+.row > p {
+  color: #fff;
+  background-color: #004d40;
+}
+.login_form {
+  background-image: url(../img/company.png);
+  background-repeat: repeat-y; /* The image repeats only along the y-axis */
+  background-size: 100% auto; /* The image covers the width fully and height adjusts automatically */
+  background-position: center top; /* The image is centered horizontally and aligned at the top */
+  background-color: #fff;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+form {
+  padding: 0 2em;
+}
+.form__input {
+  width: 100%;
+  border: 0px solid transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #aaa;
+  padding: 1em 0.5em 0.5em;
+  padding-left: 2em;
+  outline: none;
+  margin: 1.5em auto;
+  transition: all 0.5s ease;
+}
+.form__input:focus {
+  border-bottom-color: #008080;
+  box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
+  border-radius: 4px;
+}
+.btn_login {
+  transition: all 0.5s ease;
+  width: 70%;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  background-color: #008080;
+  border: 1px solid #004d40;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+.btn_login:hover,
+.btn_login:focus {
+  background-color: #fff;
+  color: #004d40;
+}
+.btn:hover,
+.btn:focus {
+  background-color: #004d40;
+  color: #fff;
+}

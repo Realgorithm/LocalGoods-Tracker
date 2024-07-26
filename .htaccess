@@ -1,0 +1,2 @@
+php_value display_errors On
+php_value date.timezone Asia/Kolkata
