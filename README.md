@@ -1,6 +1,7 @@
 # LocalGoods-Tracker
 
-LocalGoods-Tracker is a web application designed to help you track and manage local goods inventory. This project provides a simple interface for managing your shop sales, profit, and many more.
+LocalGoods-Tracker is a web application with fully responsive designed to help you track and manage local goods inventory. This project provides a simple interface for managing your shop sales, profit, and many more.
+
 
 ## Project Description
 
@@ -13,6 +14,15 @@ LocalGoods-Tracker allows users to:
 - Stock Details
 - And many more
 
+![LocalGoods-Tracker](assets/uploads/localgoods-tracker.png)
+
+## Dark mode 
+
+![LocalGoods-Tracker Dark](assets/uploads/dark.png)
+
+## Light mode 
+
+![LocalGoods-Tracker Light](assets/uploads/light.png)
 ## Prerequisites
 
 - [XAMPP](https://www.apachefriends.org/index.html) (A free and open-source cross-platform web server solution stack package)
