@@ -26,7 +26,7 @@ LocalGoods-Tracker allows users to:
 
 ## Visit Our Website
 
-Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](http://shopac.nf.free)
+Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](http://shopac.free.nf)
 ## Prerequisites
 
 - [XAMPP](https://www.apachefriends.org/index.html) (A free and open-source cross-platform web server solution stack package)
