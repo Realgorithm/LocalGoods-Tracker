@@ -24,12 +24,12 @@ if (isset($_GET['id'])) {
 							<div class="mb-3 col-md-5">
 								<label class="form-label">Customer</label>
 								<select name="customer_id" id="" class="form-select browser-default select2">
+									<option value="0" selected="">Guest</option>
 									<?php
 									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by name asc");
 									while ($row = $customer->fetch_assoc()) :
 										$cus_arr[$row['id']] = $row['name'];
 										if (!isset($_GET['id'])) : ?>
-											<option value="0" selected="">Guest</option>
 											<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
 									<?php
 										endif;
@@ -160,7 +160,7 @@ if (isset($_GET['id'])) {
 						<div class="modal-dialog modal-md" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title"></h5>
+									<h5 class="modal-title">Payment</h5>
 								</div>
 								<div class="modal-body">
 									<div class="container-fluid">
@@ -176,9 +176,8 @@ if (isset($_GET['id'])) {
 										</div>
 										<div class="mb-3">
 											<label for="" class="form-label">Payment mode</label>
-											<select name="paymode" id="paymode" class="form-select browser-default select2" required>
-												<option value=""></option>
-												<option value="1">Cash or online</option>
+											<select name="paymode" id="" class="form-select browser-default" required>
+												<option value="1" selected>Cash or online</option>
 												<option value="2">Credit</option>
 											</select>
 										</div>
@@ -190,7 +189,7 @@ if (isset($_GET['id'])) {
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-primary" id='submit' onclick="$('#manage-sales').submit()">Pay</button>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -345,6 +344,7 @@ if (isset($_GET['id'])) {
 	})
 
 	function calculate_total() {
+		
 		var total = 0;
 		var actual = 0;
 		$('#list tbody').find('.item-row').each(function() {

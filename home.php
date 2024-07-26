@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <?php echo "Welcome back " . $_SESSION['login_name'] . "!"  ?>
+                    <h4><?php echo "Welcome back " . $_SESSION['login_name'] . "!"  ?></h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
