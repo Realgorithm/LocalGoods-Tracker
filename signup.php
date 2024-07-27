@@ -15,6 +15,7 @@
     <div class="container-fluid">
         <div class="row main-content bg-success text-center">
             <div class="col-md-2 text-center company__info">
+            <a href="home.php" class="btn_login">Home</a>
                 <span class="company__logo">
                     <h2><img src="assets/img/company.png" alt="" width="100%" length="100%"></h2>
                 </span>

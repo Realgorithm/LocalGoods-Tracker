@@ -20,9 +20,13 @@
             margin-bottom: 0;
         }
 
+        .bordered-text {
+            border: 2px solid #000; /* Border color and thickness */
+            padding: 5px; /* Optional padding for better visual appearance */
+        }
         .hero-section {
             background: url('assets/img/hero-bg.png') no-repeat center center/cover;
-            color: #111;
+            color: #597445;
             padding: 190px 0;
             height: 600px;
 
@@ -115,8 +119,8 @@
         <!-- Hero Section -->
         <header class="hero-section" id="home">
             <div class="container-fluid text-center">
-                <h1>Welcome to LocalGoods-Tracker</h1>
-                <p>Your ultimate solution for tracking and managing local goods inventory</p>
+                <h1 class="mb-3"><span class="mark">Welcome to LocalGoods-Tracker</span></h1>
+                <h3><span class="mark"> ultimate solution for tracking and managing local goods inventory</span></h3>
                 <a href="#features" class="btn btn-primary">Learn More</a>
                 <br><br>
                 <form class="row g-2" id="already-user" method="POST">
