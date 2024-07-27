@@ -68,14 +68,16 @@
 
 </div>
 <script>
-	$('table').dataTable()
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	$('#new_user').click(function() {
 		uni_modal('New User', 'manage_user.php')
 	})
-	$('.edit_user').click(function() {
+	$(document).on('click', '.edit_user', function() {
 		uni_modal('Edit User', 'manage_user.php?id=' + $(this).attr('data-id'))
 	})
-	$('.delete_user').click(function() {
+	$(document).on('click', '.delete_user', function() {
 		_conf("Are you sure to delete this user?", "delete_user", [$(this).attr('data-id')])
 	})
 

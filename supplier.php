@@ -38,8 +38,8 @@
 			<!-- Table Panel -->
 			<div class="col-md-8">
 				<div class="table-responsive-sm">
-				<table class="table table-striped table-bordered border-warning table-info table-hover">
-				<thead>
+					<table class="table table-striped table-bordered border-warning table-info table-hover">
+						<thead>
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Supplier Info</th>
@@ -84,7 +84,9 @@
 	}
 </style>
 <script>
-	$('table').dataTable()
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	$('#manage-supplier').submit(function(e) {
 		e.preventDefault()
 		start_load()
@@ -113,7 +115,7 @@
 			}
 		})
 	})
-	$('.edit_supplier').click(function() {
+	$(document).on('click', '.edit_supplier', function() {
 		start_load()
 		var cat = $('#manage-supplier')
 		cat.get(0).reset()
@@ -123,7 +125,7 @@
 		cat.find("[name='address']").val($(this).attr('data-address'))
 		end_load()
 	})
-	$('.delete_supplier').click(function() {
+	$(document).on('click', '.delete_supplier', function() {
 		_conf("Are you sure to delete this supplier?", "delete_supplier", [$(this).attr('data-id')])
 	})
 

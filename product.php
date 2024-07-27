@@ -14,6 +14,7 @@ while ($i == 1) {
 ?>
 <script>
 	$(document).ready(function() {
+		$('table').dataTable()
 		// Call updateProducts on page load
 		updateProducts('');
 
@@ -193,8 +194,6 @@ while ($i == 1) {
 	}
 </style>
 <script>
-	$('table').dataTable()
-
 	$('#manage-product').submit(function(e) {
 		e.preventDefault()
 		var imgSrc = $('#product_img').attr('src'); // Get the src attribute of the img element
@@ -226,7 +225,7 @@ while ($i == 1) {
 			}
 		})
 	})
-	$('.edit_product').click(function() {
+	$(document).on('click', '.edit_product', function() {
 		start_load()
 		var cat = $('#manage-product')
 		cat.get(0).reset()
@@ -242,7 +241,7 @@ while ($i == 1) {
 		updateProducts($(this).attr('data-name'))
 		end_load()
 	})
-	$('.delete_product').click(function() {
+	$(document).on('click', '.delete_product', function() {
 		_conf("Are you sure to delete this product?", "delete_product", [$(this).attr('data-id')])
 	})
 

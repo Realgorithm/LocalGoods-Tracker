@@ -14,6 +14,11 @@ if ($action == 'login') {
 	if ($login)
 		echo $login;
 }
+if ($action == 'admin_login') {
+	$admin_login = $crud->admin_login();
+	if ($admin_login)
+		echo $admin_login;
+}
 if ($action == 'login2') {
 	$login = $crud->login2();
 	if ($login)
@@ -23,6 +28,11 @@ if ($action == 'logout') {
 	$logout = $crud->logout();
 	if ($logout)
 		echo $logout;
+}
+if ($action == 'admin_logout') {
+	$admin_logout = $crud->admin_logout();
+	if ($admin_logout)
+		echo $admin_logout;
 }
 if ($action == 'logout2') {
 	$logout = $crud->logout2();
@@ -84,8 +94,18 @@ if ($action == "save_product") {
 	if ($save)
 		echo $save;
 }
+if ($action == "add_product") {
+	$save = $crud->add_product();
+	if ($save)
+		echo $save;
+}
 if ($action == "delete_product") {
 	$save = $crud->delete_product();
+	if ($save)
+		echo $save;
+}
+if ($action == "remove_product") {
+	$save = $crud->remove_product();
 	if ($save)
 		echo $save;
 }

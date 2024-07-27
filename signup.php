@@ -18,7 +18,7 @@
                 <span class="company__logo">
                     <h2><img src="assets/img/company.png" alt="" width="100%" length="100%"></h2>
                 </span>
-                <h4 class="company_title"></h4>
+                <h4 class="company_title">LocalGoods-Tracker</h4>
                 <h5></h5>
             </div>
             <div class="col-md-10 col-xs-12 col-sm-12 login_form ">

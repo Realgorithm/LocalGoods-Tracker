@@ -47,6 +47,25 @@ class Action
 			return 3;
 		}
 	}
+	function admin_login()
+	{
+		extract($_POST);
+		$this->db->select_db('central_db');
+		$qry = $this->db->query("SELECT * FROM admin where username = '" . $username . "' and password = '" . $password . "' ");
+		// echo md5($password)."<br>";
+		if ($qry->num_rows > 0) {
+			foreach ($qry->fetch_array() as $key => $value) {
+				// echo $key. "  ";
+				$meta[$key] = $value;
+				if ($key != 'passwors' && !is_numeric($key)) {
+					$_SESSION['login_type'] = 3;
+				}
+			}
+			return 1;
+		} else {
+			return 3;
+		}
+	}
 	function login2()
 	{
 		extract($_POST);
@@ -67,6 +86,15 @@ class Action
 	{
 
 		header("location:login.php?shop_url=" . $_SESSION['shop_url']);
+		session_destroy();
+		foreach ($_SESSION as $key => $value) {
+			unset($_SESSION[$key]);
+		}
+	}
+	function admin_logout()
+	{
+
+		header("location:home.php");
 		session_destroy();
 		foreach ($_SESSION as $key => $value) {
 			unset($_SESSION[$key]);
@@ -303,6 +331,46 @@ class Action
 			return 1;
 	}
 
+	function add_product()
+	{
+		extract($_POST);
+		$data = " name = '$product_name' ";
+		$data .= ", image = '$img' ";
+		$data .= ", category_id = '$category_id' ";
+
+		if ($_FILES['img']['tmp_name'] != '') {
+			$fname =$_FILES['img']['name'];
+			// Convert to lowercase
+			$fname = strtolower($fname);
+			// Replace spaces with underscores
+			$fname = str_replace(' ', '_', $fname);
+			// Move the uploaded file
+			$move = move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
+			$data .= ", image = '$fname' ";
+		}
+
+		// echo $fname;
+		$this->db->select_db('central_db');
+
+		if (empty($id)) {
+			$save = $this->db->query("INSERT INTO products set " . $data);
+			// echo $save;
+		} else {
+			$save = $this->db->query("UPDATE products set " . $data . " where id=" . $id);
+		}
+		if ($save)
+			return 1;
+	}
+
+	function remove_product()
+	{
+		extract($_POST);
+		$this->db->select_db('central_db');
+		$delete = $this->db->query("DELETE FROM products where id = " . $id);
+		if ($delete)
+			return 1;
+	}
+
 	function save_receiving()
 	{
 		extract($_POST);
@@ -529,13 +597,13 @@ class Action
 				// echo "pay" . $paying;
 				// Check if the query was successful
 				if ($save and $save2) {
-				return $id;
+					return $id;
 				}
 			} else {
 				$total = $total - $paying;
 				// echo "total" . $total;
 				$save = $this->db_conn->query("UPDATE customer_list SET pay_unsettled = '$paying' WHERE id = '$customer_id'");
-				if($save){
+				if ($save) {
 					return $id;
 				}
 			}

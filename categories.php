@@ -80,7 +80,6 @@
 	}
 </style>
 <script>
-	$('table').dataTable()
 	$('#manage-category').submit(function(e) {
 		e.preventDefault()
 		start_load()
@@ -109,7 +108,10 @@
 			}
 		})
 	})
-	$('.edit_cat').click(function() {
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
+	$(document).on('click', '.edit_cat', function() {
 		start_load()
 		var cat = $('#manage-category')
 		cat.get(0).reset()
@@ -117,7 +119,7 @@
 		cat.find("[name='name']").val($(this).attr('data-name'))
 		end_load()
 	})
-	$('.delete_cat').click(function() {
+	$(document).on('click', '.delete_cat', function() {
 		_conf("Are you sure to delete this category?", "delete_cat", [$(this).attr('data-id')])
 	})
 

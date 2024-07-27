@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row">
-		<button type="button" class="btn btn-outline-primary " id="new_receiving"><i class="fa fa-plus"></i> New Receiving</button>
+			<button type="button" class="btn btn-outline-primary " id="new_receiving"><i class="fa fa-plus"></i> New Receiving</button>
 		</div>
 		<br>
 		<div class="row">
@@ -49,11 +49,13 @@
 
 
 <script>
-	$('table').dataTable()
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	$('#new_receiving').click(function() {
 		location.href = "index.php?page=manage_receiving"
 	})
-	$('.delete_receiving').click(function() {
+	$(document).on('click', '.delete_receiving', function() {
 		_conf("Are you sure to delete this data?", "delete_receiving", [$(this).attr('data-id')])
 	})
 

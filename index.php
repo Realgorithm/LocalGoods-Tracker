@@ -6,13 +6,14 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Groceries Sales and Inventory System</title>
-  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
 
 
   <?php
   session_start();
-  if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db']))
-    header('location:signup.php');
+  if (($_SESSION['login_type'] != 3)) {
+    if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db']))
+      header('location:home.php');
+  }
   include('./header.php');
   // include('./auth.php'); 
   ?>
@@ -31,7 +32,14 @@
       $dbName = $_SESSION['shop_db'];
       // echo $dbName;
     } ?>
-    <?php $page = isset($_GET['page']) ? $_GET['page'] : 'home'; ?>
+    <?php
+    if (($_SESSION['login_type'] != 3)) {
+       $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; 
+      }else{
+      $page = isset($_GET['page']) ? $_GET['page'] : 'shops'; 
+    }
+    ?>
+    
     <?php include $page . '.php' ?>
   </main>
 

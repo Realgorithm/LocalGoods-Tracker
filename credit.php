@@ -50,11 +50,13 @@
 
 
 <script>
-	$('table').dataTable()
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	$('#new_sales').click(function() {
 		location.href = "index.php?page=pos"
 	})
-	$('.delete_sales').click(function() {
+	$(document).on('click', '.delete_sales', function() {
 		_conf("Are you sure to delete this data?", "delete_sales", [$(this).attr('data-id')])
 	})
 

@@ -1,119 +1,280 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4><?php echo "Welcome back " . $_SESSION['login_name'] . "!"  ?></h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Dropdown for selecting date range -->
-                        <div class="col-md-3 ml-auto">
-                            <select class="form-control" id="dateRangeSelect">
-                                <option value="today">Today</option>
-                                <option value="this_month">This Month</option>
-                                <option value="last_3_months">Last 3 Months</option>
-                            </select>
-                        </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalGoods-Tracker</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px;
+            /* Adjust based on the height of your navbar */
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            margin-bottom: 0;
+        }
+
+        .hero-section {
+            background: url('assets/img/hero-bg.png') no-repeat center center/cover;
+            color: #111;
+            padding: 190px 0;
+            height: 600px;
+
+            /* Adjust height as needed */
+        }
+
+        .hero-section form {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-img {
+            background: url('assets/img/about_us.png') no-repeat center center/cover;
+            color: #7C00FE;
+        }
+        .contact-img {
+            background: url('assets/img/contact.png') no-repeat center center/cover;
+            color: #7C00FE;
+        }
+        h2 {
+            background-color: #008080;
+            border-radius: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+
+        .features-section,
+        .about-section,
+        .contact-section {
+            padding: 62px 0;
+        }
+
+        .features-section h2,
+        .about-section h2,
+        .contact-section h2 {
+            margin-bottom: 30px;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <?php include('./header.php'); ?>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:brown;">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
+            <!-- Bootstrap 5 switch -->
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
+                <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-around" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features"><span class='icon-field'><i class="fa fa-star"></i></span> Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about"><span class='icon-field'><i class="fa fa-info-circle"></i></span> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact"><span class='icon-field'><i class="fa fa-envelope"></i></span> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.php"><span class='icon-field'><i class="fa fa-user-plus"></i></span> SignUp</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="login.php"><span class='icon-field'><i class="fa fa-sign-in-alt"></i></span> Log In</a>
+                    </li> -->
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero-section" id="home">
+            <div class="container-fluid text-center">
+                <h1>Welcome to LocalGoods-Tracker</h1>
+                <p>Your ultimate solution for tracking and managing local goods inventory</p>
+                <a href="#features" class="btn btn-primary">Learn More</a>
+                <br><br>
+                <form class="row g-2" id="already-user" method="POST">
+                    <div class="col-md-4">
+                        <input type="text" name="shop_url" id="shop_url" class="form-control border-warning" placeholder="Enter your Shop URL">
                     </div>
-                    <hr>
-                    <!-- Display sales and profit based on selected date range -->
-                    <div class="row">
-                        <!-- Sales -->
-                        <div class="alert alert-success col-md-4 mb-3 my-2" role="alert">
-                            <p><b>
-                                    <large>Total Sales</large>
-                                </b></p>
-                            <hr>
-                            <p class=""><b>
-                                    <large id="totalSales"></large>
-                                </b></p>
-                        </div>
-                        <!-- Total profit -->
-                        <div class="alert alert-profit col-md-4 mb-3 my-2" role="alert">
-                            <p><b>
-                                    <large>Total Profit</large>
-                                </b></p>
-                            <hr>
-                            <p class=""><b>
-                                    <large id="totalProfit"></large>
-                                </b></p>
-                        </div>
-                        <!-- Total profit after expenses -->
-                        <div class="alert alert-total_profit col-md-4 mb-3 my-2" role="alert">
-                            <p><b>
-                                    <large>Total Profit after Expenses</large>
-                                </b></p>
-                            <hr>
-                            <p class=""><b>
-                                    <large id="totalProfitAfterExpenses"></large>
-                                </b></p>
-                        </div>
+                    <div class="col-auto">
+                        <button class="btn btn-danger">Go To Login</button>
+                    </div>
+                </form>
+            </div>
+        </header>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="container-fluid">
+                <h2 class="text-center">Features</h2>
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="assets/img/feature1.png" alt="Track Sales" class="img-fluid" style="max-width:100%;height:auto;">
+                        <h3>Track Sales</h3>
+                        <p>Keep track of all your sales with ease.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="assets/img/feature2.png" alt="Monitor Profit" class="img-fluid" style="max-width:100%;height:auto;">
+                        <h3>Monitor Profit</h3>
+                        <p>Monitor your profit and expenses effortlessly.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="assets/img/feature3.png" alt="Generate Reports" class="img-fluid" style="max-width:100%;height:auto;">
+                        <h3>Inventory Management</h3>
+                        <p>Give easy inventory management for better insights.</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container-fluid">
+                <h2 class="text-center">About Us</h2>
+                <div class="row">
+                    <div class="col-md-3 about-img"></div>
+                    <div class="col-md-9">
+                        <p>
+                            <strong>LocalGoods-Tracker</strong> is here to revolutionize how you manage your local goods inventory. Our mission is to deliver an efficient, user-friendly platform that makes tracking sales, profits, and expenses simpler than ever before.
+                        </p>
+                        <p>
+                            With <strong>LocalGoods-Tracker</strong>, you gain access to a powerful suite of tools designed to streamline your business operations:
+                        </p>
+                        <ul>
+                            <li>Seamlessly manage your <strong>inventory</strong>.</li>
+                            <li>Effortlessly handle <strong>customer</strong> and <strong>supplier</strong> information.</li>
+                            <li>Keep track of <strong>user accounts</strong> and <strong>customer credit</strong>.</li>
+                            <li>Manage <strong>supply receipts</strong> and <strong>extra expenses</strong> with ease.</li>
+                        </ul>
+                        <p>
+                            Our goal is to provide you with a comprehensive solution that enhances productivity and boosts your business's efficiency. Join us today and take control of your local goods management like never before!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container-fluid">
+                <h2 class="text-center">Contact Us</h2>
+                <div class="row">
+                    <div class="col-md-9">
+                    <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                    </div>
+                    <div class="col-md-3 contact-img"></div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-body-tertiary text-center">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                    <!-- Github -->
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i class="fab fa-github"></i></a>
+
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #FF5733;" href="admin_login.php" role="button"><i class="fa fa-sign-in-alt"></i></a>
+
+                </section>
+                <!-- Section: Social media -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2020 Copyright:
+                Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a></p>
+            </div>
+            <!-- Copyright -->
+        </footer>
     </div>
-</div>
+</body>
 <script>
-    // Function to update data based on selected date range
-    function updateData(dateRange) {
-        // AJAX call to fetch data for the selected date range
-        $.ajax({
-            url: 'fetch_data.php',
-            method: 'POST',
-            data: {
-                date_range: dateRange
-            },
-            dataType: 'json', // Specify JSON dataType
-            success: function(response) {
-                // console.log(parseFloat(response.total_sales))
-                // console.log(response)
+    $('#already-user').submit(function(e) {
+        e.preventDefault()
+        var shop_url = $('#shop_url').val();
+        location.href = 'login.php?shop_url=' + shop_url;
 
-                // Update total sales today
-                $('#totalSales').text(response.total_sales);
-                // Update total profit today
-                $('#totalProfit').text(response.total_profit);
-                // Update total profit after expenses
-                $('#totalProfitAfterExpenses').text(response.total_profit_after_expenses);
+    })
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const htmlElement = document.documentElement;
+        const switchElement = document.getElementById('darkModeSwitch');
 
-                // Change alert type based on Total profit
-                var totalProfit = parseFloat(response.total_profit_after_expenses);
-                var profitAlert = $('.alert-total_profit');
-                profitAlert.removeClass('alert-success alert-danger alert-primary');
-                if (totalProfit == 0) {
-                    profitAlert.addClass('alert-primary');
+        // Set the default theme to dark if no setting is found in local storage
+        const currentTheme = localStorage.getItem('bsTheme') || 'dark';
+        htmlElement.setAttribute('data-bs-theme', currentTheme);
+        switchElement.checked = currentTheme === 'dark';
 
-                }else if (totalProfit > 0){
-                    profitAlert.addClass('alert-sucess');
-                } 
-                else {
-                    profitAlert.addClass('alert-danger');
-                }
-                // Change alert type based on profit
-                var profit = parseFloat(response.total_profit);
-                var profitAlert = $('.alert-profit');
-                profitAlert.removeClass('alert-success alert-danger');
-                 if (totalProfit > 0){
-                    profitAlert.addClass('alert-success');
-                } 
-                else {
-                    profitAlert.addClass('alert-primary');
-                }
-            },
-            error: err => {
-                // console.log(err);
+        switchElement.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('bsTheme', 'dark');
+            } else {
+                htmlElement.setAttribute('data-bs-theme', 'light');
+                localStorage.setItem('bsTheme', 'light');
             }
         });
-    }
-
-    // Event listener for dropdown change
-    $('#dateRangeSelect').change(function() {
-        var selectedDateRange = $(this).val();
-        // Call updateData function with selected date range
-        updateData(selectedDateRange);
     });
-
-    // Initial data update when page loads (default: today)
-    updateData('today');
 </script>
+
+</html>

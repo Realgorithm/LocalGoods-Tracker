@@ -13,7 +13,7 @@
 	<?php
 	session_start();
 	if (isset($_SESSION['login_id']))
-		header("location:index.php?page=home");
+		header("location:index.php?page=dashboard");
 
 	if (isset($_GET['shop_url']) and $_GET['shop_url'] != '') {
 
@@ -48,6 +48,7 @@
 <div class="container-fluid">
 	<div class="row main-content bg-success text-center">
 		<div class="col-md-4 text-center company__info">
+			<a href="home.php" class="btn_login">Home</a>
 			<span class="company__logo">
 				<h2><img src="<?php echo $meta['cover_img'] != '' ? 'assets/img/' . $meta['cover_img'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></h2>
 			</span>
@@ -78,6 +79,7 @@
 				<div class="row">
 					<p>Don't have an account? <a href="signup.php">Register Here</a></p>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -115,9 +117,9 @@
 			success: function(resp) {
 				console.log(resp);
 				if (resp == 1) {
-					location.href = 'index.php?page=home';
+					location.href = 'index.php?page=dashboard';
 				} else if (resp == 2) {
-					location.href = 'voting.php';
+					location.href = 'error.html';
 				} else {
 					$('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
 					$('#login-form button[class="btn_login"]').removeAttr('disabled').html('Login');

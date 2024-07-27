@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:brown;">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">
-			<img src="assets/img/<?php echo $_SESSION['shop_img'] ?>" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  " . $_SESSION['shop_name'] ?>
+			<?php if ($_SESSION['login_type'] == 3) { ?>
+				<img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  Localgoods-Tracker" ?>
+			<?php } else { ?>
+				<img src="assets/img/<?php echo $_SESSION['shop_img'] ?>" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  " . $_SESSION['shop_name'] ?>
+			<?php } ?>
 		</a>
 		<!-- Bootstrap 5 switch -->
 		<div class="form-check form-switch">
@@ -13,8 +17,22 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav m-auto">
+				<?php if ($_SESSION['login_type'] == 3) : ?>
+					<li class="nav-item">
+						<a href="index.php?page=shops" class="nav-link nav-shops"><span class='icon-field'><i class="fa fa-boxes"></i></span> Shop List</a>
+					</li>
+					<li class="nav-item">
+						<a href="index.php?page=categories" class="nav-link nav-categories"><span class='icon-field'><i class="fa fa-list"></i></span> Category List</a>
+					</li>
+					<li class="nav-item">
+						<a href="index.php?page=add_product" class="nav-link nav-add_product"><span class='icon-field'><i class="fa fa-boxes"></i></span> Add Product</a>
+					</li>
+					<li class="nav-item">
+						<a href="ajax.php?action=admin_logout" class="nav-link nav-admin-logout mx-auto"><span class='icon-field'><i class="fa fa-power-off"></i></span> Logout</a>
+					</li>
+				<?php endif; ?>
 				<li class="nav-item">
-					<a href="index.php?page=home " class="nav-link nav-home" aria-current="page"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
+					<a href="index.php?page=dashboard" class="nav-link nav-dashboard" aria-current="page"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
 				</li>
 				<li class="nav-item">
 					<a href="index.php?page=inventory" class="nav-link nav-inventory"><span class='icon-field'><i class="fa fa-list"></i></span> Inventory</a>
@@ -35,9 +53,6 @@
 						Lists
 					</a>
 					<ul class="dropdown-menu" style="background-color:brown;">
-						<li class="nav-item">
-							<a href="index.php?page=categories" class="dropdown-item"><span class='icon-field'><i class="fa fa-list"></i></span> Category List</a>
-						</li>
 						<li class="nav-item">
 							<a href="index.php?page=product" class="dropdown-item"><span class='icon-field'><i class="fa fa-boxes"></i></span> Product List</a>
 						</li>
@@ -103,10 +118,28 @@
 		}
 
 		.nav-sales,
-		.nav-home,
+		.nav-dashboard,
 		.nav-logout,
 		.nav-inventory,
 		.nav-product {
+			display: block !important;
+		}
+	</style>
+<?php endif ?>
+<?php if ($_SESSION['login_type'] == 3) : ?>
+	<style>
+		.nav-link {
+			display: none !important;
+		}
+
+		.dropdown {
+			display: none !important;
+		}
+
+		.nav-shops,
+		.nav-categories,
+		.nav-add_product,
+		.nav-admin-logout {
 			display: block !important;
 		}
 	</style>

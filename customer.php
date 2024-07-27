@@ -84,7 +84,9 @@
 	}
 </style>
 <script>
-	$('table').dataTable()
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	$('#manage-customer').submit(function(e) {
 		e.preventDefault()
 		start_load()
@@ -113,7 +115,7 @@
 			}
 		})
 	})
-	$('.edit_customer').click(function() {
+	$(document).on('click', '.edit_customer', function() {
 		start_load()
 		var cat = $('#manage-customer')
 		cat.get(0).reset()
@@ -123,7 +125,7 @@
 		cat.find("[name='address']").val($(this).attr('data-address'))
 		end_load()
 	})
-	$('.delete_customer').click(function() {
+	$(document).on('click', '.delete_customer', function() {
 		_conf("Are you sure to delete this customer?", "delete_customer", [$(this).attr('data-id')])
 	})
 
