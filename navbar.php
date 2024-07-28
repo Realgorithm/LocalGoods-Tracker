@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:brown;">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">
 			<?php if ($_SESSION['login_type'] == 3) { ?>
-				<img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  Localgoods-Tracker" ?>
+				<img src="assets/img/company.png" alt="Shop Name" width="35" height="35" class="logo"><?php echo "  Localgoods-Tracker" ?>
 			<?php } else { ?>
-				<img src="assets/img/<?php echo $_SESSION['shop_img'] ?>" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  " . $_SESSION['shop_name'] ?>
+				<img src="assets/img/<?php echo $_SESSION['shop_img'] ?>" alt="Shop Name" width="35" height="35" class="logo"><?php echo "  " . $_SESSION['shop_name'] ?>
 			<?php } ?>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
 					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class='icon-field'><i class="fa fa-list"></i></span>
 						Lists
 					</a>
-					<ul class="dropdown-menu" style="background-color:brown;">
+					<ul class="dropdown-menu" style="background-color:#006064;">
 						<li class="nav-item">
 							<a href="index.php?page=product" class="dropdown-item"><span class='icon-field'><i class="fa fa-boxes"></i></span> Product List</a>
 						</li>

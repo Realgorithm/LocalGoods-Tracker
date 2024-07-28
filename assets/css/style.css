@@ -13,7 +13,9 @@ body {
   width: 100%;
   height: calc(100%);
 }
-
+main{
+  min-height:70vh;
+}
 a {
   color: #1977cc;
 }
@@ -31,6 +33,11 @@ h5,
 h6 {
   font-family: "Raleway", sans-serif;
 }
+.logo {
+  border-radius: 8px;
+  border: 1px solid white;
+}
+
 [data-bs-theme="light"] {
   --bs-tbl-color: #000; /* Text color */
   --bs-tbl-bg: #cfe2ff; /* Background color */
@@ -66,7 +73,7 @@ h6 {
   --bs-table-hover-color: var(--bs-tbl-hover-color);
   color: var(--bs-tbl-color);
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 640px) and (min-width: 642px) and (max-width: 800px) {
   body,
   html,
   .container-fluid,
@@ -78,18 +85,7 @@ h6 {
     padding-right: 1px;
   }
 }
-@media screen and (min-width: 642px) and (max-width: 800px) {
-  body,
-  html,
-  .container-fluid,
-  .col-md-12,
-  .header,
-  .footer,
-  .content {
-    padding-left: 1px;
-    padding-right: 1px;
-  }
-}
+
 /*--------------------------------------------------------------
 # Login
 --------------------------------------------------------------*/

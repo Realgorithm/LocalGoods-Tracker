@@ -19,13 +19,6 @@
             margin-bottom: 0;
         }
 
-        .bordered-text {
-            border: 2px solid #000;
-            /* Border color and thickness */
-            padding: 5px;
-            /* Optional padding for better visual appearance */
-        }
-
         .hero-section {
             background: url('assets/img/hero-bg.png') no-repeat center center/cover;
             color: #597445;
@@ -81,7 +74,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
+                <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" class="logo"> LocalGoods-Tracker </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
