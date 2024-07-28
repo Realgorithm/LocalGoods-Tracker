@@ -24,6 +24,10 @@ LocalGoods-Tracker allows users to:
 
 ![LocalGoods-Tracker Light](assets/uploads/light.png)
 
+## Home Page 
+
+![LocalGoods-Tracker Light](assets/uploads/combined.png)
+
 ## Visit Our Website
 
 Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](http://shopac.free.nf)

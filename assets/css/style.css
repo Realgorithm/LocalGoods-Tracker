@@ -95,48 +95,22 @@ h6 {
 --------------------------------------------------------------*/
 
 .main-content {
-  width: 50%;
   border-radius: 20px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
   margin: 5em auto;
-  display: flex;
 }
 .company__info {
   background-color: #008080;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #fff;
-}
-.fa-android {
-  font-size: 3em;
-}
-@media screen and (max-width: 640px) {
-  .main-content {
-    width: 90%;
-  }
-  .company__info {
-    display: none;
-  }
-  .login_form {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  }
-}
-@media screen and (min-width: 642px) and (max-width: 800px) {
-  .main-content {
-    width: 70%;
-  }
-}
-.row > h2 {
-  color: #fff;
-  background-color: #008080;
-}
-.row > p {
-  color: #fff;
-  background-color: #004d40;
+  align-items: center;
+  padding: 20px;
+  /* width: 100%;
+  height: auto; */
 }
 .login_form {
   background-image: url(../img/company.png);
@@ -146,46 +120,52 @@ h6 {
   background-color: #fff;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  padding: 20px;
 }
-form {
-  padding: 0 2em;
+.login_form > h2 {
+  color: #fff;
+  background-color: #008080;
+  border-radius: 15px;
 }
+.login_form > p {
+  color: #004d40;
+  /* background-color: #004d40; */
+}
+
 .form__input {
   width: 100%;
-  border: 0px solid transparent;
-  border-radius: 0;
-  border-bottom: 1px solid #aaa;
-  padding: 1em 0.5em 0.5em;
-  padding-left: 2em;
+  border: none;
+  border-bottom: 2px solid #03a9f4;
+  padding: 1em 0.5em 0.5em 2em;
   outline: none;
   margin: 1.5em auto;
   transition: all 0.5s ease;
 }
 .form__input:focus {
-  border-bottom-color: #008080;
+  border-bottom: 4px solid #004d40;
   box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
   border-radius: 4px;
 }
 .btn_login {
-  transition: all 0.5s ease;
   width: 70%;
   border-radius: 30px;
   color: #fff;
   font-weight: 600;
   background-color: #008080;
   border: 1px solid #004d40;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+  margin: 1.5em 0;
+  transition: all 0.5s ease;
 }
 .btn_login:hover,
 .btn_login:focus {
   background-color: #fff;
   color: #004d40;
 }
-.btn:hover,
-.btn:focus {
-  background-color: #004d40;
-  color: #fff;
+@media screen and (max-width: 640px) {
+  .company__info{
+    border-radius: 20px;
+  }
+  .login_form {
+      border-radius: 20px;
+  }
 }

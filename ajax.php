@@ -147,6 +147,11 @@ if ($action == "delete_sales") {
 	if ($save)
 		echo $save;
 }
+if ($action == "delete_shop") {
+	$save = $crud->delete_shop();
+	if ($save)
+		echo $save;
+}
 
 if ($action == "save_credit") {
 	$save = $crud->save_credit();

@@ -11,85 +11,72 @@
 </head>
 
 <body>
-    <!-- Main Content -->
     <div class="container-fluid">
         <div class="row main-content bg-success text-center">
-            <div class="col-md-2 text-center company__info">
-            <a href="home.php" class="btn_login">Home</a>
-                <span class="company__logo">
-                    <h2><img src="assets/img/company.png" alt="" width="100%" length="100%"></h2>
-                </span>
+            <div class="col-md-3 col-sm-4 col-12 company__info">
+                <a href="home.php" class="btn btn-primary btn_login">Home</a>
+                <h2><img src="assets/img/company.png" alt="Company Logo" class="img-fluid"></h2>
                 <h4 class="company_title">LocalGoods-Tracker</h4>
-                <h5></h5>
             </div>
-            <div class="col-md-10 col-xs-12 col-sm-12 login_form ">
-                <div class="container-fluid">
+            <div class="col-md-9 col-sm-8 col-12 login_form">
+                <h2>Sign Up</h2>
+                <form id="signup-form" enctype="multipart/form-data" method="POST">
                     <div class="row">
-                        <h2>Sign Up</h2>
+                        <div class="col-md-6">
+                            <input type="text" name="name" id="name" class="form__input" placeholder="Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="shop_name" id="shop_name" class="form__input" placeholder="Shop Name" required>
+                        </div>
                     </div>
                     <div class="row">
-                        <form control="" class="form-group" id="signup-form" enctype="multipart/form-data" method="POST">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" name="name" id="name" class="form__input" placeholder="Name" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" name="shop_name" id="shop_name" class="form__input" placeholder="Shop Name" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" name="username" id="username" class="form__input" placeholder="Username" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="password" name="password" id="password" class="form__input" placeholder="Password" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="email" name="email" id="email" class="form__input" placeholder="Email" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="img" class="form__input" style="background-color: #fff; text-align:left">Shop Image</label>
-                                    <input type="file" name="img" id="img" class="form__input" hidden>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" name="contact" id="contact" class="form__input" placeholder="Contact" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" name="shop_tagline" id="shop_tagline" class="form__input" placeholder="Shop Tagline">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <input type="hidden" id="url" name="url">
-                            </div>
-                            <div class="row">
-                                <button class="btn_login">SignUp</button>
-                            </div>
-                        </form>
-                        <form control="" class="form-group" id="already-user" method="POST" style="display: none;">
-                            <div class="row">
-                                <input type="text" name="shop_url" id="shop_url" class="form__input" placeholder="Shop URL">
-                            </div>
-                            <div class="row">
-                                <button class="btn_login">Login Page</button>
-                            </div>
-                        </form>
+                        <div class="col-md-6">
+                            <input type="text" name="username" id="username" class="form__input" placeholder="Username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" name="password" id="password" class="form__input" placeholder="Password" required>
+                        </div>
                     </div>
                     <div class="row">
-                        <p id="already_acc">Already have a account? <button class="btn_login" onclick="alreadyUser()">Click Here</button></p>
+                        <div class="col-md-6">
+                            <input type="email" name="email" id="email" class="form__input" placeholder="Email" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="img" class="form__input" style="background-color: #fff; text-align:left">Shop Image</label>
+                            <input type="file" name="img" id="img" class="form__input" hidden>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="contact" id="contact" class="form__input" placeholder="Contact" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="shop_tagline" id="shop_tagline" class="form__input" placeholder="Shop Tagline">
+                        </div>
+                    </div>
+                    <input type="hidden" id="url" name="url">
+                    <div class="row justify-content-center">
+                        <button class="btn btn_login">Sign Up</button>
+                    </div>
+                </form>
+                <form id="already-user" method="POST" style="display: none;">
+                    <div class="row">
+                        <input type="text" name="shop_url" id="shop_url" class="form__input" placeholder="Shop URL">
+                    </div>
+                    <div class="row justify-content-center">
+                        <button class="btn btn_login">Login Page</button>
+                    </div>
+                </form>
+                <p id="already_acc"><span class="mark">Already have an account? <button class="btn_login" onclick="alreadyUser()">Click Here</button></span></p>
             </div>
         </div>
     </div>
     <!-- Footer -->
     <div class="container-fluid text-center footer">
-        Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a></p>
+        Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a>
     </div>
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
 
 </body>
 <script>

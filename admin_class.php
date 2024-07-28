@@ -252,7 +252,6 @@ class Action
 	{
 		extract($_POST);
 		$this->db->select_db('central_db');
-
 		$delete = $this->db->query("DELETE FROM category_list where id = " . $id);
 		if ($delete)
 			return 1;
@@ -326,9 +325,18 @@ class Action
 	function delete_product()
 	{
 		extract($_POST);
+		$profile_pic = $this->db_conn->query("SELECT * FROM product_list WHERE id = $id")->fetch_assoc()['image'];
 		$delete = $this->db_conn->query("DELETE FROM product_list where id = " . $id);
-		if ($delete)
-			return 1;
+		if ($delete) {
+			// Step 3: Delete the profile picture file from the server
+			$file_path = $profile_pic;
+			if (file_exists($file_path)) {
+				unlink($file_path);
+				return 1;
+			} else {
+				return 2;
+			}
+		}
 	}
 
 	function add_product()
@@ -339,7 +347,7 @@ class Action
 		$data .= ", category_id = '$category_id' ";
 
 		if ($_FILES['img']['tmp_name'] != '') {
-			$fname =$_FILES['img']['name'];
+			$fname = $_FILES['img']['name'];
 			// Convert to lowercase
 			$fname = strtolower($fname);
 			// Replace spaces with underscores
@@ -366,9 +374,18 @@ class Action
 	{
 		extract($_POST);
 		$this->db->select_db('central_db');
+		$profile_pic = $this->db->query("SELECT * FROM products WHERE id = $id")->fetch_assoc()['image'];
 		$delete = $this->db->query("DELETE FROM products where id = " . $id);
-		if ($delete)
-			return 1;
+		if ($delete) {
+			// Step 3: Delete the profile picture file from the server
+			$file_path = 'assets/img/' . $profile_pic;
+			if (file_exists($file_path)) {
+				unlink($file_path);
+				return 1;
+			} else {
+				return 2;
+			}
+		}
 	}
 
 	function save_receiving()
@@ -562,6 +579,24 @@ class Action
 		$del2 = $this->db_conn->query("DELETE FROM inventory where type = 2 and form_id = $id ");
 		if ($del1 && $del2)
 			return 1;
+	}
+	function delete_shop()
+	{
+		extract($_POST);
+		// echo $this->db_name;
+		$this->db->select_db('central_db');
+		$profile_pic = $this->db->query("SELECT * FROM shops WHERE id = $id")->fetch_assoc()['cover_img'];
+		$del1 = $this->db->query("DELETE FROM shops where id = $id ");
+		if ($del1) {
+			// Step 3: Delete the profile picture file from the server
+			$file_path = 'assets/img/' . $profile_pic;
+			if (file_exists($file_path)) {
+				unlink($file_path);
+				return 1;
+			} else {
+				return 2;
+			}
+		}
 	}
 
 	function save_credit()

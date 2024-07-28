@@ -15,37 +15,32 @@
 <!-- Main Content -->
 <div class="container-fluid">
     <div class="row main-content bg-success text-center">
-        <div class="col-md-4 text-center company__info">
-			<a href="home.php" class="btn_login text-center">Home</a>
+        <div class="col-md-4 col-sm-4 col-12 company__info">
+            <a href="home.php" class="btn_login btn btn-primary">Home</a>
             <span class="company__logo">
                 <h2><img src="assets/img/company.png" alt="" width="100%" length="100%"></h2>
             </span>
             <h4 class="company_title">LocalGoods-Tracker</h4>
             <h5>Goods Manager</h5>
         </div>
-        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
-            <div class="container-fluid">
+        <div class="col-md-8 col-sm-8 col-12 login_form ">
+            <h2>Log In</h2>
+            <form control="" class="form-group" id="admin-login-form">
                 <div class="row">
-                    <h2>Log In</h2>
+                    <input type="text" name="username" id="username" class="form__input" placeholder="Username" required>
                 </div>
                 <div class="row">
-                    <form control="" class="form-group" id="admin-login-form">
-                        <div class="row">
-                            <input type="text" name="username" id="username" class="form__input" placeholder="Username" required>
-                        </div>
-                        <div class="row">
-                            <!-- <span class="fa fa-lock"></span> -->
-                            <input type="password" name="password" id="password" class="form__input" placeholder="Password" required>
-                        </div>
-                        <div class="row">
-                            <button class="btn_login">Login</button>
-                        </div>
-                    </form>
+                    <!-- <span class="fa fa-lock"></span> -->
+                    <input type="password" name="password" id="password" class="form__input" placeholder="Password" required>
                 </div>
-            </div>
+                <div class="row justify-content-center">
+                    <button class="btn btn_login">Login</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 <!-- Footer -->
 <div class="container-fluid text-center footer">
     Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a></p>

@@ -21,9 +21,12 @@
         }
 
         .bordered-text {
-            border: 2px solid #000; /* Border color and thickness */
-            padding: 5px; /* Optional padding for better visual appearance */
+            border: 2px solid #000;
+            /* Border color and thickness */
+            padding: 5px;
+            /* Optional padding for better visual appearance */
         }
+
         .hero-section {
             background: url('assets/img/hero-bg.png') no-repeat center center/cover;
             color: #597445;
@@ -38,14 +41,11 @@
             justify-content: center;
         }
 
-        .about-img {
-            background: url('assets/img/about_us.png') no-repeat center center/cover;
-            color: #7C00FE;
+        .img-responsive {
+            width: 100%;
+            height: auto;
         }
-        .contact-img {
-            background: url('assets/img/contact.png') no-repeat center center/cover;
-            color: #7C00FE;
-        }
+
         h2 {
             background-color: #008080;
             border-radius: 20px;
@@ -78,43 +78,44 @@
 </head>
 
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#004d40;">
+        <!-- <div class="continer-fluid"> -->
+        <a class="navbar-brand" href="#">
+            <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
+        <!-- Bootstrap 5 switch -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
+            <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-around" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#features"><span class='icon-field'><i class="fa fa-star"></i></span> Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about"><span class='icon-field'><i class="fa fa-info-circle"></i></span> About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact"><span class='icon-field'><i class="fa fa-envelope"></i></span> Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="signup.php"><span class='icon-field'><i class="fa fa-user-plus"></i></span> SignUp</a>
+                </li>
+                <!-- <li class="nav-item">
+                            <a class="nav-link" href="login.php"><span class='icon-field'><i class="fa fa-sign-in-alt"></i></span> Log In</a>
+                        </li> -->
+            </ul>
+        </div>
+        <!-- </div> -->
+    </nav>
     <div class="container-fluid">
-        <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:brown;">
-            <a class="navbar-brand" href="#">
-                <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
-            <!-- Bootstrap 5 switch -->
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
-                <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-around" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features"><span class='icon-field'><i class="fa fa-star"></i></span> Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about"><span class='icon-field'><i class="fa fa-info-circle"></i></span> About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact"><span class='icon-field'><i class="fa fa-envelope"></i></span> Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="signup.php"><span class='icon-field'><i class="fa fa-user-plus"></i></span> SignUp</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="login.php"><span class='icon-field'><i class="fa fa-sign-in-alt"></i></span> Log In</a>
-                    </li> -->
-                </ul>
-            </div>
-
-        </nav>
 
         <!-- Hero Section -->
         <header class="hero-section" id="home">
@@ -163,8 +164,12 @@
             <div class="container-fluid">
                 <h2 class="text-center">About Us</h2>
                 <div class="row">
-                    <div class="col-md-3 about-img"></div>
-                    <div class="col-md-9">
+                    <div class="col-md-3 col-sm-4 col-12">
+                        <!-- Content for col-md-3 goes here -->
+                        <img src="assets/img/about_us.png" alt="Image" class="img-responsive">
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-12">
+                        <!-- Content for col-md-9 goes here -->
                         <p>
                             <strong>LocalGoods-Tracker</strong> is here to revolutionize how you manage your local goods inventory. Our mission is to deliver an efficient, user-friendly platform that makes tracking sales, profits, and expenses simpler than ever before.
                         </p>
@@ -182,7 +187,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -191,26 +195,28 @@
             <div class="container-fluid">
                 <h2 class="text-center">Contact Us</h2>
                 <div class="row">
-                    <div class="col-md-9">
-                    <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    <div class="col-md-9 col-sm-8 col-12">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Your Email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                    <div class="col-md-3 col-sm-4 col-12">
+                        <img src="assets/img/contact.png" alt="Image" class="img-responsive">
                     </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-                    </div>
-                    <div class="col-md-3 contact-img"></div>
                 </div>
-                
+
             </div>
         </section>
 
@@ -235,7 +241,7 @@
                     <!-- Linkedin -->
                     <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
                     <!-- Github -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i class="fab fa-github"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="https://github.com/Realgorithm" target="_blank" role="button"><i class="fab fa-github"></i></a>
 
                     <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #FF5733;" href="admin_login.php" role="button"><i class="fa fa-sign-in-alt"></i></a>
 
@@ -260,6 +266,27 @@
         location.href = 'login.php?shop_url=' + shop_url;
 
     })
+    $(document).ready(function () {
+            // Smooth scrolling
+            $('a.nav-link').on('click', function (event) {
+                console.log(this.hash); // Corrected logging statement
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        window.location.hash = hash;
+                    });
+
+                    // Collapse the navbar
+                    $('.navbar-collapse').collapse('hide');
+                    $('.nav-link').removeClass('active');
+                    $(this).addClass('active');
+                }
+            });
+        });
     document.addEventListener('DOMContentLoaded', (event) => {
         const htmlElement = document.documentElement;
         const switchElement = document.getElementById('darkModeSwitch');
