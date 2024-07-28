@@ -11,7 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            padding-top: 60px;
             /* Adjust based on the height of your navbar */
             box-sizing: border-box;
         }
@@ -79,41 +78,39 @@
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#004d40;">
-        <!-- <div class="continer-fluid"> -->
-        <a class="navbar-brand" href="#">
-            <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
-        <!-- Bootstrap 5 switch -->
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
-            <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"> LocalGoods-Tracker </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav m-auto">
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#features"><span class='icon-field'><i class="fa fa-star"></i></span> Features</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#about"><span class='icon-field'><i class="fa fa-info-circle"></i></span> About</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#contact"><span class='icon-field'><i class="fa fa-envelope"></i></span> Contact</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="signup.php"><span class='icon-field'><i class="fa fa-user-plus"></i></span> SignUp</a>
+                    </li>
+                </ul>
+                <!-- Use ms-auto to push this element to the right -->
+                <div class="form-check form-switch ms-auto">
+                    <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
+                    <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+                </div>
+            </div>
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-around" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#home"><span class='icon-field'><i class="fa fa-home"></i></span> Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#features"><span class='icon-field'><i class="fa fa-star"></i></span> Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about"><span class='icon-field'><i class="fa fa-info-circle"></i></span> About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact"><span class='icon-field'><i class="fa fa-envelope"></i></span> Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="signup.php"><span class='icon-field'><i class="fa fa-user-plus"></i></span> SignUp</a>
-                </li>
-                <!-- <li class="nav-item">
-                            <a class="nav-link" href="login.php"><span class='icon-field'><i class="fa fa-sign-in-alt"></i></span> Log In</a>
-                        </li> -->
-            </ul>
-        </div>
-        <!-- </div> -->
     </nav>
     <div class="container-fluid">
 
@@ -266,27 +263,27 @@
         location.href = 'login.php?shop_url=' + shop_url;
 
     })
-    $(document).ready(function () {
-            // Smooth scrolling
-            $('a.nav-link').on('click', function (event) {
-                console.log(this.hash); // Corrected logging statement
-                if (this.hash !== "") {
-                    event.preventDefault();
-                    var hash = this.hash;
+    $(document).ready(function() {
+        // Smooth scrolling
+        $('a.nav-link').on('click', function(event) {
+            console.log(this.hash); // Corrected logging statement
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
 
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    }, 800, function () {
-                        window.location.hash = hash;
-                    });
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function() {
+                    window.location.hash = hash;
+                });
 
-                    // Collapse the navbar
-                    $('.navbar-collapse').collapse('hide');
-                    $('.nav-link').removeClass('active');
-                    $(this).addClass('active');
-                }
-            });
+                // Collapse the navbar
+                $('.navbar-collapse').collapse('hide');
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+            }
         });
+    });
     document.addEventListener('DOMContentLoaded', (event) => {
         const htmlElement = document.documentElement;
         const switchElement = document.getElementById('darkModeSwitch');

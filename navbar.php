@@ -7,11 +7,6 @@
 				<img src="assets/img/<?php echo $_SESSION['shop_img'] ?>" alt="Shop Name" width="35" height="35" style="border-radius: 20px;"><?php echo "  " . $_SESSION['shop_name'] ?>
 			<?php } ?>
 		</a>
-		<!-- Bootstrap 5 switch -->
-		<div class="form-check form-switch">
-			<input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
-			<label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
-		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -82,6 +77,11 @@
 					<a href="ajax.php?action=logout" class="nav-link nav-logout mx-auto"><span class='icon-field'><i class="fa fa-power-off"></i></span> Logout</a>
 				</li>
 			</ul>
+			<!-- Bootstrap 5 switch -->
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
+				<label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+			</div>
 		</div>
 	</div>
 </nav>
