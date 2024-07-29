@@ -5,12 +5,12 @@
         <div class="row">
             <!-- FORM Panel -->
             <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        Add Product
-                    </div>
-                    <div class="card-body">
-                        <form action="" id="manage-add-product">
+                <form action="" id="manage-add-product">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Add Product</h5>
+                        </div>
+                        <div class="card-body">
                             <input type="hidden" name="id">
                             <div class="mb-3">
                                 <label class="form-label">Category</label>
@@ -34,23 +34,29 @@
                                 <input type="file" name="img" id="img" class="form-control">
                             </div>
                             <div class="mb-3 edit_image" style="display: none;">
-                            <img id="product_img" name="product_img" src="" alt="Product Image" style="width: 150px; height: 100px;">
-                            <input type="text" name="img" id="img" value="" hidden>
+                                <img id="product_img" name="product_img" src="" alt="Product Image" style="width: 150px; height: 100px;">
+                                <input type="text" name="img" id="img" value="" hidden>
                             </div>
-                        
-                            <div class="mb-3">
-                                <button class="btn btn-sm btn-primary col-sm-3 offset-md-3 mb-2"> Save</button>
-                                <button class="btn btn-sm btn-danger col-sm-3 mb-2" type="button" onclick="$('#manage-product').get(0).reset(); $('.save_image').show(); $('.edit_image').hide();">Cancel</button>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
+                                    <button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-product').get(0).reset(); $('.save_image').show(); $('.edit_image').hide();">Cancel</button>
                                 </div>
-                        </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- FORM Panel -->
 
             <!-- Table Panel -->
             <div class="col-md-8">
                 <div class="card">
+                    <div class="card-header">
+                    <h4><b>Products</b></h4>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive-sm">
                             <table class="table table-striped table-bordered border-warning table-info">
@@ -90,6 +96,7 @@
                             </table>
                         </div>
                     </div>
+                    <div class="card-footer"></div>
                 </div>
             </div>
             <!-- Table Panel -->
@@ -101,83 +108,82 @@
     td {
         vertical-align: middle !important;
     }
-    
-	td p {
-		margin: unset;
-	}
+
+    td p {
+        margin: unset;
+    }
 </style>
 <script>
-	
+    $('#manage-add-product').submit(function(e) {
+        e.preventDefault()
+        start_load()
+        $.ajax({
+            url: 'ajax.php?action=add_product',
+            data: new FormData($(this)[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            success: function(resp) {
+                console.log(resp)
+                if (resp == 1) {
+                    alert_toast("Data successfully added", 'success')
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1500)
 
-	$('#manage-add-product').submit(function(e) {
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=add_product',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
-			method: 'POST',
-			type: 'POST',
-			success: function(resp) {
-				console.log(resp)
-				if (resp == 1) {
-					alert_toast("Data successfully added", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
+                } else if (resp == 2) {
+                    alert_toast("Data successfully updated", 'success')
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1500)
 
-				} else if (resp == 2) {
-					alert_toast("Data successfully updated", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
-
-				}
-			}
-		})
-	})
+                }
+            }
+        })
+    })
     $(document).ready(function() {
         $('table').dataTable()
-		$(".save_image").show();
+        $(".save_image").show();
         $(".edit_image").hide();
-	})
-	$(document).on('click', '.edit_product', function() {
-		start_load()
-		var cat = $('#manage-add-product')
-		cat.get(0).reset()
+    })
+    $(document).on('click', '.edit_product', function() {
+        start_load()
+        var cat = $('#manage-add-product')
+        cat.get(0).reset()
         $(".save_image").hide();
         $(".edit_image").show();
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='product_name']").val($(this).attr('data-name'))
+        cat.find("[name='id']").val($(this).attr('data-id'))
+        cat.find("[name='product_name']").val($(this).attr('data-name'))
         var imgPath = 'assets/img/' + $(this).attr('data-img');
         $("[name='product_img']").attr('src', imgPath);
-        cat.find('input[name="img"][type="text"]').val($(this).attr('data-img'));		cat.find("[name='category_id']").val($(this).attr('data-category_id'))
-		end_load()
-	})
-	$(document).on('click', '.delete_product', function() {
-		_conf("Are you sure to delete this product?", "remove_product", [$(this).attr('data-id')])
-	})
+        cat.find('input[name="img"][type="text"]').val($(this).attr('data-img'));
+        cat.find("[name='category_id']").val($(this).attr('data-category_id'))
+        end_load()
+    })
+    $(document).on('click', '.delete_product', function() {
+        _conf("Are you sure to delete this product?", "remove_product", [$(this).attr('data-id')])
+    })
 
-	function delete_product($id) {
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=remove_product',
-			method: 'POST',
-			data: {
-				id: $id
-			},
-			success: function(resp) {
-				console.log(resp);
-				if (resp == 1) {
-					alert_toast("Data successfully deleted", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
+    function delete_product($id) {
+        start_load()
+        $.ajax({
+            url: 'ajax.php?action=remove_product',
+            method: 'POST',
+            data: {
+                id: $id
+            },
+            success: function(resp) {
+                console.log(resp);
+                if (resp == 1) {
+                    alert_toast("Data successfully deleted", 'success')
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1500)
 
-				}
-			}
-		})
-	}
+                }
+            }
+        })
+    }
 </script>

@@ -3,9 +3,10 @@ include('db_connect.php');
 ?>
 <div class="container-fluid">
     <div class="row">
-        <div class="card col-lg-12">
+        <div class="col-lg-12">
+        <div class="card">
             <div class="card-header">
-                Shops Info
+                <h4><b>Shops Info</b></h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive-sm">
@@ -49,6 +50,8 @@ include('db_connect.php');
 
                 <!-- Table Panel -->
             </div>
+            <div class="card-footer"></div>
+        </div>
         </div>
     </div>
 </div>

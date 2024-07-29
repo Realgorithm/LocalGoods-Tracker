@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <?php include 'loader.php' ?>
     <div class="container-fluid">
         <div class="row main-content bg-success text-center">
             <div class="col-md-3 col-sm-4 col-12 company__info">

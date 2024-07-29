@@ -70,6 +70,8 @@
 </head>
 
 <body>
+    <?php include 'loader.php' ?>
+
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
         <div class="container-fluid">
@@ -160,21 +162,23 @@
                     </div>
                     <div class="col-md-9 col-sm-8 col-12">
                         <!-- Content for col-md-9 goes here -->
-                        <p>
-                            <strong>LocalGoods-Tracker</strong> is here to revolutionize how you manage your local goods inventory. Our mission is to deliver an efficient, user-friendly platform that makes tracking sales, profits, and expenses simpler than ever before.
-                        </p>
-                        <p>
-                            With <strong>LocalGoods-Tracker</strong>, you gain access to a powerful suite of tools designed to streamline your business operations:
-                        </p>
-                        <ul>
-                            <li>Seamlessly manage your <strong>inventory</strong>.</li>
-                            <li>Effortlessly handle <strong>customer</strong> and <strong>supplier</strong> information.</li>
-                            <li>Keep track of <strong>user accounts</strong> and <strong>customer credit</strong>.</li>
-                            <li>Manage <strong>supply receipts</strong> and <strong>extra expenses</strong> with ease.</li>
-                        </ul>
-                        <p>
-                            Our goal is to provide you with a comprehensive solution that enhances productivity and boosts your business's efficiency. Join us today and take control of your local goods management like never before!
-                        </p>
+                        <h5>
+                            <p>
+                                <strong>LocalGoods-Tracker</strong> is here to revolutionize how you manage your local goods inventory. Our mission is to deliver an efficient, user-friendly platform that makes tracking sales, profits, and expenses simpler than ever before.
+                            </p>
+                            <p>
+                                With <strong>LocalGoods-Tracker</strong>, you gain access to a powerful suite of tools designed to streamline your business operations:
+                            </p>
+                            <ul>
+                                <li>Seamlessly manage your <strong>inventory</strong>.</li>
+                                <li>Effortlessly handle <strong>customer</strong> and <strong>supplier</strong> information.</li>
+                                <li>Keep track of <strong>user accounts</strong> and <strong>customer credit</strong>.</li>
+                                <li>Manage <strong>supply receipts</strong> and <strong>extra expenses</strong> with ease.</li>
+                            </ul>
+                            <p>
+                                Our goal is to provide you with a comprehensive solution that enhances productivity and boosts your business's efficiency. Join us today and take control of your local goods management like never before!
+                            </p>
+                        </h5>
                     </div>
                 </div>
             </div>

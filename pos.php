@@ -11,21 +11,22 @@ if (isset($_GET['id'])) {
 ?>
 <div class="container-fluid">
 	<div class="col-lg-12">
-		<div class="card">
-			<div class="card-header">
-				<h4>Sales</h4>
-			</div>
-			<div class="card-body">
-				<form action="" id="manage-sales">
+		<form action="" id="manage-sales">
+			<div class="card">
+				<div class="card-header">
+					<h4>Sales</h4>
+				</div>
+				<div class="card-body">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
 					<input type="hidden" name="ref_no" value="<?php echo isset($ref_no) ? $ref_no : '' ?>">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="mb-3 col-md-5">
 								<label class="form-label">Customer</label>
-								<select name="customer_id" id="" class="form-select browser-default select2">
-									<option value="0" selected="">Guest</option>
-									<?php
+								<select name="customer_id" id="" class="form-select select">
+									<?php if (!isset($_GET['id'])) : ?>
+										<option value="0" selected="">Guest</option>
+									<?php endif;
 									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by name asc");
 									while ($row = $customer->fetch_assoc()) :
 										$cus_arr[$row['id']] = $row['name'];
@@ -35,10 +36,8 @@ if (isset($_GET['id'])) {
 										endif;
 									endwhile; ?>
 									<?php
-									$cus_arr[0] = "GUEST";
 									if (isset($cus_arr[$customer_id])) { ?>
-										<?php echo $cus_arr[$customer_id]; ?>
-										<option value="<?php echo $cus_arr[$customer_id] ?>"><?php echo $cus_arr[$customer_id] ?></option>
+										<option value="<?php echo $customer_id ?>"><?php echo $cus_arr[$customer_id] ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -47,7 +46,7 @@ if (isset($_GET['id'])) {
 						<div class="row mb-3">
 							<div class="col-md-4">
 								<label class="form-label">Product</label>
-								<select name="" id="product" class="form-select browser-default select2">
+								<select name="" id="product" class="form-select select">
 									<option value=""></option>
 									<?php
 									$conn->select_db('central_db');
@@ -150,53 +149,57 @@ if (isset($_GET['id'])) {
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<button class="btn btn-primary btn-sm btn-block " type="button" id="pay">Pay</button>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-primary w-100" type="button" id="pay">Pay</button>
 
 							<!-- <button class="btn btn-primary btn-sm btn-block " type="button" id="credit">Credit</button> -->
 						</div>
 					</div>
-					<div class="modal fade" id="pay_modal" role='dialog'>
-						<div class="modal-dialog modal-md" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">Payment</h5>
-								</div>
-								<div class="modal-body">
-									<div class="container-fluid">
-										<input type="text" name="aamount" value="" class="form-control " readonly="" hidden>
+				</div>
+			</div>
+			<div class="modal fade" id="pay_modal" role='dialog'>
+				<div class="modal-dialog modal-md" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Payment</h5>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<input type="text" name="aamount" value="" class="form-control " readonly="" hidden>
 
-										<div class="mb-3">
-											<label for="" class="form-label">Total Amount</label>
-											<input type="text" name="tamount" value="" class="form-control " readonly="">
-										</div>
-										<div class="mb-3">
-											<label for="" class="form-label">Amount Tendered</label>
-											<input type="number" name="amount_tendered" value="0" min="0" class="form-control" required>
-										</div>
-										<div class="mb-3">
-											<label for="" class="form-label">Payment mode</label>
-											<select name="paymode" id="" class="form-select browser-default" required>
-												<option value="1" selected>Cash or online</option>
-												<option value="2">Credit</option>
-											</select>
-										</div>
-										<div class="mb-3">
-											<label for="" class="form-label">Change</label>
-											<input type="number" name="change" value="0" min="0" class="form-control " readonly="">
-										</div>
-									</div>
+								<div class="mb-3">
+									<label for="" class="form-label">Total Amount</label>
+									<input type="text" name="tamount" value="" class="form-control " readonly="">
 								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" id='submit' onclick="$('#manage-sales').submit()">Pay</button>
-									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+								<div class="mb-3">
+									<label for="" class="form-label">Amount Tendered</label>
+									<input type="number" name="amount_tendered" value="0" min="0" class="form-control" required>
+								</div>
+								<div class="mb-3">
+									<label for="" class="form-label">Payment mode</label>
+									<select name="paymode" id="" class="form-select browser-default" required>
+										<option value="1" selected>Cash or online</option>
+										<option value="2">Credit</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="" class="form-label">Change</label>
+									<input type="number" name="change" value="0" min="0" class="form-control " readonly="">
 								</div>
 							</div>
 						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary col-sm-5 me-5" id='submit' onclick="$('#manage-sales').submit()">Pay</button>
+							<button type="button" class="btn btn-danger col-sm-5" data-bs-dismiss="modal">Cancel</button>
+						</div>
 					</div>
-				</form>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 <div id="tr_clone">
@@ -263,7 +266,7 @@ if (isset($_GET['id'])) {
 		$('#pay_modal').modal('show')
 	})
 	$(document).ready(function() {
-		$('.select2').select2({
+		$('.select').select2({
 			placeholder: "Please select here",
 			width: "100%"
 		})
@@ -344,7 +347,7 @@ if (isset($_GET['id'])) {
 	})
 
 	function calculate_total() {
-		
+
 		var total = 0;
 		var actual = 0;
 		$('#list tbody').find('.item-row').each(function() {

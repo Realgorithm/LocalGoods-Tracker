@@ -5,13 +5,13 @@
 	<div class="col-lg-12">
 		<div class="row">
 			<!-- FORM Panel -->
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-header">
-						Supplier Form
-					</div>
-					<div class="card-body">
-						<form action="" id="manage-supplier">
+			<div class="col-md-4 mb-3">
+				<form action="" id="manage-supplier">
+					<div class="card">
+						<div class="card-header">
+							<h4>Supplier Form</h4>
+						</div>
+						<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="mb-3">
 								<label class="form-label">Supplier</label>
@@ -25,48 +25,60 @@
 								<label class="form-label">Address</label>
 								<textarea class="form-control" cols="30" rows="3" name="address" required></textarea>
 							</div>
-							<div class="mb-3">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3 mb-2"> Save</button>
-								<button class="btn btn-sm btn-danger col-sm-3 mb-2" type="button" onclick="$('#manage-supplier').get(0).reset()"> Cancel</button>
+						</div>
+						<div class="card-footer">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
+									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-supplier').get(0).reset()"> Cancel</button>
+								</div>
 							</div>
-						</form>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<!-- FORM Panel -->
 
 			<!-- Table Panel -->
 			<div class="col-md-8">
-				<div class="table-responsive-sm">
-					<table class="table table-striped table-bordered border-warning table-info table-hover">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Supplier Info</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							$i = 1;
-							$cats = shop_conn($dbName)->query("SELECT * FROM supplier_list order by id asc");
-							while ($row = $cats->fetch_assoc()) :
-							?>
-								<tr>
-									<td scope="row"><?php echo $i++ ?></td>
-									<td>
-										<p>Name : <b><?php echo $row['supplier_name'] ?></b></p>
-										<p><small>Contact : <b><?php echo $row['contact'] ?></b></small></p>
-										<p><small>Address : <b><?php echo $row['address'] ?></b></small></p>
-									</td>
-									<td>
-										<button class="btn btn-sm btn-primary edit_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-contact="<?php echo $row['contact'] ?>" data-address="<?php echo $row['address'] ?>">Edit</button>
-										<button class="btn btn-sm btn-danger delete_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
-									</td>
-								</tr>
-							<?php endwhile; ?>
-						</tbody>
-					</table>
+				<div class="card">
+					<div class="card-header">
+					<h4><b>Supplier List</b></h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive-sm">
+							<table class="table table-striped table-bordered border-warning table-info table-hover">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Supplier Info</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$i = 1;
+									$cats = shop_conn($dbName)->query("SELECT * FROM supplier_list order by id asc");
+									while ($row = $cats->fetch_assoc()) :
+									?>
+										<tr>
+											<td scope="row"><?php echo $i++ ?></td>
+											<td>
+												<p>Name : <b><?php echo $row['supplier_name'] ?></b></p>
+												<p><small>Contact : <b><?php echo $row['contact'] ?></b></small></p>
+												<p><small>Address : <b><?php echo $row['address'] ?></b></small></p>
+											</td>
+											<td>
+												<button class="btn btn-sm btn-primary edit_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-contact="<?php echo $row['contact'] ?>" data-address="<?php echo $row['address'] ?>">Edit</button>
+												<button class="btn btn-sm btn-danger delete_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+											</td>
+										</tr>
+									<?php endwhile; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer"></div>
 				</div>
 			</div>
 			<!-- Table Panel -->

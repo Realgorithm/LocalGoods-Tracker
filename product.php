@@ -72,13 +72,13 @@ while ($i == 1) {
 	<div class="col-lg-12">
 		<div class="row">
 			<!-- FORM Panel -->
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-header">
-						Product Form
-					</div>
-					<div class="card-body">
-						<form action="" id="manage-product">
+			<div class="col-md-4 mb-3">
+				<form action="" id="manage-product">
+					<div class="card">
+						<div class="card-header">
+							<h5>Product Form</h5>
+						</div>
+						<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="mb-3">
 								<label class="form-label">SKU</label>
@@ -124,59 +124,71 @@ while ($i == 1) {
 								<label class="form-label">Last Price</label>
 								<input type="number" class="form-control" step="any" name="l_price" required>
 							</div>
-							<?php if ($_SESSION['login_type'] == 1) : ?>
-								<div class="mb-3">
-									<button class="btn btn-sm btn-primary col-sm-3 offset-md-3 mb-2"> Save</button>
-									<button class="btn btn-sm btn-danger col-sm-3 mb-2" type="button" onclick="$('#manage-product').get(0).reset()"> Cancel</button>
+						</div>
+						<div class="card-footer">
+							<div class="row">
+								<div class="col-md-12">
+									<?php if ($_SESSION['login_type'] == 1) : ?>
+										<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
+										<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-product').get(0).reset()"> Cancel</button>
+									<?php endif; ?>
 								</div>
-							<?php endif; ?>
-						</form>
+							</div>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<!-- FORM Panel -->
 
 			<!-- Table Panel -->
 			<div class="col-md-8">
-				<div class="table-responsive-sm">
-					<table class="table table-striped table-bordered border-warning table-info">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Image</th>
-								<th scope="col">Product Info</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							$i = 1;
-							$prod = shop_conn($dbName)->query("SELECT * FROM product_list order by id asc");
-							while ($row = $prod->fetch_assoc()) :
-							?>
-								<tr>
-									<td scope="row"><?php echo $i++ ?></td>
-									<td style="width: 150px; height: 100px;"><img src="<?php echo $row['image'] != '' ? $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100"></td>
-									<td>
-										<p>SKU : <b><?php echo $row['sku'] ?></b></p>
-										<p><small>Category : <b><?php echo $cat_arr[$row['category_id']] ?></b></small></p>
-										<p><small>Name : <b><?php echo $row['name'] ?></b></small></p>
-										<p><small>Description : <b><?php echo $row['description'] ?></b></small></p>
-										<p><small>M.R.P : <b><?php echo number_format($row['price'], 2) ?></b></small></p>
-										<p><small>Bill Price : <b><?php echo number_format($row['b_price'], 2) ?></b></small></p>
-										<p><small>Last Price : <b><?php echo number_format($row['l_price'], 2) ?></b></small></p>
-									</td>
-									<?php if ($_SESSION['login_type'] == 1) : ?>
-										<td class="text-center">
-											<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['image'] ?>">Edit</button>
-											<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
-										</td>
-									<?php endif; ?>
+				<div class="card">
+					<div class="card-header">
+					<h4><b>Product List</b></h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive-sm">
+							<table class="table table-striped table-bordered border-warning table-info">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Image</th>
+										<th scope="col">Product Info</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$i = 1;
+									$prod = shop_conn($dbName)->query("SELECT * FROM product_list order by id asc");
+									while ($row = $prod->fetch_assoc()) :
+									?>
+										<tr>
+											<td scope="row"><?php echo $i++ ?></td>
+											<td style="width: 150px; height: 100px;"><img src="<?php echo $row['image'] != '' ? $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100"></td>
+											<td>
+												<p>SKU : <b><?php echo $row['sku'] ?></b></p>
+												<p><small>Category : <b><?php echo $cat_arr[$row['category_id']] ?></b></small></p>
+												<p><small>Name : <b><?php echo $row['name'] ?></b></small></p>
+												<p><small>Description : <b><?php echo $row['description'] ?></b></small></p>
+												<p><small>M.R.P : <b><?php echo number_format($row['price'], 2) ?></b></small></p>
+												<p><small>Bill Price : <b><?php echo number_format($row['b_price'], 2) ?></b></small></p>
+												<p><small>Last Price : <b><?php echo number_format($row['l_price'], 2) ?></b></small></p>
+											</td>
+											<?php if ($_SESSION['login_type'] == 1) : ?>
+												<td class="text-center">
+													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['image'] ?>">Edit</button>
+													<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+												</td>
+											<?php endif; ?>
 
-								</tr>
-							<?php endwhile; ?>
-						</tbody>
-					</table>
+										</tr>
+									<?php endwhile; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer"></div>
 				</div>
 			</div>
 			<!-- Table Panel -->

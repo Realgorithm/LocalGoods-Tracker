@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4><?php echo "Welcome back " . $_SESSION['login_name'] . "!"  ?></h4>
+                    <h4><?php echo "Welcome back <b>" . $_SESSION['login_name'] . "</b>"  ?></h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-footer"></div>
             </div>
         </div>
     </div>
@@ -84,20 +85,18 @@
                 if (totalProfit == 0) {
                     profitAlert.addClass('alert-primary');
 
-                }else if (totalProfit > 0){
-                    profitAlert.addClass('alert-sucess');
-                } 
-                else {
+                } else if (totalProfit > 0) {
+                    profitAlert.addClass('alert-success');
+                } else {
                     profitAlert.addClass('alert-danger');
                 }
                 // Change alert type based on profit
                 var profit = parseFloat(response.total_profit);
                 var profitAlert = $('.alert-profit');
                 profitAlert.removeClass('alert-success alert-danger');
-                 if (totalProfit > 0){
+                if (totalProfit > 0) {
                     profitAlert.addClass('alert-success');
-                } 
-                else {
+                } else {
                     profitAlert.addClass('alert-primary');
                 }
             },

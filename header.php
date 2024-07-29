@@ -42,3 +42,5 @@
 <script type="text/javascript" charset="utf8" src="assets/jquery/jquery.dataTables.min.js"></script>
 <!-- <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script> -->
 <script src="assets/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="assets/js/index.js"></script>

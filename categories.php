@@ -8,7 +8,7 @@
 				<form action="" id="manage-category">
 					<div class="card">
 						<div class="card-header">
-							Category Form
+							<h5>Category Form</h5>
 						</div>
 						<div class="card-body">
 							<input type="hidden" name="id">
@@ -22,8 +22,8 @@
 						<div class="card-footer">
 							<div class="row">
 								<div class="col-md-12">
-									<button class="btn btn-sm btn-primary col-sm-3 offset-md-3 mb-2"> Save</button>
-									<button class="btn btn-sm btn-danger col-sm-3 mb-2" type="button" onclick="$('#manage-category').get(0).reset()"> Cancel</button>
+									<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
+									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-category').get(0).reset()"> Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -35,6 +35,9 @@
 			<!-- Table Panel -->
 			<div class="col-md-8">
 				<div class="card">
+					<div class="card-header">
+					<h4><b>Category List</b></h4>
+					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
 							<table class="table table-striped table-bordered border-warning table-info">
@@ -67,6 +70,7 @@
 							</table>
 						</div>
 					</div>
+					<div class="card-footer"></div>
 				</div>
 			</div>
 			<!-- Table Panel -->

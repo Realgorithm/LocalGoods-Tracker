@@ -13,8 +13,8 @@ body {
   width: 100%;
   height: calc(100%);
 }
-main{
-  min-height:70vh;
+main {
+  min-height: 70vh;
 }
 a {
   color: #1977cc;
@@ -158,10 +158,10 @@ h6 {
   color: #004d40;
 }
 @media screen and (max-width: 640px) {
-  .company__info{
+  .company__info {
     border-radius: 20px;
   }
   .login_form {
-      border-radius: 20px;
+    border-radius: 20px;
   }
 }

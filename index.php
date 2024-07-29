@@ -20,6 +20,7 @@
 </head>
 
 <body>
+  <?php include 'loader.php' ?>
   <?php include 'navbar.php' ?>
   <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 100%;">
     <div class="toast-body text-white">
@@ -43,10 +44,10 @@
     <?php include $page . '.php' ?>
   </main>
 
-  <div id="preloader"></div>
+  <!-- <div id="preloader"></div> -->
 
   <!-- Footer -->
-  <footer class="bg-body-tertiary text-center">
+  <footer class="bg-body-tertiary text-center mt-3">
     <!-- Grid container -->
     <div class="container p-4 pb-0">
       <!-- Section: Social media -->
@@ -91,8 +92,8 @@
           <div id="delete_content"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary col-sm-5 me-5" id='confirm' onclick="">Continue</button>
+          <button type="button" class="btn btn-danger col-sm-5" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -101,28 +102,19 @@
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title"></h5>
+          <h5><b class="modal-title"></b></h5>
         </div>
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary col-sm-5 me-5" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+          <button type="button" class="btn btn-danger col-sm-5" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
   </div>
 </body>
 <script>
-  window.start_load = function() {
-    $('body').prepend('<di id="preloader2"></di>')
-  }
-  window.end_load = function() {
-    $('#preloader2').fadeOut('fast', function() {
-      $(this).remove();
-    })
-  }
-
   window.uni_modal = function($title = '', $url = '') {
     start_load()
     $.ajax({
@@ -165,11 +157,6 @@
       delay: 3000
     }).toast('show');
   }
-  $(document).ready(function() {
-    $('#preloader').fadeOut('fast', function() {
-      $(this).remove();
-    })
-  })
 </script>
 
 </html>

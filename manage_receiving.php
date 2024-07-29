@@ -12,12 +12,12 @@ if (isset($_GET['id'])) {
 ?>
 <div class="container-fluid">
 	<div class="col-lg-12">
-		<div class="card">
-			<div class="card-header">
-				<h4>Manage Receiving</h4>
-			</div>
-			<div class="card-body">
-				<form action="" id="manage-receiving">
+		<form action="" id="manage-receiving">
+			<div class="card">
+				<div class="card-header">
+					<h4>Manage Receiving</h4>
+				</div>
+				<div class="card-body">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
 					<input type="hidden" name="ref_no" value="<?php echo isset($ref_no) ? $ref_no : '' ?>">
 					<div class="col-md-12">
@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
 									$cus_arr[0] = "";
 									if (isset($cus_arr[$supplier_id])) { ?>
 										<?php echo $cus_arr[$supplier_id]; ?>
-										<option value="<?php echo $supplier_id ?>" selected="" ><?php echo $cus_arr[$supplier_id] ?></option>
+										<option value="<?php echo $supplier_id ?>" selected><?php echo $cus_arr[$supplier_id] ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -152,13 +152,17 @@ if (isset($_GET['id'])) {
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<button class="btn btn-primary btn-sm btn-block float-right .col-md-3">Save</button>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-primary btn-sm w-100">Save</button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 <div id="tr_clone">
