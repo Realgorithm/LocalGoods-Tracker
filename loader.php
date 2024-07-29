@@ -7,6 +7,7 @@
         width: 100%;
         height: 100%;
         background: rgba(255, 255, 255, 0.9);
+        opacity: 0.5;
         z-index: 1000;
         display: flex;
         justify-content: center;
@@ -23,6 +24,7 @@
     }
     [data-bs-theme="dark"] #preloader{
         background: #212529;
+        opacity: 0.5;
     }
 
     #preloader .loader-1 {
