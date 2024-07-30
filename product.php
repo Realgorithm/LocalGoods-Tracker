@@ -180,7 +180,11 @@ while ($i == 1) {
 													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['image'] ?>">Edit</button>
 													<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 												</td>
-											<?php endif; ?>
+											<?php else: ?>
+												<td>
+												
+												</td>
+										 <?php endif; ?>
 
 										</tr>
 									<?php endwhile; ?>

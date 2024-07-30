@@ -408,6 +408,11 @@ class Action
 				}
 			}
 			$data .= ", ref_no = '$ref_no' ";
+			if ($_FILES['img']['tmp_name'] != '') {
+				$fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['img']['name'];
+				move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
+				$data .= ", image = '$fname'";
+			}
 			$save = $this->db_conn->query("INSERT INTO receiving_list set " . $data);
 			$id = $this->db_conn->insert_id;
 			foreach ($product_id as $k => $v) {

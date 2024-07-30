@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
-                                    <button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-product').get(0).reset(); $('.save_image').show(); $('.edit_image').hide();">Cancel</button>
+                                    <button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-add-product').get(0).reset(); $('.save_image').show(); $('.edit_image').hide();">Cancel</button>
                                 </div>
                             </div>
                         </div>

@@ -81,8 +81,17 @@ if (isset($_GET['id'])) {
 								<label class="form-label">&nbsp</label>
 								<button class="btn btn-block btn-sm btn-primary form-control" type="button" id="add_list"><i class="fa fa-plus"></i> Add to List</button>
 							</div>
-
-
+							<?php if (!isset($_GET['id'])) :?>
+							<div class="col-md-2 save_image">
+                                <label for="img" class="form-label" style=" text-align:left">Shop Image</label>
+                                <input type="file" name="img" id="img" class="form-control">
+                            </div>
+							<?php else: ?>
+								<div class="col-md-2 edit_image">
+									<img id="recieving_img" name="recieving_img" src="<?php echo $image != '' ? 'assets/img/' . $image : 'assets/img/1600398180_no-image-available.png' ?>" alt="Bill Image" style="width: 150px; height: 100px;">
+								</div>
+							<?php endif; ?>
+							
 						</div>
 						<div class="row">
 							<div class="col-md-12">
@@ -311,10 +320,14 @@ if (isset($_GET['id'])) {
 		}
 		$.ajax({
 			url: 'ajax.php?action=save_receiving',
-			method: 'POST',
-			data: $(this).serialize(),
+			data: new FormData($(this)[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
 			success: function(resp) {
-				// console.log(resp)
+				console.log(resp)
 				if (resp == 1) {
 					alert_toast("Data successfully added", 'success')
 					setTimeout(function() {
