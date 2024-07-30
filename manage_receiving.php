@@ -87,7 +87,7 @@ if (isset($_GET['id'])) {
 									<input type="file" name="img" id="img" class="form-control">
 								</div>
 							<?php else : ?>
-								<div class="col-md-2 edit_image">
+								<div class="col-md-2 edit_image" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Click to Preview">
 									<img id="recieving_img" name="recieving_img" src="<?php echo $image != '' ? 'assets/img/' . $image : 'assets/img/1600398180_no-image-available.png' ?>" alt="Bill Image" style="width: 150px; height: 100px;">
 								</div>
 							<?php endif; ?>
@@ -229,7 +229,7 @@ if (isset($_GET['id'])) {
 </style>
 <script>
 	$(document).ready(function() {
-
+		$('[data-bs-toggle="popover"]').popover();
 		$(document).on('click', 'img', function() {
             var imgSrc = $(this).attr('src');
             image_modal(imgSrc);

@@ -56,14 +56,14 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
    - Run the following command to clone the repository:
 
      ```bash
-     git clone https://github.com/Realgorithm/sales_inventory_3.git
+     git clone https://github.com/Realgorithm/LocalGoods-Tracker.git
      ```
 
 2. **Navigate to the Project Directory:**
    - After cloning, navigate to the project directory:
 
      ```bash
-     cd sales_inventory_3
+     cd LocalGoods-Tracker
      ```
 
 ### Step 3: Setup the Database
@@ -96,13 +96,13 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
 ### Step 5: Run the Application
 
 1. **Access the Application:**
-   - Open your web browser and navigate to [http://localhost/sales_inventory_3](http://localhost/sales_invertory_3).
+   - Open your web browser and navigate to [http://localhost/LocalGoods-Tracker](http://localhost/sales_invertory_3).
    - You should see the LocalGoods-Tracker homepage.
 
 ## Additional Notes
 
 - Ensure that the `Apache` and `MySQL` modules are running in the XAMPP Control Panel whenever you want to access the application.
-- For any issues or bugs, please create an issue in the [GitHub repository](https://github.com/Realgorithm/sales_inventory_3/issues).
+- For any issues or bugs, please create an issue in the [GitHub repository](https://github.com/Realgorithm/LocalGoods-Tracker/issues).
 
 ## License
 

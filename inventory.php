@@ -43,7 +43,7 @@
 								?>
 									<tr>
 										<td class="align-middle" scope="row"><?php echo $i++ ?></td>
-										<td style="width: 100px; height: 60px;"><img src="<?php echo $row['image'] != '' ?  $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
+										<td style="width: 100px; height: 60px;" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Click to Preview"><img src="<?php echo $row['image'] != '' ?  $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
 										<td class="align-middle"><?php echo $row['name'] ?></td>
 										<td class="align-middle"><?php echo $inn ?></td>
 										<td class="align-middle"><?php echo $out ?></td>
@@ -77,13 +77,23 @@
 	</div>
 </div>
 
+<style>
+	td {
+		vertical-align: middle !important;
+	}
+
+	td p {
+		margin: unset;
+	}
+</style>
 
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
+		$('[data-bs-toggle="popover"]').popover();
 		$(document).on('click', 'img', function() {
-            var imgSrc = $(this).attr('src');
-            image_modal(imgSrc);
-        });
+			var imgSrc = $(this).attr('src');
+			image_modal(imgSrc);
+		});
 	})
 </script>
