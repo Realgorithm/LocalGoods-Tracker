@@ -136,6 +136,10 @@ foreach ($user->fetch_array() as $k => $v) {
             }
         })
     })
+   $(document).ready(function() {
+        $(document).on('click', 'img', function() {
+            var imgSrc = $(this).attr('src');
+            image_modal(imgSrc);
+        });
+    })
 </script>
-
-if0_36718163_central_db

@@ -17,6 +17,19 @@
   include('./header.php');
   // include('./auth.php'); 
   ?>
+  <style>
+        .modalImage {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .modal-dialog-centered {
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 1rem);
+        }
+    </style>
 </head>
 
 <body>
@@ -113,6 +126,20 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+  <div class="modal fade" id="image_modal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img class="modalImage img-fluid" src="" alt="Preview">
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script>
   window.uni_modal = function($title = '', $url = '') {
@@ -138,6 +165,12 @@
     $('#confirm_modal .modal-body').html($msg)
     $('#confirm_modal').modal('show')
   }
+
+  window.image_modal = function($src = '') {
+    $('#image_modal .modalImage').attr('src', $src);
+    $('#image_modal').modal('show');
+  }
+
   window.alert_toast = function($msg = 'TEST', $bg = 'success') {
     $('#alert_toast').removeClass('bg-success')
     $('#alert_toast').removeClass('bg-danger')

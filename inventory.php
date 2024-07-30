@@ -81,5 +81,9 @@
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
+		$(document).on('click', 'img', function() {
+            var imgSrc = $(this).attr('src');
+            image_modal(imgSrc);
+        });
 	})
 </script>

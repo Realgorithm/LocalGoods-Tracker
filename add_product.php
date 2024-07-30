@@ -55,7 +55,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                    <h4><b>Products</b></h4>
+                        <h4><b>Products</b></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive-sm">
@@ -147,6 +147,10 @@
         $('table').dataTable()
         $(".save_image").show();
         $(".edit_image").hide();
+        $(document).on('click', 'img', function() {
+            var imgSrc = $(this).attr('src');
+            image_modal(imgSrc);
+        });
     })
     $(document).on('click', '.edit_product', function() {
         start_load()

@@ -15,6 +15,12 @@ while ($i == 1) {
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
+
+		$(document).on('click', 'img', function() {
+            var imgSrc = $(this).attr('src');
+            image_modal(imgSrc);
+        });
+		
 		// Call updateProducts on page load
 		updateProducts('');
 

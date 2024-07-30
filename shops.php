@@ -69,6 +69,10 @@ include('db_connect.php');
 <script>
     $(document).ready(function() {
 		$('table').dataTable()
+        $(document).on('click', 'img', function() {
+            var imgSrc = $(this).attr('src');
+            image_modal(imgSrc);
+        });
 	})
 	$(document).on('click', '.delete_shop', function() {
         _conf("Are you sure to delete this data?", "delete_shop", [$(this).attr('data-id')])
