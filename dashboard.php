@@ -83,7 +83,7 @@
                 var profitAlert = $('.alert-total_profit');
                 profitAlert.removeClass('alert-success alert-danger alert-primary');
                 if (totalProfit == 0) {
-                    profitAlert.addClass('alert-primary');
+                    profitAlert.addClass('alert-info');
 
                 } else if (totalProfit > 0) {
                     profitAlert.addClass('alert-success');

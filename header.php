@@ -16,7 +16,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> -->
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.min.css">
 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"> -->
-<!-- <link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css"> -->
+<link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
 <!-- Select2 CSS -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 <link href="assets/css/select2.min.css" rel="stylesheet" />

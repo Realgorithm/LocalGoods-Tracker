@@ -1,4 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
+<style>
+[data-bs-theme='dark'] .nav-style{background-color:#004d40} 
+[data-bs-theme='light'] .nav-style{background-color:#6499db}
+</style>
+<nav class="navbar navbar-expand-lg sticky-top nav-style">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <?php if ($_SESSION['login_type'] == 3) : ?>
@@ -49,7 +53,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-list"></i> Lists
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:#006064;">
+                    <ul class="dropdown-menu nav-style" aria-labelledby="navbarDropdown">
                         <li><a href="index.php?page=product" class="dropdown-item"><i class="fa fa-boxes"></i> Product List</a></li>
                         <li><a href="index.php?page=supplier" class="dropdown-item"><i class="fa fa-truck-loading"></i> Supplier List</a></li>
                         <li><a href="index.php?page=customer" class="dropdown-item"><i class="fa fa-user-friends"></i> Customer List</a></li>

@@ -1869,7 +1869,7 @@ progress {
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
-.table-info {
+[data-bs-theme="light"] .table-info {
   --bs-table-color: #000;
   --bs-table-bg: #cff4fc;
   --bs-table-border-color: #badce3;
@@ -1879,6 +1879,19 @@ progress {
   --bs-table-active-color: #000;
   --bs-table-hover-bg: #bfe2e9;
   --bs-table-hover-color: #000;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+[data-bs-theme="dark"] .table-info {
+  --bs-table-color: #fff; /* Light text color */
+  --bs-table-bg: #004d40; /* Dark blue background */
+  --bs-table-border-color: #444; /* Darker border color */
+  --bs-table-striped-bg: #006064; /* Darker blue for stripes */
+  --bs-table-striped-color: #fff; /* Light text for striped rows */
+  --bs-table-active-bg: #003c71; /* Even darker blue for active rows */
+  --bs-table-active-color: #03a9f4; /* White text for active rows */
+  --bs-table-hover-bg: #002b56; /* Darker blue for hover effect */
+  --bs-table-hover-color: #fff; /* White text for hover effect */
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
@@ -1938,6 +1951,7 @@ progress {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
 @media (max-width: 575.98px) {
   .table-responsive-sm {
     overflow-x: auto;

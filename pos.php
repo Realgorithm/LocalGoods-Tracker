@@ -177,18 +177,18 @@ if (isset($_GET['id'])) {
 								</div>
 								<div class="mb-3">
 									<label for="" class="form-label">Amount Tendered</label>
-									<input type="number" name="amount_tendered" value="0" min="0" class="form-control" required>
+									<input type="number" name="amount_tendered" value="" min="0" class="form-control" required>
 								</div>
 								<div class="mb-3">
 									<label for="" class="form-label">Payment mode</label>
-									<select name="paymode" id="" class="form-select browser-default" required>
+									<select name="paymode" id="" class="form-select" required>
 										<option value="1" selected>Cash or online</option>
 										<option value="2">Credit</option>
 									</select>
 								</div>
 								<div class="mb-3">
 									<label for="" class="form-label">Change</label>
-									<input type="number" name="change" value="0" min="0" class="form-control " readonly="">
+									<input type="number" name="change" value="0" min="0" class="form-control" readonly="">
 								</div>
 							</div>
 						</div>

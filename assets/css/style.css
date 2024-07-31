@@ -38,41 +38,7 @@ h6 {
   border: 1px solid white;
 }
 
-[data-bs-theme="light"] {
-  --bs-tbl-color: #000; /* Text color */
-  --bs-tbl-bg: #cfe2ff; /* Background color */
-  --bs-tbl-border-color: #bacbe6; /* Border color */
-  --bs-tbl-striped-bg: #c5d7f2; /* Striped row background */
-  --bs-tbl-striped-color: #000; /* Striped row text color */
-  --bs-tbl-active-bg: #bacbe6; /* Active row background */
-  --bs-tbl-active-color: #000; /* Active row text color */
-  --bs-tbl-hover-bg: #bfd1ec; /* Hover row background */
-  --bs-tbl-hover-color: #000; /* Hover row text color */
-}
-[data-bs-theme="dark"] {
-  --bs-tbl-color: #fff; /* Light text color */
-  --bs-tbl-bg: #004d40; /* Dark blue background */
-  --bs-tbl-border-color: #444; /* Darker border color */
-  --bs-tbl-striped-bg: #006064; /* Darker blue for stripes */
-  --bs-tbl-striped-color: #fff; /* Light text for striped rows */
-  --bs-tbl-active-bg: #003c71; /* Even darker blue for active rows */
-  --bs-tbl-active-color: #03a9f4; /* White text for active rows */
-  --bs-tbl-hover-bg: #002b56; /* Darker blue for hover effect */
-  --bs-tbl-hover-color: #fff; /* White text for hover effect */
-}
 
-.table-info {
-  --bs-table-color: var(--bs-tbl-color);
-  --bs-table-bg: var(--bs-tbl-bg);
-  --bs-table-border-color: var(--bs-tbl-border-color);
-  --bs-table-striped-bg: var(--bs-tbl-striped-bg);
-  --bs-table-striped-color: var(--bs-tbl-striped-color);
-  --bs-table-active-bg: var(--bs-tbl-active-bg);
-  --bs-table-active-color: var(--bs-tbl-active-color);
-  --bs-table-hover-bg: var(--bs-tbl-hover-bg);
-  --bs-table-hover-color: var(--bs-tbl-hover-color);
-  color: var(--bs-tbl-color);
-}
 @media screen and (max-width: 640px) and (min-width: 642px) and (max-width: 800px) {
   body,
   html,

@@ -11,7 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            /* Adjust based on the height of your navbar */
             box-sizing: border-box;
         }
 
@@ -19,16 +18,30 @@
             margin-bottom: 0;
         }
 
+        [data-bs-theme='dark'] .nav-style {
+            background-color: #004d40;
+        }
+
+        [data-bs-theme='light'] .nav-style {
+            background-color: #6499db;
+        }
+
+        [data-bs-theme='dark'] .hero-section {
+            color: #597445;
+        }
+
+        [data-bs-theme='light'] .hero-section {
+            color: #77925f;
+        }
+
         .hero-section {
             background: url('assets/img/hero-bg.png') no-repeat center center/cover;
-            color: #597445;
             padding: 190px 0;
             height: 600px;
-
-            /* Adjust height as needed */
         }
 
         .hero-section form {
+            display: flex;
             align-items: center;
             justify-content: center;
         }
@@ -38,9 +51,14 @@
             height: auto;
         }
 
-        h2 {
+        [data-bs-theme='dark'] h2 {
             background-color: #008080;
             border-radius: 20px;
+        }
+
+        [data-bs-theme='light'] h2 {
+            background-color: #80d9d9;
+            border-radius: 15px;
         }
 
         .hero-section h1 {
@@ -73,7 +91,7 @@
     <?php include 'loader.php' ?>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#004d40;">
+    <nav class="navbar navbar-expand-lg sticky-top nav-style">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="assets/img/company.png" alt="Shop Name" width="35" height="35" class="logo"> LocalGoods-Tracker </a>
