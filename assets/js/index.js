@@ -20,8 +20,8 @@ $(document).ready(function () {
         if (!$(this).hasClass("col-sm-4")) {
           $(this).addClass("col-sm-4");
           $(this).addClass("me-2");
-          $(this).reomveClass("col-5");
-          $(this).reomveClass("me-4");
+          $(this).removeClass("col-5");
+          $(this).removeClass("me-4");
         }
       });
     }

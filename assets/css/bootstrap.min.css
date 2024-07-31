@@ -4640,8 +4640,8 @@ fieldset:disabled .btn {
   list-style: none;
 }
 .page-link {
-  position: relative;
-  display: block;
+  /* position: relative;
+  display: block; */
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
   color: var(--bs-pagination-color);

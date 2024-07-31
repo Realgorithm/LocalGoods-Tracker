@@ -21,7 +21,7 @@ include('db_connect.php');
                                 <th scope="col">Tagline</th>
                                 <th scope="col">Shop_url</th>
                                 <th scope="col">Db Name</th>
-                                <th></th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>

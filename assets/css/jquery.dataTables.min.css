@@ -480,7 +480,7 @@ table.dataTable td {
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.5em;
   margin-left: 2px;
   text-align: center;
   text-decoration: none !important;
@@ -685,5 +685,9 @@ table.dataTable td {
   }
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    position:sticky;
+    margin-left: 10px;
   }
 }

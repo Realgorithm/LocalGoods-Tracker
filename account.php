@@ -24,7 +24,7 @@ foreach ($user->fetch_array() as $k => $v) {
                                     <th scope="col">Cover image</th>
                                     <th scope="col">Tagline</th>
                                     <th scope="col">Shop_url</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
