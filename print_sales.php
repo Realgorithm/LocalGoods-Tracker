@@ -29,24 +29,32 @@ while ($row = $productQuery->fetch_assoc()) {
         table {
             border-collapse: collapse;
         }
+
         .wborder {
             border: 1px solid gray;
         }
+
         .bbottom {
             border-bottom: 1px solid black;
         }
-        td p, th p {
+
+        td p,
+        th p {
             margin: unset;
         }
+
         .text-center {
             text-align: center;
         }
+
         .text-right {
             text-align: right;
         }
+
         .clear {
             padding: 10px;
         }
+
         #uni_modal .modal-footer {
             display: none;
         }
@@ -63,7 +71,9 @@ while ($row = $productQuery->fetch_assoc()) {
                 <p><b>Receipt</b></p>
             </th>
         </tr>
-        <tr><td class="clear">&nbsp;</td></tr>
+        <tr>
+            <td class="clear">&nbsp;</td>
+        </tr>
         <tr>
             <td>
                 <table width="100%">
@@ -80,7 +90,9 @@ while ($row = $productQuery->fetch_assoc()) {
                 </table>
             </td>
         </tr>
-        <tr><td class="clear">&nbsp;</td></tr>
+        <tr>
+            <td class="clear">&nbsp;</td>
+        </tr>
         <tr>
             <table width="100%">
                 <tr>
@@ -89,7 +101,7 @@ while ($row = $productQuery->fetch_assoc()) {
                     <th class="wborder">Unit Price</th>
                     <th class="wborder">Amount</th>
                 </tr>
-                <?php while ($row = $inventoryQuery->fetch_assoc()): ?>
+                <?php while ($row = $inventoryQuery->fetch_assoc()) : ?>
                     <?php foreach (json_decode($row['other_details']) as $key => $value) $row[$key] = $value; ?>
                     <tr>
                         <td class="wborder text-center"><?php echo $row['qty'] ?></td>
@@ -115,7 +127,9 @@ while ($row = $productQuery->fetch_assoc()) {
                 </tr>
             </table>
         </tr>
-        <tr><td class="clear">&nbsp;</td></tr>
+        <tr>
+            <td class="clear">&nbsp;</td>
+        </tr>
         <tr>
             <th>
                 <p class="text-center"><i>This is not an official receipt.</i></p>
@@ -145,6 +159,8 @@ while ($row = $productQuery->fetch_assoc()) {
         printWindow.document.close();
         printWindow.focus();
         printWindow.print();
-        setTimeout(function() { printWindow.close(); }, 1500);
+        setTimeout(function() {
+            printWindow.close();
+        }, 1500);
     });
 </script>

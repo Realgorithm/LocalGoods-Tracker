@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-					<h4><b>User Info</b></h4>
+						<h4><b>User Info</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -80,7 +80,7 @@
 	$(document).ready(function() {
 		$('table').dataTable()
 	})
-	
+
 	$(document).on('click', '#new_user', function() {
 		uni_modal('New User', 'manage_user.php')
 

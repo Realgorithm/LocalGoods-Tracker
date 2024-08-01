@@ -17,10 +17,10 @@ while ($i == 1) {
 		$('table').dataTable()
 
 		$(document).on('click', 'img', function() {
-            var imgSrc = $(this).attr('src');
-            image_modal(imgSrc);
-        });
-		
+			var imgSrc = $(this).attr('src');
+			image_modal(imgSrc);
+		});
+
 		// Call updateProducts on page load
 		updateProducts('');
 
@@ -150,7 +150,7 @@ while ($i == 1) {
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-					<h4><b>Product List</b></h4>
+						<h4><b>Product List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -186,11 +186,11 @@ while ($i == 1) {
 													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['image'] ?>">Edit</button>
 													<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 												</td>
-											<?php else: ?>
+											<?php else : ?>
 												<td>
-												
+
 												</td>
-										 <?php endif; ?>
+											<?php endif; ?>
 
 										</tr>
 									<?php endwhile; ?>

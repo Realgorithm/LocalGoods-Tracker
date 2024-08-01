@@ -36,7 +36,7 @@
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-					<h4><b>Category List</b></h4>
+						<h4><b>Category List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">

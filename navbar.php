@@ -1,6 +1,11 @@
 <style>
-[data-bs-theme='dark'] .nav-style{background-color:#004d40} 
-[data-bs-theme='light'] .nav-style{background-color:#6499db}
+    [data-bs-theme='dark'] .nav-style {
+        background-color: #004d40
+    }
+
+    [data-bs-theme='light'] .nav-style {
+        background-color: #6499db
+    }
 </style>
 <nav class="navbar navbar-expand-lg sticky-top nav-style">
     <div class="container-fluid">
@@ -84,60 +89,60 @@
 
 <br>
 <script>
-	document.addEventListener('DOMContentLoaded', (event) => {
-		const htmlElement = document.documentElement;
-		const switchElement = document.getElementById('darkModeSwitch');
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const htmlElement = document.documentElement;
+        const switchElement = document.getElementById('darkModeSwitch');
 
-		// Set the default theme to dark if no setting is found in local storage
-		const currentTheme = localStorage.getItem('bsTheme') || 'dark';
-		htmlElement.setAttribute('data-bs-theme', currentTheme);
-		switchElement.checked = currentTheme === 'dark';
+        // Set the default theme to dark if no setting is found in local storage
+        const currentTheme = localStorage.getItem('bsTheme') || 'dark';
+        htmlElement.setAttribute('data-bs-theme', currentTheme);
+        switchElement.checked = currentTheme === 'dark';
 
-		switchElement.addEventListener('change', function() {
-			if (this.checked) {
-				htmlElement.setAttribute('data-bs-theme', 'dark');
-				localStorage.setItem('bsTheme', 'dark');
-			} else {
-				htmlElement.setAttribute('data-bs-theme', 'light');
-				localStorage.setItem('bsTheme', 'light');
-			}
-		});
-	});
+        switchElement.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('bsTheme', 'dark');
+            } else {
+                htmlElement.setAttribute('data-bs-theme', 'light');
+                localStorage.setItem('bsTheme', 'light');
+            }
+        });
+    });
 </script>
 
 <script>
-	$('.nav-<?php echo isset($_GET['page']) ? $_GET['page'] : '' ?>').addClass('active')
+    $('.nav-<?php echo isset($_GET['page']) ? $_GET['page'] : '' ?>').addClass('active')
 </script>
 <?php if ($_SESSION['login_type'] != 1) : ?>
-	<style>
-		.nav-link {
-			display: none !important;
-		}
+    <style>
+        .nav-link {
+            display: none !important;
+        }
 
-		.nav-sales,
-		.nav-dashboard,
-		.nav-logout,
-		.nav-inventory,
-		.nav-product {
-			display: block !important;
-		}
-	</style>
+        .nav-sales,
+        .nav-dashboard,
+        .nav-logout,
+        .nav-inventory,
+        .nav-product {
+            display: block !important;
+        }
+    </style>
 <?php endif ?>
 <?php if ($_SESSION['login_type'] == 3) : ?>
-	<style>
-		.nav-link {
-			display: none !important;
-		}
+    <style>
+        .nav-link {
+            display: none !important;
+        }
 
-		.dropdown {
-			display: none !important;
-		}
+        .dropdown {
+            display: none !important;
+        }
 
-		.nav-shops,
-		.nav-categories,
-		.nav-add-product,
-		.nav-admin-logout {
-			display: block !important;
-		}
-	</style>
+        .nav-shops,
+        .nav-categories,
+        .nav-add-product,
+        .nav-admin-logout {
+            display: block !important;
+        }
+    </style>
 <?php endif ?>

@@ -1,5 +1,5 @@
 <?php
-$shopDb='';
+$shopDb = '';
 
 function createShopDatabase($dbName)
 {
@@ -79,7 +79,7 @@ function createShopDatabase($dbName)
             password varchar(200) NOT NULL,
             type tinyint(1) NOT NULL DEFAULT 2 COMMENT '1=admin , 2 = cashier'
         )";
-        
+
         $conn->query($createCustomerTable);
         $conn->query($createExpensesTable);
         $conn->query($createInventoryTable);

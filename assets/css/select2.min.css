@@ -713,11 +713,17 @@
   border: 1px solid #555;
 }
 
-[data-bs-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__arrow {
+[data-bs-theme="dark"]
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
   border-left: 1px solid #555;
 }
 
-[data-bs-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__rendered {
+[data-bs-theme="dark"]
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
   color: #ffffff;
 }
 
@@ -727,7 +733,9 @@
   border: 1px solid #555;
 }
 
-[data-bs-theme="dark"] .select2-container--default .select2-results__option--highlighted[aria-selected] {
+[data-bs-theme="dark"]
+  .select2-container--default
+  .select2-results__option--highlighted[aria-selected] {
   background-color: #212529;
   color: #ffffff;
 }

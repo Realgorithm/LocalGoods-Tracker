@@ -2,10 +2,10 @@
 
 LocalGoods-Tracker is a web application with fully responsive designed to help you track and manage local goods inventory. This project provides a simple interface for managing your shop sales, profit, and many more.
 
-
 ## Project Description
 
 LocalGoods-Tracker allows users to:
+
 - Track total sales
 - Monitor total profit
 - inventory details
@@ -16,21 +16,22 @@ LocalGoods-Tracker allows users to:
 
 ![LocalGoods-Tracker](assets/uploads/localgoods-tracker.png)
 
-## Dark mode 
+## Dark mode
 
 ![LocalGoods-Tracker Dark](assets/uploads/dark.png)
 
-## Light mode 
+## Light mode
 
 ![LocalGoods-Tracker Light](assets/uploads/light.png)
 
-## Home Page 
+## Home Page
 
 ![LocalGoods-Tracker Light](assets/uploads/combined.png)
 
 ## Visit Our Website
 
 Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](http://shopac.free.nf)
+
 ## Prerequisites
 
 - [XAMPP](https://www.apachefriends.org/index.html) (A free and open-source cross-platform web server solution stack package)
@@ -40,6 +41,7 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
 ### Step 1: Install XAMPP
 
 1. **Download XAMPP:**
+
    - Go to the [XAMPP download page](https://www.apachefriends.org/index.html).
    - Download the version suitable for your operating system.
 
@@ -51,6 +53,7 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
 ### Step 2: Clone the Repository
 
 1. **Clone the Repository:**
+
    - Open a terminal or command prompt.
    - Navigate to the `htdocs` directory of your XAMPP installation. The default path is usually `C:\xampp\htdocs` on Windows.
    - Run the following command to clone the repository:
@@ -60,6 +63,7 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
      ```
 
 2. **Navigate to the Project Directory:**
+
    - After cloning, navigate to the project directory:
 
      ```bash
@@ -69,6 +73,7 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
 ### Step 3: Setup the Database
 
 1. **Create the Database:**
+
    - Open your web browser and go to [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
    - Click on the `New` button to create a new database.
    - Name the database `central_db`.
@@ -81,6 +86,7 @@ Check out the live version of LocalGoods-Tracker: [LocalGoods-Tracker Website](h
 ### Step 4: Configure the Application
 
 1. **Database Configuration:**
+
    - Open the `db_connect.php` file located in the root directory of the cloned repository.
    - Update the database connection settings with your local environment details (if different):
 

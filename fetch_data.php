@@ -52,8 +52,8 @@ if (isset($_POST['date_range'])) {
         $totalSales = $row['total_sales'];
         $totalActual = $row['total_actual'];
     }
-    if($totalExpense && $totalExpense ->num_rows >0){
-        $row = $totalExpense -> fetch_assoc();
+    if ($totalExpense && $totalExpense->num_rows > 0) {
+        $row = $totalExpense->fetch_assoc();
         $totalExpense = $row['total_expense'];
     }
     // Calculate profit

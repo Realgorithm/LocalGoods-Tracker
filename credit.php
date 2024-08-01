@@ -5,7 +5,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-					<h4><b>Udhaar List</b></h4>
+						<h4><b>Udhaar List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">

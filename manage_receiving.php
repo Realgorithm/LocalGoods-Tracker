@@ -231,10 +231,10 @@ if (isset($_GET['id'])) {
 	$(document).ready(function() {
 		$('[data-bs-toggle="popover"]').popover();
 		$(document).on('click', 'img', function() {
-            var imgSrc = $(this).attr('src');
-            image_modal(imgSrc);
-        });
-		
+			var imgSrc = $(this).attr('src');
+			image_modal(imgSrc);
+		});
+
 		$('.select2').select2({
 			placeholder: "Please select here",
 			width: "100%"

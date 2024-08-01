@@ -22,7 +22,8 @@
         /* display: inline-block;
   position: absolute; */
     }
-    [data-bs-theme="dark"] #preloader{
+
+    [data-bs-theme="dark"] #preloader {
         background: #212529;
         opacity: 0.5;
     }

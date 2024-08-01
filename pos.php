@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 								<select name="customer_id" id="" class="form-select select">
 									<?php if (!isset($_GET['id'])) : ?>
 										<option value="0" selected="">Guest</option>
-									<?php endif;
+										<?php endif;
 									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by name asc");
 									while ($row = $customer->fetch_assoc()) :
 										$cus_arr[$row['id']] = $row['name'];

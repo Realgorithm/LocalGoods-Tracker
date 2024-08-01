@@ -136,7 +136,7 @@ foreach ($user->fetch_array() as $k => $v) {
             }
         })
     })
-   $(document).ready(function() {
+    $(document).ready(function() {
         $(document).on('click', 'img', function() {
             var imgSrc = $(this).attr('src');
             image_modal(imgSrc);

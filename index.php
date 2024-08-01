@@ -18,18 +18,19 @@
   // include('./auth.php'); 
   ?>
   <style>
-        .modalImage {
-            max-width: 80%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .modal-dialog-centered {
-            display: flex;
-            align-items: center;
-            min-height: calc(100vh - 1rem);
-        }
-    </style>
+    .modalImage {
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .modal-dialog-centered {
+      display: flex;
+      align-items: center;
+      min-height: calc(100vh - 1rem);
+    }
+  </style>
 </head>
 
 <body>

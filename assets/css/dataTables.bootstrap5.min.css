@@ -262,7 +262,7 @@ table.dataTable tbody td.dt-body-nowrap {
  * ©2020 SpryMedia Ltd, all rights reserved.
  * License: MIT datatables.net/license/mit
  */
- table.dataTable {
+table.dataTable {
   clear: both;
   margin-top: 6px !important;
   margin-bottom: 6px !important;

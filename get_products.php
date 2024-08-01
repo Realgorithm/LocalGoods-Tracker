@@ -10,4 +10,3 @@ if (isset($_POST['category_id'])) {
         echo "<option value='{$row['name']}' data-img='{$img}'>{$row['name']}</option>";
     }
 }
-?>
