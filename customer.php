@@ -29,7 +29,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<button class="btn btn-sm btn-primary col-sm-4 offset-2 mb-2"> Save</button>
-									<button class="btn btn-sm btn-danger col-sm-4 mb-2" type="button" onclick="$('#manage-customer').get(0).reset()"> Cancel</button>
+									<button class="btn btn-sm btn-danger col-sm-4 mb-2" type="button" onclick="$('#manage-customer').trigger('reset');"> Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 								<tbody>
 									<?php
 									$i = 1;
-									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by id asc");
+									$customer = shopConn($dbName)->query("SELECT * FROM customers order by id asc");
 									while ($row = $customer->fetch_assoc()) :
 									?>
 										<tr>
@@ -85,60 +85,57 @@
 	</div>
 
 </div>
-<style>
-	td {
-		vertical-align: middle !important;
-	}
 
-	td p {
-		margin: unset;
-	}
-</style>
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
-	})
-	$('#manage-customer').submit(function(e) {
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=save_customer',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
-			method: 'POST',
-			type: 'POST',
-			success: function(resp) {
-				if (resp == 1) {
-					alert_toast("Data successfully added", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
 
-				} else if (resp == 2) {
-					alert_toast("Data successfully updated", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
+		$('#manage-customer').submit(function(e) {
+			e.preventDefault()
+			start_load()
+			$.ajax({
+				url: 'ajax.php?action=save_customer',
+				data: new FormData($(this)[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				method: 'POST',
+				type: 'POST',
+				success: function(resp) {
+					if (resp == 1) {
+						alert_toast("Data successfully added", 'success')
+						setTimeout(function() {
+							location.reload()
+						}, 1500)
 
+					} else if (resp == 2) {
+						alert_toast("Data successfully updated", 'success')
+						setTimeout(function() {
+							location.reload()
+						}, 1500)
+
+					}
 				}
-			}
-		})
-	})
-	$(document).on('click', '.edit_customer', function() {
-		start_load()
-		var cat = $('#manage-customer')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='contact']").val($(this).attr('data-contact'))
-		cat.find("[name='address']").val($(this).attr('data-address'))
-		end_load()
-	})
-	$(document).on('click', '.delete_customer', function() {
-		_conf("Are you sure to delete this customer?", "delete_customer", [$(this).attr('data-id')])
-	})
+			})
+		});
+
+		$(document).on('click', '.edit_customer', function() {
+			start_load()
+			var cat = $('#manage-customer')
+			cat.trigger('reset')
+				.find("[name='id']").val($(this).data('id')).end()
+				.find("[name='name']").val($(this).data('name')).end()
+				.find("[name='contact']").val($(this).data('contact')).end()
+				.find("[name='address']").val($(this).data('address')).end()
+			end_load()
+		});
+
+		$(document).on('click', '.delete_customer', function() {
+			_conf("Are you sure to delete this customer?", "delete_customer", [$(this).data('id')])
+		});
+
+	});
+
 
 	function delete_customer($id) {
 		start_load()

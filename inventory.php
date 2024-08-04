@@ -24,50 +24,58 @@
 								<?php
 								$i = 1;
 
-								$product = shop_conn($dbName)->query("SELECT * FROM product_list r order by name asc");
-								while ($row = $product->fetch_assoc()) :
-									$low_stock = false;
-									$out_of_stock = false;
-									$inn = shop_conn($dbName)->query("SELECT sum(qty) as inn FROM inventory where type = 1 and product_id = " . $row['id']);
-									$inn = $inn && $inn->num_rows > 0 ? $inn->fetch_array()['inn'] : 0;
-									$out = shop_conn($dbName)->query("SELECT sum(qty) as `out` FROM inventory where type = 2 and product_id = " . $row['id']);
-									$out = $out && $out->num_rows > 0 ? $out->fetch_array()['out'] : 0;
+								// Fetch all products
+								$productQuery = shopConn($dbName)->query("SELECT * FROM products ORDER BY name ASC");
+
+								// Fetch inventory data in one query
+								$inventoryQuery = shopConn($dbName)->query("SELECT product_id, SUM(CASE WHEN type = 1 THEN qty ELSE 0 END) AS inn, SUM(CASE WHEN type = 2 THEN qty ELSE 0 END) AS outt FROM inventory GROUP BY product_id ");
+
+								// Create an associative array for quick lookup
+								$inventoryData = [];
+								while ($row = $inventoryQuery->fetch_assoc()) {
+									$inventoryData[$row['product_id']] = $row;
+								}
+
+								while ($row = $productQuery->fetch_assoc()) :
+									$productId = $row['id'];
+									$inventory = $inventoryData[$productId] ?? ['inn' => 0, 'out' => 0];
+									$inn = $inventory['inn'];
+									$out = $inventory['outt'];
 									$available = $inn - $out;
 
+									// Determine stock status
+									$stockStatus = 'Good Stock';
+									$statusClass = 'btn-success';
+									$statusEmoji = '✅';
+
 									if ($available == 0) {
-										$out_of_stock = true;
-									}
-									if ($available <= 10 and $available != 0) {
-										$low_stock = true;
+										$stockStatus = 'Out of Stock';
+										$statusClass = 'btn-danger';
+										$statusEmoji = '🚨';
+									} elseif ($available <= 10) {
+										$stockStatus = 'Low Stock';
+										$statusClass = 'btn-warning';
+										$statusEmoji = '⚠️';
 									}
 								?>
 									<tr>
 										<td class="align-middle" scope="row"><?php echo $i++ ?></td>
-										<td style="width: 100px; height: 60px;" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Click to Preview"><img src="<?php echo $row['image'] != '' ?  $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
-										<td class="align-middle"><?php echo $row['name'] ?></td>
+										<td style="width: 100px; height: 60px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview">
+											<img src="<?php echo !empty($row['img_path']) ? 'assets/img/' . $row['img_path'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%">
+										</td>
+										<td class="align-middle"><?php echo htmlspecialchars($row['name']) ?></td>
 										<td class="align-middle"><?php echo $inn ?></td>
 										<td class="align-middle"><?php echo $out ?></td>
 										<td class="align-middle"><?php echo $available ?></td>
 										<td class="align-middle">
-											<?php if (isset($low_stock) and $low_stock) {
-												echo "<span class='btn btn-warning btn-sm rounded-circle mx-5 my-2'>
-												⚠️ <!-- Warning emoji --> Low Stock 
-											</span>";
-											} elseif (isset($out_of_stock) and $out_of_stock) {
-												echo "<span class='btn btn-danger btn-sm rounded-circle mx-5 my-2'>
-												🚨 <!-- Alert emoji -->  Out of Stock
-											</span>";
-											} else {
-												echo "<span class='btn btn-success btn-sm rounded-circle mx-5 my-2'>
-												✅ <!-- Success emoji -->   Good Stock
-											</span>";
-											}
-											?>
+											<span class="btn btn-sm rounded-circle mx-5 my-2 <?php echo $statusClass ?>">
+												<?php echo $statusEmoji ?> <!-- Emoji for stock status --> <?php echo $stockStatus ?>
+											</span>
 										</td>
-
 									</tr>
 								<?php endwhile; ?>
 							</tbody>
+
 						</table>
 					</div>
 				</div>
@@ -77,20 +85,11 @@
 	</div>
 </div>
 
-<style>
-	td {
-		vertical-align: middle !important;
-	}
-
-	td p {
-		margin: unset;
-	}
-</style>
-
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
-		$('[data-bs-toggle="popover"]').popover();
+
+		// $('[data-bs-toggle="popover"]').popover();
 		$(document).on('click', 'img', function() {
 			var imgSrc = $(this).attr('src');
 			image_modal(imgSrc);

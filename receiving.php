@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<div class="row">
 			<div class="col-md-12">
-				<button type="button" class="btn btn-outline-primary w-100" id="new_receiving"><i class="fa fa-plus"></i> New Receiving</button>
+				<button type="button" class="btn btn-outline-primary w-100" id="new_receiving"><i class="fa fa-plus"></i> New Purchase</button>
 			</div>
 		</div>
 		<br>
@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>Receiving</b></h4>
+						<h4><b>Purchases</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -27,17 +27,17 @@
 								</thead>
 								<tbody>
 									<?php
-									$supplier = shop_conn($dbName)->query("SELECT * FROM supplier_list order by supplier_name asc");
+									$supplier = shopConn($dbName)->query("SELECT * FROM suppliers order by name asc");
 									while ($row = $supplier->fetch_assoc()) :
-										$sup_arr[$row['id']] = $row['supplier_name'];
+										$sup_arr[$row['id']] = $row['name'];
 									endwhile;
 									$i = 1;
-									$receiving = shop_conn($dbName)->query("SELECT * FROM receiving_list r order by date(date_added) desc");
+									$receiving = shopConn($dbName)->query("SELECT * FROM receiving r order by date(date_updated) desc");
 									while ($row = $receiving->fetch_assoc()) :
 									?>
 										<tr>
 											<td scope="row"><?php echo $i++ ?></td>
-											<td><?php echo date("M d, Y", strtotime($row['date_added'])) ?></td>
+											<td><?php echo date("h:i A | d-M-Y", strtotime($row['date_updated'])) ?></td>
 											<td><?php echo $row['ref_no'] ?></td>
 											<td><?php echo isset($sup_arr[$row['supplier_id']]) ? $sup_arr[$row['supplier_id']] : 'N/A' ?></td>
 											<td scope="row">
@@ -66,7 +66,7 @@
 		location.href = "index.php?page=manage_receiving"
 	})
 	$(document).on('click', '.delete_receiving', function() {
-		_conf("Are you sure to delete this data?", "delete_receiving", [$(this).attr('data-id')])
+		_conf("Are you sure to delete this receiving data?", "delete_receiving", [$(this).data('id')])
 	})
 
 	function delete_receiving($id) {

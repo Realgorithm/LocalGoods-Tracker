@@ -3,7 +3,7 @@ include('db_connect.php');
 session_start();
 $dbName = $_SESSION['shop_db'];
 if (isset($_GET['id'])) {
-	$user = shop_conn($dbName)->query("SELECT * FROM users where id =" . $_GET['id']);
+	$user = shopConn($dbName)->query("SELECT * FROM users where id =" . $_GET['id']);
 	foreach ($user->fetch_array() as $k => $v) {
 		$meta[$k] = $v;
 	}
@@ -35,22 +35,30 @@ if (isset($_GET['id'])) {
 	</form>
 </div>
 <script>
-	$('#manage-user').submit(function(e) {
-		e.preventDefault();
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=save_user',
-			method: 'POST',
-			data: $(this).serialize(),
-			success: function(resp) {
-				//console.log(resp);
-				if (resp == 1) {
-					alert_toast("Data successfully saved", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
+	$(document).ready(function() {
+		$('#manage-user').submit(function(e) {
+			e.preventDefault();
+			start_load()
+			$.ajax({
+				url: 'ajax.php?action=save_user',
+				method: 'POST',
+				data: $(this).serialize(),
+				success: function(resp) {
+					//console.log(resp);
+					if (resp == 1) {
+						alert_toast("Data successfully saved", 'success')
+						setTimeout(function() {
+							location.reload()
+						}, 1500)
+					} else if (resp == 2) {
+						alert_toast("Data successfully updated", 'success')
+						setTimeout(function() {
+							location.reload()
+						}, 1500)
+
+					}
 				}
-			}
+			})
 		})
-	})
+	});
 </script>

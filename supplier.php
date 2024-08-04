@@ -9,7 +9,7 @@
 				<form action="" id="manage-supplier">
 					<div class="card">
 						<div class="card-header">
-							<h4>Supplier Form</h4>
+							<h5>Supplier Form</h5>
 						</div>
 						<div class="card-body">
 							<input type="hidden" name="id">
@@ -30,7 +30,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
-									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-supplier').get(0).reset()"> Cancel</button>
+									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-supplier').trigger('reset');"> Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -58,18 +58,18 @@
 								<tbody>
 									<?php
 									$i = 1;
-									$cats = shop_conn($dbName)->query("SELECT * FROM supplier_list order by id asc");
+									$cats = shopConn($dbName)->query("SELECT * FROM suppliers order by id asc");
 									while ($row = $cats->fetch_assoc()) :
 									?>
 										<tr>
 											<td scope="row"><?php echo $i++ ?></td>
 											<td>
-												<p>Name : <b><?php echo $row['supplier_name'] ?></b></p>
+												<p>Name : <b><?php echo $row['name'] ?></b></p>
 												<p><small>Contact : <b><?php echo $row['contact'] ?></b></small></p>
 												<p><small>Address : <b><?php echo $row['address'] ?></b></small></p>
 											</td>
 											<td>
-												<button class="btn btn-sm btn-primary edit_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-contact="<?php echo $row['contact'] ?>" data-address="<?php echo $row['address'] ?>">Edit</button>
+												<button class="btn btn-sm btn-primary edit_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-contact="<?php echo $row['contact'] ?>" data-address="<?php echo $row['address'] ?>">Edit</button>
 												<button class="btn btn-sm btn-danger delete_supplier mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 											</td>
 										</tr>
@@ -130,15 +130,15 @@
 	$(document).on('click', '.edit_supplier', function() {
 		start_load()
 		var cat = $('#manage-supplier')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='contact']").val($(this).attr('data-contact'))
-		cat.find("[name='address']").val($(this).attr('data-address'))
+		cat.trigger('reset')
+			.find("[name='id']").val($(this).data('id')).end()
+			.find("[name='name']").val($(this).data('name')).end()
+			.find("[name='contact']").val($(this).data('contact')).end()
+			.find("[name='address']").val($(this).data('address')).end()
 		end_load()
 	})
 	$(document).on('click', '.delete_supplier', function() {
-		_conf("Are you sure to delete this supplier?", "delete_supplier", [$(this).attr('data-id')])
+		_conf("Are you sure to delete this supplier?", "delete_supplier", [$(this).data('id')])
 	})
 
 	function delete_supplier($id) {

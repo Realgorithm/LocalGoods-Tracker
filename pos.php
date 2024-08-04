@@ -1,11 +1,11 @@
 <?php include 'db_connect.php';
 
 if (isset($_GET['id'])) {
-	$qry = shop_conn($dbName)->query("SELECT * FROM sales_list where id=" . $_GET['id'])->fetch_array();
+	$qry = shopConn($dbName)->query("SELECT * FROM sales where id=" . $_GET['id'])->fetch_array();
 	foreach ($qry as $k => $val) {
 		$$k = $val;
 	}
-	$inv = shop_conn($dbName)->query("SELECT * FROM inventory where type=2 and form_id=" . $_GET['id']);
+	$inv = shopConn($dbName)->query("SELECT * FROM inventory where type=2 and form_id=" . $_GET['id']);
 }
 
 ?>
@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 									<?php if (!isset($_GET['id'])) : ?>
 										<option value="0" selected="">Guest</option>
 										<?php endif;
-									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by name asc");
+									$customer = shopConn($dbName)->query("SELECT * FROM customers order by name asc");
 									while ($row = $customer->fetch_assoc()) :
 										$cus_arr[$row['id']] = $row['name'];
 										if (!isset($_GET['id'])) : ?>
@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
 									while ($row = $cat->fetch_assoc()) :
 										$cat_arr[$row['id']] = $row['name'];
 									endwhile;
-									$product = shop_conn($dbName)->query("SELECT * FROM product_list  order by name asc");
+									$product = shopConn($dbName)->query("SELECT * FROM products  order by name asc");
 									while ($row = $product->fetch_assoc()) :
 										$prod[$row['id']] = $row;
 									?>
@@ -96,7 +96,7 @@ if (isset($_GET['id'])) {
 												<th scope="col">M.R.P</th>
 												<th scope="col">Price</th>
 												<th scope="col">Amount</th>
-												<th scope="col"></th>
+												<th scope="col">Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -121,7 +121,9 @@ if (isset($_GET['id'])) {
 															<input type="hidden" min="1" step="any" name="price[]" value="<?php echo $row['price'] ?>" class="">
 															<p class=""><?php echo $row['price'] ?></p>
 														</td>
-														<input type="hidden" min="1" step="any" name="b_price[]" value="<?php echo $row['b_price'] ?>" class="">
+														<td hidden>
+															<input type="hidden" min="1" step="any" name="b_price[]" value="<?php echo $row['b_price'] ?>" hidden>
+														</td>
 
 														<td>
 															<input type="hidden" min="1" step="any" name="s_price[]" value="<?php echo $row['s_price'] ?>" class="">
@@ -131,7 +133,7 @@ if (isset($_GET['id'])) {
 															<p class="amount "></p>
 														</td>
 														<td scope="col">
-															<buttob class="btn btn-sm btn-danger" onclick="rem_list($(this))"><i class="fa fa-trash"></i></buttob>
+															<buttob class="btn btn-sm btn-danger rem-list"><i class="fa fa-trash"></i></buttob>
 														</td>
 													</tr>
 												<?php endwhile; ?>
@@ -180,13 +182,6 @@ if (isset($_GET['id'])) {
 									<input type="number" name="amount_tendered" value="" min="0" class="form-control" required>
 								</div>
 								<div class="mb-3">
-									<label for="" class="form-label">Payment mode</label>
-									<select name="paymode" id="" class="form-select" required>
-										<option value="1" selected>Cash or online</option>
-										<option value="2">Credit</option>
-									</select>
-								</div>
-								<div class="mb-3">
 									<label for="" class="form-label">Change</label>
 									<input type="number" name="change" value="0" min="0" class="form-control" readonly="">
 								</div>
@@ -214,7 +209,6 @@ if (isset($_GET['id'])) {
 			<td style="min-width: 80px;">
 				<input type="number" minlength="4" name="qty[]" value="" class=" form-control">
 			</td>
-			<input type="hidden" min="1" step="any" name="b_price[]" value="" class="" readonly="">
 			<td>
 				<input type="hidden" min="1" step="any" name="price[]" value="" class="" readonly="">
 				<p class="price ">0</p>
@@ -228,20 +222,15 @@ if (isset($_GET['id'])) {
 			<td scope="col">
 				<buttob class="btn btn-sm btn-danger" onclick="rem_list($(this))"><i class="fa fa-trash"></i></buttob>
 			</td>
+			<td hidden>
+				<input type="hidden" min="1" step="any" name="b_price[]" value="" class="" readonly="" hidden>
+			</td>
 		</tr>
 	</table>
 </div>
 <style type="text/css">
 	#tr_clone {
 		display: none;
-	}
-
-	td {
-		vertical-align: middle;
-	}
-
-	td p {
-		margin: unset;
 	}
 
 	td input[type='number'] {
@@ -257,153 +246,162 @@ if (isset($_GET['id'])) {
 	}
 </style>
 <script>
-	$('#pay').click(function() {
-		if ($("#list .item-row").length <= 0) {
-			alert_toast("Please insert atleast 1 item first.", 'danger');
-			end_load();
-			return false;
-		}
-		$('#pay_modal').modal('show')
-	})
 	$(document).ready(function() {
+
+		$('#pay').click(function() {
+			if ($("#list .item-row").length <= 0) {
+				alert_toast("Please insert atleast 1 item first.", 'danger');
+				end_load();
+				return false;
+			}
+			$('#pay_modal').modal('show')
+		});
+
 		$('.select').select2({
 			placeholder: "Please select here",
 			width: "100%"
-		})
+		});
+
 		if ('<?php echo isset($id) ?>' == 1) {
 			$('[name="supplier_id"]').val('<?php echo isset($supplier_id) ? $supplier_id : '' ?>').select2({
 				placeholder: "Please select here",
 				width: "100%"
-			})
-			calculate_total()
-		}
-	})
-
-	function rem_list(_this) {
-		_this.closest('tr').remove()
-	}
-	$('#add_list').click(function() {
-		// alert("TEST");
-		// return false;
-
-		var tr = $('#tr_clone tr.item-row').clone();
-		var product = $('#product').val(),
-			qty = $('#qty').val(),
-			s_price = $('#s_price').val();
-		if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
-			alert_toast("Product already on the list", 'danger')
-			return false;
+			});
+			calculate_total();
 		}
 
-		if (product == '' || qty == '') {
-			alert_toast("Please complete the fields first", 'danger')
-			return false;
-		}
-		$.ajax({
-			url: 'ajax.php?action=chk_prod_availability',
-			method: 'POST',
-			data: {
-				id: product
-			},
-			success: function(resp) {
-				resp = JSON.parse(resp);
-				if (resp.available >= qty) {
-					tr.attr('data-id', product)
-					tr.find('.pname b').html($("#product option[value='" + product + "']").attr('data-name'))
-					tr.find('.pdesc b').html($("#product option[value='" + product + "']").attr('data-description'))
-					tr.find('.price').html(resp.price)
-					tr.find('[name="product_id[]"]').val(product)
-					tr.find('[name="qty[]"]').val(qty)
-					tr.find('[name="price[]"]').val(resp.price)
-					tr.find('[name="s_price[]"]').val(s_price)
-					tr.find('[name="b_price[]"]').val(resp.b_price)
-					var amount = parseFloat(s_price) * parseFloat(qty);
-					tr.find('.amount').html(parseFloat(amount).toLocaleString('en-US', {
-						style: 'decimal',
-						maximumFractionDigits: 2,
-						minimumFractionDigits: 2
-					}))
-					if (parseFloat(s_price) <= parseFloat(resp.price) && parseFloat(s_price) >= parseFloat(resp.b_price)) {
-						$('#list tbody').append(tr)
-						calculate_total()
-						$('[name="qty[]"],[name="s_price[]"],[name="b_price[]"]').keyup(function() {
-							calculate_total()
-						})
-						$('#product').val('').select2({
-							placeholder: "Please select here",
-							width: "100%"
-						})
-						$('#qty').val('')
-						$('#s_price').val('')
-					} else {
-						alert_toast("You enter a wrong price.", 'danger')
-					}
-				} else {
-					alert_toast("Product quantity is greater than available stock.", 'danger')
-				}
+		$('#list').on('click', '.rem-list', function() {
+			rem_list($(this));
+		});
+
+		$('#add_list').click(function() {
+			var tr = $('#tr_clone tr.item-row').clone();
+			var product = $('#product').val();
+			var qty = $('#qty').val();
+			var s_price = $('#s_price').val();
+
+			if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
+				alert_toast("Product already on the list", 'danger')
+				return false;
 			}
+
+			if (!product || !qty) {
+				alert_toast("Please complete the fields first", 'danger')
+				return false;
+			}
+			$.ajax({
+				url: 'ajax.php?action=chk_prod_availability',
+				method: 'POST',
+				data: {
+					id: product
+				},
+				success: function(resp) {
+					resp = JSON.parse(resp);
+					if (resp.available >= qty) {
+						tr.attr('data-id', product)
+							.find('.pname b').text($("#product option[value='" + product + "']").data('name')).end()
+							.find('.pdesc b').text($("#product option[value='" + product + "']").data('description')).end()
+							.find('.price').text(resp.price).end()
+							.find('[name="product_id[]"]').val(product).end()
+							.find('[name="qty[]"]').val(qty).end()
+							.find('[name="price[]"]').val(resp.price).end()
+							.find('[name="s_price[]"]').val(s_price).end()
+							.find('[name="b_price[]"]').val(resp.b_price).end()
+
+						var amount = parseFloat(s_price) * parseFloat(qty);
+						tr.find('.amount').text(amount.toLocaleString('en-US', {
+							style: 'decimal',
+							maximumFractionDigits: 2,
+							minimumFractionDigits: 2
+						}));
+
+						if (parseFloat(s_price) <= parseFloat(resp.price) && parseFloat(s_price) >= parseFloat(resp.b_price)) {
+							$('#list tbody').append(tr)
+							calculate_total();
+
+							$('[name="qty[]"],[name="s_price[]"],[name="b_price[]"]').on('keyup', calculate_total);
+
+							$('#product').val('').select2({
+								placeholder: "Please select here",
+								width: "100%"
+							});
+							$('#qty').val('')
+							$('#s_price').val('')
+						} else {
+							alert_toast("You enter a wrong price.", 'danger')
+						}
+					} else {
+						alert_toast("Product quantity is greater than available stock.", 'danger')
+					}
+				}
+			});
+
+		});
+
+		$('[name="amount_tendered"]').keyup(function() {
+			var tendered = $(this).val();
+			var tamount = $('[name="tamount"]').val();
+			$('[name="change"]').val(parseFloat(tendered) - parseFloat(tamount))
+
+		})
+		$('#manage-sales').submit(function(e) {
+			e.preventDefault()
+			start_load()
+			if ($("#list .item-row").length <= 0) {
+				alert_toast("Please insert atleast 1 item first.", 'danger');
+				end_load();
+				return false;
+			}
+			$.ajax({
+				url: 'ajax.php?action=save_sales',
+				method: 'POST',
+				data: $(this).serialize(),
+				success: function(resp) {
+					console.log(resp)
+					if (resp > 0) {
+						end_load()
+						alert_toast("Data successfully submitted", 'success')
+						uni_modal('Print', "print_sales.php?id=" + resp)
+						$('#uni_modal').modal({
+							backdrop: 'static',
+							keyboard: false
+						})
+
+					}
+
+				}
+			})
 		})
 
-	})
+	});
+
+	function rem_list(element) {
+		element.closest('tr').remove();
+		calculate_total();
+	};
 
 	function calculate_total() {
 
 		var total = 0;
 		var actual = 0;
-		$('#list tbody').find('.item-row').each(function() {
-			var _this = $(this).closest('tr')
+		$('#list tbody .item-row').each(function() {
+			const _this = $(this).closest('tr')
 			var amount = parseFloat(_this.find('[name="qty[]"]').val()) * parseFloat(_this.find('[name="s_price[]"]').val());
 			var aAmount = parseFloat(_this.find('[name="qty[]"]').val()) * parseFloat(_this.find('[name="b_price[]"]').val());
-			amount = amount > 0 ? amount : 0;
-			aAmount = aAmount > 0 ? aAmount : 0;
-			_this.find('p.amount').html(parseFloat(amount).toLocaleString('en-US', {
+			_this.find('p.amount').text(amount.toLocaleString('en-US', {
 				style: 'decimal',
 				maximumFractionDigits: 2,
 				minimumFractionDigits: 2
 			}))
-			total += parseFloat(amount);
-			actual += parseFloat(aAmount);
+			total += amount;
+			actual += aAmount;
 		})
 		$('[name="tamount"]').val(total)
 		$('[name="aamount"]').val(actual)
-		$('#list .tamount').html(parseFloat(total).toLocaleString('en-US', {
+		$('#list .tamount').text(total.toLocaleString('en-US', {
 			style: 'decimal',
 			maximumFractionDigits: 2,
 			minimumFractionDigits: 2
-		}))
-	}
-	$('[name="amount_tendered"]').keyup(function() {
-		var tendered = $(this).val();
-		var tamount = $('[name="tamount"]').val();
-		$('[name="change"]').val(parseFloat(tendered) - parseFloat(tamount))
-
-	})
-	$('#manage-sales').submit(function(e) {
-		e.preventDefault()
-		start_load()
-		if ($("#list .item-row").length <= 0) {
-			alert_toast("Please insert atleast 1 item first.", 'danger');
-			end_load();
-			return false;
-		}
-		$.ajax({
-			url: 'ajax.php?action=save_sales',
-			method: 'POST',
-			data: $(this).serialize(),
-			success: function(resp) {
-				//console.log(resp)
-				if (resp > 0) {
-					end_load()
-					alert_toast("Data successfully submitted", 'success')
-					uni_modal('Print', "print_sales.php?id=" + resp)
-					$('#uni_modal').modal({
-						backdrop: 'static',
-						keyboard: false
-					})
-
-				}
-
-			}
-		})
-	})
+		}));
+	};
 </script>

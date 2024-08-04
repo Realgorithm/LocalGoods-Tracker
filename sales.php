@@ -25,19 +25,19 @@
 								</thead>
 								<tbody>
 									<?php
-									$customer = shop_conn($dbName)->query("SELECT * FROM customer_list order by name asc");
+									$customer = shopConn($dbName)->query("SELECT * FROM customers order by name asc");
 									while ($row = $customer->fetch_assoc()) :
 										$cus_arr[$row['id']] = $row['name'];
 									endwhile;
 									$cus_arr[0] = "GUEST";
 
 									$i = 1;
-									$sales = shop_conn($dbName)->query("SELECT * FROM sales_list  order by date(date_updated) desc");
+									$sales = shopConn($dbName)->query("SELECT * FROM sales  order by date(date_updated) desc");
 									while ($row = $sales->fetch_assoc()) :
 									?>
 										<tr>
 											<td scope="row"><?php echo $i++ ?></td>
-											<td><?php echo date("M d, Y", strtotime($row['date_updated'])) ?></td>
+											<td><?php echo date("h:i A | d-M-Y", strtotime($row['date_updated'])) ?></td>
 											<td><?php echo $row['ref_no'] ?></td>
 											<td><?php echo isset($cus_arr[$row['customer_id']]) ? $cus_arr[$row['customer_id']] : 'N/A' ?></td>
 											<td>
@@ -66,7 +66,7 @@
 		location.href = "index.php?page=pos"
 	})
 	$(document).on('click', '.delete_sales', function() {
-		_conf("Are you sure to delete this data?", "delete_sales", [$(this).attr('data-id')])
+		_conf("Are you sure to delete this sales data?", "delete_sales", [$(this).attr('data-id')])
 	})
 
 	function delete_sales($id) {

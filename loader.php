@@ -19,8 +19,6 @@
         width: 40px;
         height: 40px;
         border-radius: 24px;
-        /* display: inline-block;
-  position: absolute; */
     }
 
     [data-bs-theme="dark"] #preloader {

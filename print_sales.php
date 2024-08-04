@@ -5,20 +5,20 @@ $dbName = $_SESSION['shop_db'];
 
 if (isset($_GET['id'])) {
     $salesId = $_GET['id'];
-    $salesQuery = shop_conn($dbName)->query("SELECT * FROM sales_list WHERE id=$salesId")->fetch_array();
+    $salesQuery = shopConn($dbName)->query("SELECT * FROM sales WHERE id=$salesId")->fetch_array();
     foreach ($salesQuery as $key => $value) {
         $$key = $value;
     }
-    $inventoryQuery = shop_conn($dbName)->query("SELECT * FROM inventory WHERE type=2 AND form_id=$salesId");
+    $inventoryQuery = shopConn($dbName)->query("SELECT * FROM inventory WHERE type=2 AND form_id=$salesId");
     if ($customer_id > 0) {
-        $customerQuery = shop_conn($dbName)->query("SELECT name FROM customer_list WHERE id=$customer_id");
+        $customerQuery = shopConn($dbName)->query("SELECT name FROM customers WHERE id=$customer_id");
         $cname = $customerQuery->num_rows > 0 ? $customerQuery->fetch_array()['name'] : "Guest";
     } else {
         $cname = "Guest";
     }
 }
 
-$productQuery = shop_conn($dbName)->query("SELECT * FROM product_list ORDER BY name ASC");
+$productQuery = shopConn($dbName)->query("SELECT * FROM products ORDER BY name ASC");
 $products = [];
 while ($row = $productQuery->fetch_assoc()) {
     $products[$row['id']] = $row;

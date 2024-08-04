@@ -1,160 +1,104 @@
 <?php
 ob_start();
-$action = $_GET['action'];
+$action = $_GET['action'] ?? ''; // Ensure $action is set and not undefined
 include 'admin_class.php';
 $crud = new Action();
 
-if ($action == 'signup') {
-	$signup = $crud->signup();
-	if ($signup)
-		echo $signup;
-}
-if ($action == 'login') {
-	$login = $crud->login();
-	if ($login)
-		echo $login;
-}
-if ($action == 'admin_login') {
-	$admin_login = $crud->admin_login();
-	if ($admin_login)
-		echo $admin_login;
-}
-if ($action == 'login2') {
-	$login = $crud->login2();
-	if ($login)
-		echo $login;
-}
-if ($action == 'logout') {
-	$logout = $crud->logout();
-	if ($logout)
-		echo $logout;
-}
-if ($action == 'admin_logout') {
-	$admin_logout = $crud->admin_logout();
-	if ($admin_logout)
-		echo $admin_logout;
-}
-if ($action == 'logout2') {
-	$logout = $crud->logout2();
-	if ($logout)
-		echo $logout;
-}
-if ($action == 'save_user') {
-	$save = $crud->save_user();
-	if ($save)
-		echo $save;
-}
-if ($action == 'delete_user') {
-	$save = $crud->delete_user();
-	if ($save)
-		echo $save;
-}
-if ($action == 'signup') {
-	$save = $crud->signup();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_settings") {
-	$save = $crud->save_settings();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_category") {
-	$save = $crud->save_category();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_category") {
-	$save = $crud->delete_category();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_expenses") {
-	$save = $crud->save_expenses();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_expenses") {
-	$save = $crud->delete_expenses();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_supplier") {
-	$save = $crud->save_supplier();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_supplier") {
-	$save = $crud->delete_supplier();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_product") {
-	$save = $crud->save_product();
-	if ($save)
-		echo $save;
-}
-if ($action == "add_product") {
-	$save = $crud->add_product();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_product") {
-	$save = $crud->delete_product();
-	if ($save)
-		echo $save;
-}
-if ($action == "remove_product") {
-	$save = $crud->remove_product();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_receiving") {
-	$save = $crud->save_receiving();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_receiving") {
-	$save = $crud->delete_receiving();
-	if ($save)
-		echo $save;
-}
-if ($action == "save_customer") {
-	$save = $crud->save_customer();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_customer") {
-	$save = $crud->delete_customer();
-	if ($save)
-		echo $save;
+$response = null;
+
+switch ($action) {
+    case 'signup':
+        $response = $crud->signup();
+        break;
+    case 'login':
+        $response = $crud->login();
+        break;
+    case 'admin_login':
+        $response = $crud->admin_login();
+        break;
+    case 'login2':
+        $response = $crud->login2();
+        break;
+    case 'logout':
+        $response = $crud->logout();
+        break;
+    case 'admin_logout':
+        $response = $crud->admin_logout();
+        break;
+    case 'logout2':
+        $response = $crud->logout2();
+        break;
+    case 'save_user':
+        $response = $crud->save_user();
+        break;
+    case 'delete_user':
+        $response = $crud->delete_user();
+        break;
+    case 'save_settings':
+        $response = $crud->save_settings();
+        break;
+    case 'save_category':
+        $response = $crud->save_category();
+        break;
+    case 'delete_category':
+        $response = $crud->delete_category();
+        break;
+    case 'save_expenses':
+        $response = $crud->save_expenses();
+        break;
+    case 'delete_expenses':
+        $response = $crud->delete_expenses();
+        break;
+    case 'save_supplier':
+        $response = $crud->save_supplier();
+        break;
+    case 'delete_supplier':
+        $response = $crud->delete_supplier();
+        break;
+    case 'save_product':
+        $response = $crud->save_product();
+        break;
+    case 'add_product':
+        $response = $crud->add_product();
+        break;
+    case 'delete_product':
+        $response = $crud->delete_product();
+        break;
+    case 'remove_product':
+        $response = $crud->remove_product();
+        break;
+    case 'save_receiving':
+        $response = $crud->save_receiving();
+        break;
+    case 'delete_receiving':
+        $response = $crud->delete_receiving();
+        break;
+    case 'save_customer':
+        $response = $crud->save_customer();
+        break;
+    case 'delete_customer':
+        $response = $crud->delete_customer();
+        break;
+    case 'chk_prod_availability':
+        $response = $crud->chk_prod_availability();
+        break;
+    case 'save_sales':
+        $response = $crud->save_sales();
+        break;
+    case 'delete_sales':
+        $response = $crud->delete_sales();
+        break;
+    case 'delete_shop':
+        $response = $crud->delete_shop();
+        break;
+    case 'save_credit':
+        $response = $crud->save_credit();
+        break;
+    default:
+        echo "Invalid action.";
+        break;
 }
 
-if ($action == "chk_prod_availability") {
-	$save = $crud->chk_prod_availability();
-	if ($save)
-		echo $save;
-}
-
-if ($action == "save_sales") {
-	$save = $crud->save_sales();
-	if ($save)
-		echo $save;
-}
-
-if ($action == "delete_sales") {
-	$save = $crud->delete_sales();
-	if ($save)
-		echo $save;
-}
-if ($action == "delete_shop") {
-	$save = $crud->delete_shop();
-	if ($save)
-		echo $save;
-}
-
-if ($action == "save_credit") {
-	$save = $crud->save_credit();
-	if ($save)
-		echo $save;
+if ($response !== null) {
+    echo $response;
 }

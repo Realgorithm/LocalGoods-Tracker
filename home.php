@@ -125,6 +125,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container-fluid">
 
         <!-- Hero Section -->
@@ -272,13 +273,14 @@
     </div>
 </body>
 <script>
-    $('#already-user').submit(function(e) {
-        e.preventDefault()
-        var shop_url = $('#shop_url').val();
-        location.href = 'login.php?shop_url=' + shop_url;
-
-    })
     $(document).ready(function() {
+
+        $('#already-user').submit(function(e) {
+            e.preventDefault()
+            var shop_url = $('#shop_url').val();
+            location.href = 'login.php?shop_url=' + shop_url;
+
+        })
         // Smooth scrolling
         $('a.nav-link').on('click', function(event) {
             console.log(this.hash); // Corrected logging statement

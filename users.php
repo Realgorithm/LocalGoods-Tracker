@@ -28,7 +28,7 @@
 								<tbody>
 									<?php
 									include 'db_connect.php';
-									$users = shop_conn($dbName)->query("SELECT * FROM users order by name asc");
+									$users = shopConn($dbName)->query("SELECT * FROM users order by name asc");
 									$i = 1;
 									while ($row = $users->fetch_assoc()) :
 									?>
@@ -86,10 +86,10 @@
 
 	})
 	$(document).on('click', '.edit_user', function() {
-		uni_modal('Edit User', 'manage_user.php?id=' + $(this).attr('data-id'))
+		uni_modal('Edit User', 'manage_user.php?id=' + $(this).data('id'))
 	})
 	$(document).on('click', '.delete_user', function() {
-		_conf("Are you sure to delete this user?", "delete_user", [$(this).attr('data-id')])
+		_conf("Are you sure to delete this user?", "delete_user", [$(this).data('id')])
 	})
 
 	function delete_user($id) {

@@ -739,3 +739,15 @@
   background-color: #212529;
   color: #ffffff;
 }
+
+[data-bs-theme="dark"]
+  .select2-container--default
+  .select2-results__option--selected {
+  background-color: #000000;
+}
+[data-bs-theme="dark"]
+  .select2-container--default
+  .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: #040a44;
+  color: white;
+}

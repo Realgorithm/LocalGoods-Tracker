@@ -16,14 +16,12 @@
 								<label class="form-label">Category</label>
 								<input type="text" class="form-control" name="name" required>
 							</div>
-
 						</div>
-
 						<div class="card-footer">
 							<div class="row">
 								<div class="col-md-12">
-									<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
-									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-category').get(0).reset()"> Cancel</button>
+									<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2">Save</button>
+									<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-category').trigger('reset');">Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -52,14 +50,12 @@
 									<?php
 									$i = 1;
 									$conn->select_db('central_db');
-									$cats = $conn->query("SELECT * FROM category_list order by id asc");
+									$cats = $conn->query("SELECT * FROM category_list ORDER BY name ASC");
 									while ($row = $cats->fetch_assoc()) :
 									?>
 										<tr>
 											<td scope="row"><?php echo $i++ ?></td>
-											<td class="">
-												<?php echo $row['name'] ?>
-											</td>
+											<td><?php echo $row['name'] ?></td>
 											<td>
 												<button class="btn btn-sm btn-primary edit_cat mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>">Edit</button>
 												<button class="btn btn-sm btn-danger delete_cat mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
@@ -76,74 +72,66 @@
 			<!-- Table Panel -->
 		</div>
 	</div>
-
 </div>
-<style>
-	td {
-		vertical-align: middle !important;
-	}
-</style>
+
 <script>
-	$('#manage-category').submit(function(e) {
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=save_category',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
-			method: 'POST',
-			type: 'POST',
-			success: function(resp) {
-				if (resp == 1) {
-					alert_toast("Data successfully added", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
-
-				} else if (resp == 2) {
-					alert_toast("Data successfully updated", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
-
-				}
-			}
-		})
-	})
 	$(document).ready(function() {
-		$('table').dataTable()
-	})
-	$(document).on('click', '.edit_cat', function() {
-		start_load()
-		var cat = $('#manage-category')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		end_load()
-	})
-	$(document).on('click', '.delete_cat', function() {
-		_conf("Are you sure to delete this category?", "delete_cat", [$(this).attr('data-id')])
-	})
+		// Initialize DataTables plugin
+		$('table').dataTable();
 
-	function delete_cat($id) {
-		start_load()
+		// Handle category form submission
+		$('#manage-category').submit(function(e) {
+			e.preventDefault();
+			start_load();
+			$.ajax({
+				url: 'ajax.php?action=save_category',
+				data: new FormData(this),
+				cache: false,
+				contentType: false,
+				processData: false,
+				method: 'POST',
+				success: function(resp) {
+					alert_toast(resp == 1 ? "Data successfully added" : "Data successfully updated", 'success');
+					setTimeout(function() {
+						location.reload();
+					}, 1500);
+				}
+			});
+		});
+
+		// Handle edit button click
+		$(document).on('click', '.edit_cat', function() {
+			start_load();
+			var cat = $('#manage-category');
+			cat.trigger('reset');
+			cat.find("[name='id']").val($(this).data('id'));
+			cat.find("[name='name']").val($(this).data('name'));
+			end_load();
+		});
+
+		// Handle delete button click
+		$(document).on('click', '.delete_cat', function() {
+			_conf("Are you sure to delete this category?", "delete_cat", [$(this).data('id')]);
+		});
+	});
+
+	// Function to delete category
+	function delete_cat(id) {
+		start_load();
 		$.ajax({
 			url: 'ajax.php?action=delete_category',
 			method: 'POST',
 			data: {
-				id: $id
+				id: id
 			},
 			success: function(resp) {
 				if (resp == 1) {
-					alert_toast("Data successfully deleted", 'success')
+					alert_toast("Data successfully deleted", 'success');
 					setTimeout(function() {
-						location.reload()
-					}, 1500)
-
+						location.reload();
+					}, 1500);
 				}
 			}
-		})
+		});
 	}
 </script>

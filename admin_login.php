@@ -26,7 +26,7 @@
                 <h4 class="company_title">LocalGoods-Tracker</h4>
                 <h5>Goods Manager</h5>
             </div>
-            <div class="col-md-8 col-sm-8 col-12 login_form ">
+            <div class="col-md-8 col-sm-8 col-12 login_form d-flex flex-column justify-content-between">
                 <h2>Log In</h2>
                 <form control="" class="form-group" id="admin-login-form">
                     <div class="row">
@@ -37,7 +37,7 @@
                         <input type="password" name="password" id="password" class="form__input" placeholder="Password" required>
                     </div>
                     <div class="row justify-content-center">
-                        <button class="btn btn_login">Login</button>
+                        <button class="btn btn_login">Log In</button>
                     </div>
                 </form>
             </div>
@@ -53,33 +53,43 @@
 
 </body>
 <script>
-    $('#admin-login-form').submit(function(e) {
-        e.preventDefault()
-        $('#admin-login-form button[class="btn_login"]').attr('disabled', true).html('Logging in...');
-        if ($(this).find('.alert-danger').length > 0)
-            $(this).find('.alert-danger').remove();
-        $.ajax({
-            url: 'ajax.php?action=admin_login',
-            method: 'POST',
-            data: $(this).serialize(),
-            error: err => {
-                //console.log(err)
-                $('#admin-login-form button[class="btn_login"]').removeAttr('disabled').html('Login');
+    $(document).ready(function() {
+        $('#admin-login-form').submit(function(e) {
+            e.preventDefault()
+            // Disable the login button and change its text
+            const $loginButton = $('#admin-login-form button.btn_login');
+            $loginButton.attr('disabled', true).text('Logging in...');
 
-            },
-            success: function(resp) {
-                console.log(resp);
-                if (resp == 1) {
-                    location.href = 'index.php?page=shops';
-                } else if (resp == 2) {
-                    location.href = 'error.html';
-                } else {
-                    $('#admin-login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
-                    $('#admin-login-form button[class="btn_login"]').removeAttr('disabled').html('Login');
+            // Clear any previous error messages
+            $('#login-form .alert-danger').remove();
+
+            $.ajax({
+                url: 'ajax.php?action=admin_login',
+                method: 'POST',
+                data: $(this).serialize(),
+                error: err => {
+                    // Handle errors
+                    console.error('Login error:', err);
+                    $('#admin-login-form').prepend('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+
+                },
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp == 1) {
+                        location.href = 'index.php?page=shops';
+                    } else if (resp == 2) {
+                        location.href = 'error.html';
+                    } else {
+                        $('#admin-login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>');
+                    }
+                },
+                complete: function() {
+                    // Re-enable the login button and reset its text
+                    $loginButton.removeAttr('disabled').text('Log In');
                 }
-            }
+            })
         })
-    })
+    });
 </script>
 
 </html>

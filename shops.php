@@ -35,7 +35,7 @@ include('db_connect.php');
                                         <td><?php echo isset($meta['shop_name']) ? $meta['shop_name'] : '' ?></td>
                                         <td><?php echo isset($meta['email']) ? $meta['email'] : '' ?></td>
                                         <td><?php echo isset($meta['contact']) ? $meta['contact'] : '' ?></td>
-                                        <td style="width: 150px; height: 100px;"><img src="<?php echo $meta['cover_img'] != '' ? 'assets/img/' . $meta['cover_img'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
+                                        <td style="width: 150px; height: 100px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview"><img src="<?php echo $meta['cover_img'] != '' ? 'assets/img/' . $meta['cover_img'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
                                         <td><?php echo isset($meta['shop_tagline']) ? $meta['shop_tagline'] : '' ?></td>
                                         <td><?php echo isset($meta['shop_url']) ? $meta['shop_url'] : '' ?></td>
                                         <td><?php echo isset($meta['db_name']) ? $meta['db_name'] : '' ?></td>
@@ -69,13 +69,14 @@ include('db_connect.php');
 <script>
     $(document).ready(function() {
         $('table').dataTable()
+
         $(document).on('click', 'img', function() {
             var imgSrc = $(this).attr('src');
             image_modal(imgSrc);
         });
     })
     $(document).on('click', '.delete_shop', function() {
-        _conf("Are you sure to delete this data?", "delete_shop", [$(this).attr('data-id')])
+        _conf("Are you sure to delete this shop data?", "delete_shop", [$(this).data('id')])
     })
 
     function delete_shop($id) {

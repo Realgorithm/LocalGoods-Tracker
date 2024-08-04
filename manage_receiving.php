@@ -2,20 +2,20 @@
 // session_start();
 // $dbName = $_SESSION['shop_db'];
 if (isset($_GET['id'])) {
-	$qry = shop_conn($dbName)->query("SELECT * FROM receiving_list where id=" . $_GET['id'])->fetch_array();
+	$qry = shopConn($dbName)->query("SELECT * FROM receiving where id=" . $_GET['id'])->fetch_array();
 	foreach ($qry as $k => $val) {
 		$$k = $val;
 	}
-	$inv = shop_conn($dbName)->query("SELECT * FROM inventory where type=1 and form_id=" . $_GET['id']);
+	$inv = shopConn($dbName)->query("SELECT * FROM inventory where type=1 and form_id=" . $_GET['id']);
 }
 
 ?>
 <div class="container-fluid">
 	<div class="col-lg-12">
-		<form action="" id="manage-receiving">
+		<form action="" id="manage-receiving" method="POST" enctype="multipart/form-data">
 			<div class="card">
 				<div class="card-header">
-					<h4>Manage Receiving</h4>
+					<h4>Manage Purchase</h4>
 				</div>
 				<div class="card-body">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
@@ -26,12 +26,12 @@ if (isset($_GET['id'])) {
 								<label class="form-label">Supplier</label>
 								<select name="supplier_id" id="" class="form-select browser-default select2">
 									<?php
-									$supplier = shop_conn($dbName)->query("SELECT * FROM supplier_list order by supplier_name asc");
+									$supplier = shopConn($dbName)->query("SELECT * FROM suppliers order by name asc");
 									while ($row = $supplier->fetch_assoc()) :
-										$cus_arr[$row['id']] = $row['supplier_name'];
+										$cus_arr[$row['id']] = $row['name'];
 										if (!isset($_GET['id'])) : ?>
 											<option value="" selected=""></option>
-											<option value="<?php echo $row['id'] ?>"><?php echo $row['supplier_name'] ?></option>
+											<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
 									<?php
 										endif;
 									endwhile; ?>
@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
 						<div class="row mb-3">
 							<div class="col-md-2">
 								<label class="form-label">Product</label>
-								<select name="" id="product" class="form-select browser-default select2">
+								<select name="" id="product" class="form-select select2">
 									<option value=""></option>
 									<?php
 									$conn->select_db('central_db');
@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
 									while ($row = $cat->fetch_assoc()) :
 										$cat_arr[$row['id']] = $row['name'];
 									endwhile;
-									$product = shop_conn($dbName)->query("SELECT * FROM product_list  order by name asc");
+									$product = shopConn($dbName)->query("SELECT * FROM products order by name asc");
 									while ($row = $product->fetch_assoc()) :
 										$prod[$row['id']] = $row;
 
@@ -84,11 +84,11 @@ if (isset($_GET['id'])) {
 							<?php if (!isset($_GET['id'])) : ?>
 								<div class="col-md-2 save_image">
 									<label for="img" class="form-label" style=" text-align:left">Shop Image</label>
-									<input type="file" name="img" id="img" class="form-control">
+									<input type="file" name="img" id="img" class="form-control" accept=".jpg, .jpeg, .png, .gif">
 								</div>
 							<?php else : ?>
-								<div class="col-md-2 edit_image" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Click to Preview">
-									<img id="recieving_img" name="recieving_img" src="<?php echo $image != '' ? 'assets/img/' . $image : 'assets/img/1600398180_no-image-available.png' ?>" alt="Bill Image" style="width: 150px; height: 100px;">
+								<div class="col-md-2 edit_image" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview">
+									<img id="recieving_img" name="recieving_img" src="<?php echo $img_path != '' ? 'assets/img/' . $img_path : 'assets/img/1600398180_no-image-available.png' ?>" alt="Bill Image" style="width: 150px; height: 100px;">
 								</div>
 							<?php endif; ?>
 
@@ -127,6 +127,7 @@ if (isset($_GET['id'])) {
 														<td>
 															<input type="hidden" name="inv_id[]" value="<?php echo $row['id'] ?>">
 															<input type="hidden" name="product_id[]" value="<?php echo $row['product_id'] ?>">
+															<input type="hidden" name="s_price[]" value="<?php echo isset($row['s_price']) ? $row['s_price'] : '' ?>">
 															<p class="pname">Name: <b><?php echo $prod[$row['product_id']]['name'] ?></b></p>
 															<p class="pdesc"><small><i>Description: <b><?php echo $prod[$row['product_id']]['description'] ?></b></i></small></p>
 														</td>
@@ -143,7 +144,7 @@ if (isset($_GET['id'])) {
 															<p class="amount "></p>
 														</td>
 														<td scope="col">
-															<buttob class="btn btn-sm btn-danger" onclick="rem_list($(this))"><i class="fa fa-trash"></i></buttob>
+															<buttob class="btn btn-sm btn-danger rem-list"><i class="fa fa-trash"></i></buttob>
 														</td>
 													</tr>
 												<?php endwhile; ?>
@@ -152,8 +153,8 @@ if (isset($_GET['id'])) {
 										<tfoot>
 											<tr>
 												<th colspan="3">Total</th>
-												<th class=" tamount"></th>
-												<th><input type="hidden" name="tamount" value=""></th>
+												<th><input type="hidden" name="total_amount" value=""></th>
+												<th class=" total_amount"></th>
 												<th></th>
 											</tr>
 										</tfoot>
@@ -176,43 +177,38 @@ if (isset($_GET['id'])) {
 </div>
 <div id="tr_clone">
 	<table>
-		<tr class="item-row">
-			<td>
-				<input type="hidden" name="inv_id[]" value="">
-				<input type="hidden" name="product_id[]" value="">
-				<p class="pname">Name: <b>product</b></p>
-				<p class="pdesc"><small><i>Description: <b>Description</b></i></small></p>
-			</td>
-			<td style="min-width: 80px;">
-				<input type="number" min="1" step="any" name="qty[]" value="" class="">
-			</td>
-			<td>
-				<input type="number" min="1" step="any" name="price[]" value="" class="">
-			</td>
-			<td>
-				<input type="number" min="1" step="any" name="b_price[]" value="" class="">
-			</td>
-			<td>
-				<p class="amount "></p>
-			</td>
-			<td scope="col">
-				<buttob class="btn btn-sm btn-danger" onclick="rem_list($(this))"><i class="fa fa-trash"></i></buttob>
-			</td>
-		</tr>
+		<tbody>
+			<tr class="item-row">
+				<td>
+					<input type="hidden" name="inv_id[]" value="">
+					<input type="hidden" name="product_id[]" value="">
+					<input type="hidden" name="s_price[]" value="">
+					<p class="pname">Name: <b>product</b></p>
+					<p class="pdesc"><small><i>Description: <b>Description</b></i></small></p>
+				</td>
+				<td style="min-width: 80px;">
+					<input type="number" min="1" step="any" name="qty[]" value="" class="">
+				</td>
+				<td>
+					<input type="number" min="1" step="any" name="price[]" value="" class="">
+				</td>
+				<td>
+					<input type="number" min="1" step="any" name="b_price[]" value="" class="">
+				</td>
+				<td>
+					<p class="amount "></p>
+				</td>
+				<td scope="col">
+					<buttob class="btn btn-sm btn-danger" onclick="rem_list($(this))"><i class="fa fa-trash"></i></buttob>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 </div>
 </div>
 <style type="text/css">
 	#tr_clone {
 		display: none;
-	}
-
-	td {
-		vertical-align: middle;
-	}
-
-	td p {
-		margin: unset;
 	}
 
 	td input[type='number'] {
@@ -229,7 +225,7 @@ if (isset($_GET['id'])) {
 </style>
 <script>
 	$(document).ready(function() {
-		$('[data-bs-toggle="popover"]').popover();
+
 		$(document).on('click', 'img', function() {
 			var imgSrc = $(this).attr('src');
 			image_modal(imgSrc);
@@ -244,105 +240,146 @@ if (isset($_GET['id'])) {
 				placeholder: "Please select here",
 				width: "100%"
 			})
-			calculate_total()
+			calculate_total();
 		}
-	})
+		$('#list').on('click', '.rem-list', function() {
+			rem_list($(this));
+		});
 
-	function rem_list(_this) {
-		_this.closest('tr').remove()
-	}
-	$('#add_list').click(function() {
-		// alert("TEST");
-		// return false;
-		// //console.log("Start");
+		$('#add_list').click(function() {
+			// alert("TEST");
+			// return false;
+			// //console.log("Start");
 
-		var tr = $('#tr_clone tr.item-row').clone();
-		var product = $('#product').val(),
-			qty = $('#qty').val(),
+			var tr = $('#tr_clone tr.item-row').clone();
+			var product = $('#product').val();
+			var qty = $('#qty').val();
 			// Get the value of data-price attribute from the selected option
-			price = $('#product option:selected').data('price'),
-			b_price = $('#b_price').val();
-		if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
-			alert_toast("Product already on the list", 'danger')
-			return false;
-		}
-		if (product == '' || qty == '') {
-			alert_toast("Please complete the fields first", 'danger')
-			return false;
-		}
-		tr.attr('data-id', product)
-		tr.find('.pname b').html($("#product option[value='" + product + "']").attr('data-name'))
-		tr.find('.pdesc b').html($("#product option[value='" + product + "']").attr('data-description'))
-		tr.find('[name="product_id[]"]').val(product)
-		tr.find('[name="qty[]"]').val(qty)
-		tr.find('[name="price[]"]').val(price)
-		tr.find('[name="b_price[]"]').val(b_price)
-		var amount = parseFloat(b_price) * parseFloat(qty);
-		tr.find('.amount').html(parseFloat(amount).toLocaleString('en-US', {
-			style: 'decimal',
-			maximumFractionDigits: 2,
-			minimumFractionDigits: 2
-		}))
-		$('#list tbody').append(tr)
-		calculate_total()
-		$('[name="qty[]"],[name="b_price[]"]').keyup(function() {
-			calculate_total()
-		})
-		$('#product').val('').select2({
-			placeholder: "Please select here",
-			width: "100%"
-		})
-		$('#qty').val('')
-		$('#b_price').val('')
-	})
+			var price = $('#product option:selected').data('price');
+			var b_price = $('#b_price').val();
+			var s_price = $('#s_price').val();
 
-	function calculate_total() {
-		var total = 0;
-		$('#list tbody').find('.item-row').each(function() {
-			var _this = $(this).closest('tr')
-			var amount = parseFloat(_this.find('[name="qty[]"]').val()) * parseFloat(_this.find('[name="b_price[]"]').val());
-			amount = amount > 0 ? amount : 0;
-			_this.find('p.amount').html(parseFloat(amount).toLocaleString('en-US', {
+			if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
+				alert_toast("Product already on the list", 'danger')
+				return false;
+			}
+
+			if (!product || !qty) {
+				alert_toast("Please complete the fields first", 'danger')
+				return false;
+			}
+
+			tr.attr('data-id', product)
+				.find('.pname b').text($("#product option[value='" + product + "']").data('name')).end()
+				.find('.pdesc b').text($("#product option[value='" + product + "']").data('description')).end()
+				.find('[name="product_id[]"]').val(product).end()
+				.find('[name="qty[]"]').val(qty).end()
+				.find('[name="price[]"]').val(price).end()
+				.find('[name="b_price[]"]').val(b_price).end()
+				.find('[name="s_price[]"]').val(s_price).end()
+
+			var amount = parseFloat(b_price) * parseFloat(qty);
+			tr.find('.amount').text(amount.toLocaleString('en-US', {
 				style: 'decimal',
 				maximumFractionDigits: 2,
 				minimumFractionDigits: 2
 			}))
-			total += parseFloat(amount);
+
+			$('#list tbody').append(tr)
+			calculate_total()
+
+			$('[name="qty[]"],[name="b_price[]"]').on('keyup', calculate_total)
+
+			$('#product').val('').select2({
+				placeholder: "Please select here",
+				width: "100%"
+			})
+			$('#qty').val('')
+			$('#b_price').val('')
 		})
-		$('#list [name="tamount"]').val(total)
-		$('#list .tamount').html(parseFloat(total).toLocaleString('en-US', {
+
+		$('#manage-receiving').submit(function(e) {
+			e.preventDefault()
+			start_load()
+
+			var fileInput = $('#img')[0]; // Access the DOM element
+			if (fileInput != undefined) {
+				var file = fileInput.files[0];
+
+				if (file && file.size > 2 * 1024 * 1024) { // 2MB in bytes
+					alert_toast('The selected file is too large. Please select a file less than 2MB.', 'warning');
+					end_load()
+					return false;
+				}
+			}
+
+			if ($("#list .item-row").length <= 0) {
+				alert_toast("Please insert atleast 1 item first.", 'danger');
+				end_load();
+				return false;
+			}
+			console.log($('[name="total_amount"]').val())
+			// Collect form data
+			var formData = new FormData($(this)[0]);
+			var urlEncodedData = new URLSearchParams(formData).toString();
+
+			var conf_msg = "Are you sure to pay " + $('.total_amount').val() + " to receiver ? "
+			console.log(conf_msg)
+			// Call _conf with the URL-encoded form data as a parameter
+			_conf("Are you sure to pay  <b><u> ₹" + $('[name="total_amount"]').val() + "</u></b>  to receiver ? ", "pay_receiver", [urlEncodedData]);
+
+		})
+	})
+
+	function rem_list(element) {
+		element.closest('tr').remove();
+		calculate_total();
+	};
+
+	function calculate_total() {
+		var total = 0;
+		var amount = 0;
+		$('#list tbody .item-row').each(function() {
+			const _this = $(this).closest('tr')
+			var amount = parseFloat(_this.find('[name="qty[]"]').val()) * parseFloat(_this.find('[name="b_price[]"]').val());
+			_this.find('p.amount').text(parseFloat(amount).toLocaleString('en-US', {
+				style: 'decimal',
+				maximumFractionDigits: 2,
+				minimumFractionDigits: 2
+			}))
+			total += amount;
+		})
+		$('[name="total_amount"]').val(total)
+		$('#list .total_amount').text(parseFloat(total).toLocaleString('en-US', {
 			style: 'decimal',
 			maximumFractionDigits: 2,
 			minimumFractionDigits: 2
 		}))
 	}
-	$('#manage-receiving').submit(function(e) {
-		e.preventDefault()
-		start_load()
-		if ($("#list .item-row").length <= 0) {
-			alert_toast("Please insert atleast 1 item first.", 'danger');
-			end_load();
-			return false;
-		}
+
+
+	function pay_receiver(urlEncodedData) {
+		start_load();
 		$.ajax({
 			url: 'ajax.php?action=save_receiving',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
+			data: urlEncodedData,
+			processData: false, // Important to not process data
+			contentType: 'application/x-www-form-urlencoded', // Specify content type, // Important to not set content type
 			method: 'POST',
-			type: 'POST',
 			success: function(resp) {
-				console.log(resp)
+				console.log(resp);
 				if (resp == 1) {
-					alert_toast("Data successfully added", 'success')
+					alert_toast("Data successfully added", 'success');
 					setTimeout(function() {
-						location.href = "index.php?page=receiving"
-					}, 1500)
-
+						location.href = "index.php?page=receiving";
+					}, 1500);
+				} else {
+					alert_toast("Data successfully updated", 'success');
+					setTimeout(function() {
+						location.href = "index.php?page=receiving";
+					}, 1500);
 				}
-
 			}
-		})
-	})
+		});
+	}
 </script>

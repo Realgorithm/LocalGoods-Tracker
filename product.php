@@ -3,7 +3,7 @@ $sku = mt_rand(1, 99999999);
 $sku = sprintf("%'.08d\n", $sku);
 $i = 1;
 while ($i == 1) {
-	$chk = shop_conn($dbName)->query("SELECT * FROM product_list where sku ='$sku'")->num_rows;
+	$chk = shopConn($dbName)->query("SELECT * FROM products where sku ='$sku'")->num_rows;
 	if ($chk > 0) {
 		$sku = mt_rand(1, 99999999);
 		$sku = sprintf("%'.08d\n", $sku);
@@ -50,7 +50,7 @@ while ($i == 1) {
 				var targetValue = name; // Set this to the value you want to match
 				$('#product_name option').each(function() {
 					if ($(this).val() === targetValue) {
-						// console.log($(this).val())
+						console.log($(this).val())
 						$(this).prop('selected', true);
 						return false; // Exit the loop once the match is found
 					}
@@ -136,7 +136,7 @@ while ($i == 1) {
 								<div class="col-md-12">
 									<?php if ($_SESSION['login_type'] == 1) : ?>
 										<button class="btn btn-sm btn-primary col-sm-4 offset-md-1 mb-2 me-2"> Save</button>
-										<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-product').get(0).reset()"> Cancel</button>
+										<button class="btn btn-sm btn-danger col-sm-4 offset-md-1 mb-2" type="button" onclick="$('#manage-product').trigger('reset'); $('#product_img').attr('src', '')"> Cancel</button>
 									<?php endif; ?>
 								</div>
 							</div>
@@ -166,12 +166,12 @@ while ($i == 1) {
 								<tbody>
 									<?php
 									$i = 1;
-									$prod = shop_conn($dbName)->query("SELECT * FROM product_list order by id asc");
+									$prod = shopConn($dbName)->query("SELECT * FROM products order by id asc");
 									while ($row = $prod->fetch_assoc()) :
 									?>
 										<tr>
 											<td scope="row"><?php echo $i++ ?></td>
-											<td style="width: 150px; height: 100px;"><img src="<?php echo $row['image'] != '' ? $row['image'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100"></td>
+											<td style="width: 150px; height: 100px;"><img src="<?php echo $row['img_path'] != '' ? 'assets/img/' . $row['img_path'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100"></td>
 											<td>
 												<p>SKU : <b><?php echo $row['sku'] ?></b></p>
 												<p><small>Category : <b><?php echo $cat_arr[$row['category_id']] ?></b></small></p>
@@ -183,7 +183,7 @@ while ($i == 1) {
 											</td>
 											<?php if ($_SESSION['login_type'] == 1) : ?>
 												<td class="text-center">
-													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['image'] ?>">Edit</button>
+													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['img_path'] ?>">Edit</button>
 													<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 												</td>
 											<?php else : ?>
@@ -204,17 +204,7 @@ while ($i == 1) {
 			<!-- Table Panel -->
 		</div>
 	</div>
-
 </div>
-<style>
-	td {
-		vertical-align: middle !important;
-	}
-
-	td p {
-		margin: unset;
-	}
-</style>
 <script>
 	$('#manage-product').submit(function(e) {
 		e.preventDefault()
@@ -250,21 +240,21 @@ while ($i == 1) {
 	$(document).on('click', '.edit_product', function() {
 		start_load()
 		var cat = $('#manage-product')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='product_name']").val($(this).attr('data-name'))
-		cat.find("[name='product_img']").val($(this).attr('data-img'))
-		cat.find("[name='sku']").val($(this).attr('data-sku'))
-		cat.find("[name='category_id']").val($(this).attr('data-category_id'))
-		cat.find("[name='description']").val($(this).attr('data-description'))
-		cat.find("[name='price']").val($(this).attr('data-price'))
-		cat.find("[name='b_price']").val($(this).attr('data-bprice'))
-		cat.find("[name='l_price']").val($(this).attr('data-lprice'))
-		updateProducts($(this).attr('data-name'))
+		cat.trigger('reset')
+			.find("[name='id']").val($(this).data('id')).end()
+			.find("[name='product_name']").val($(this).data('name')).end()
+			.find("[name='product_img']").val($(this).data('img')).end()
+			.find("[name='sku']").val($(this).data('sku')).end()
+			.find("[name='category_id']").val($(this).data('category_id')).end()
+			.find("[name='description']").val($(this).data('description')).end()
+			.find("[name='price']").val($(this).data('price')).end()
+			.find("[name='b_price']").val($(this).data('bprice')).end()
+			.find("[name='l_price']").val($(this).data('lprice')).end();
+		updateProducts($(this).data('name'))
 		end_load()
 	})
 	$(document).on('click', '.delete_product', function() {
-		_conf("Are you sure to delete this product?", "delete_product", [$(this).attr('data-id')])
+		_conf("Are you sure to delete this product?", "delete_product", [$(this).data('id')])
 	})
 
 	function delete_product($id) {

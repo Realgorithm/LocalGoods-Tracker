@@ -12,7 +12,7 @@
 				<?php
 				$total = 0;
 				include 'db_connect.php';
-				$qry = shop_conn($dbName)->query("SELECT * FROM order_list o inner join product_list p on o.product_id = p.id  where order_id =" . $_GET['id']);
+				$qry = shopConn($dbName)->query("SELECT * FROM order_list o inner join products p on o.product_id = p.id  where order_id =" . $_GET['id']);
 				while ($row = $qry->fetch_assoc()) :
 					$total += $row['qty'] * $row['price'];
 				?>
