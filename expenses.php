@@ -69,7 +69,7 @@
 											<td><?php echo $row['description'] ?></td>
 											<td><?php echo $row['amount'] ?></td>
 											<td><?php echo date("h:i A | d-M-Y", strtotime($row['date_updated'])) ?></td>
-											<td>
+											<td class="expense-btn">
 												<button class="btn btn-sm btn-primary edit_exp mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-expense="<?php echo $row['expense'] ?>" data-amount="<?php echo $row['amount'] ?>" data-desc="<?php echo $row['description'] ?>">Edit</button>
 												<button class="btn btn-sm btn-danger delete_exp mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 											</td>

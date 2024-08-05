@@ -182,7 +182,7 @@ while ($i == 1) {
 												<p><small>Last Price : <b><?php echo number_format($row['l_price'], 2) ?></b></small></p>
 											</td>
 											<?php if ($_SESSION['login_type'] == 1) : ?>
-												<td class="text-center">
+												<td class="text-center product-btn">
 													<button class="btn btn-sm btn-primary edit_product mb-2" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" data-bprice="<?php echo $row['b_price'] ?>" data-lprice="<?php echo $row['l_price'] ?>" data-img="<?php echo $row['img_path'] ?>">Edit</button>
 													<button class="btn btn-sm btn-danger delete_product mb-2" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 												</td>

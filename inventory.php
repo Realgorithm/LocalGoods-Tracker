@@ -60,7 +60,7 @@
 								?>
 									<tr>
 										<td class="align-middle" scope="row"><?php echo $i++ ?></td>
-										<td style="width: 100px; height: 60px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview">
+										<td style="width: 100px; height: 60px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview" class="preview">
 											<img src="<?php echo !empty($row['img_path']) ? 'assets/img/' . $row['img_path'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%">
 										</td>
 										<td class="align-middle"><?php echo htmlspecialchars($row['name']) ?></td>

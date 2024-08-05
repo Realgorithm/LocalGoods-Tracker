@@ -51,7 +51,7 @@
             </ul>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
-                <label class="form-check-label" for="darkModeSwitch" style="color: white;">Dark Mode</label>
+                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
             </div>
         </div>
     </div>

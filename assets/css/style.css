@@ -37,9 +37,13 @@ h6 {
   border-radius: 8px;
   border: 1px solid white;
 }
+nav{
+  font-family: 'Playfair Display', sans-serif;
+}
 
 td {
   vertical-align: middle !important;
+  font-family: 'Poppins', sans-serif;
 }
 td p {
   margin: unset;

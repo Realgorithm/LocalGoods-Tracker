@@ -40,7 +40,7 @@
 											<td><?php echo date("h:i A | d-M-Y", strtotime($row['date_updated'])) ?></td>
 											<td><?php echo $row['ref_no'] ?></td>
 											<td><?php echo isset($sup_arr[$row['supplier_id']]) ? $sup_arr[$row['supplier_id']] : 'N/A' ?></td>
-											<td scope="row">
+											<td scope="row" class="receiving-btn">
 												<a class="btn btn-sm btn-primary mb-2" href="index.php?page=manage_receiving&id=<?php echo $row['id'] ?>">Edit</a>
 												<a class="btn btn-sm btn-danger delete_receiving mb-2" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
 											</td>

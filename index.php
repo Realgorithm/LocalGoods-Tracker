@@ -8,9 +8,12 @@
 
     <?php
     session_start();
+
     if (($_SESSION['login_type'] != 3)) {
-        if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db']))
+        $firstLogin = $_SESSION ['login_id'];
+        if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db'])) {
             header('location:home.php');
+        }
     }
     include('./header.php');
     ?>
@@ -60,6 +63,9 @@
         ?>
 
         <?php include $page . '.php' ?>
+        <div class="text-center mt-3">
+            <button id="start-tour-again" style="display:none;" class="btn btn-outline-info text-center">Take a Tour</button>
+        </div>
     </main>
 
     <footer class="bg-body-tertiary text-center mt-3">
@@ -129,6 +135,24 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+            'use strict';
+
+            const firstLogin = <?php echo json_encode($firstLogin); ?>;
+            if (!localStorage.getItem("tourShown") && firstLogin) {
+                startTour();
+                <?php $firstLogin = '' ?>
+            }
+
+            $("#start-tour-again").click(function() {
+                localStorage.removeItem("tourShown");
+                localStorage.removeItem("tourStep");
+                startTour();
+            });
+
+            // Show the "Start Tour Again" button
+            $("#start-tour-again").show();
+        });
         window.uni_modal = function(title = '', url = '') {
             start_load();
             $.ajax({
