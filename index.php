@@ -9,9 +9,10 @@
     <?php
     session_start();
 
+    $firstLogin = $_SESSION ['login_type'];
     if (($_SESSION['login_type'] != 3)) {
-        $firstLogin = $_SESSION ['login_id'];
         if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db'])) {
+            $firstLogin = '';
             header('location:home.php');
         }
     }

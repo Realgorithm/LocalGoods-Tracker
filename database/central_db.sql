@@ -37,10 +37,10 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_list`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE `category_list` (
+CREATE TABLE `categories` (
   `id` int(30) NOT NULL,
   `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -84,9 +84,9 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category_list`
+-- Indexes for table `categories`
 --
-ALTER TABLE `category_list`
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -113,9 +113,9 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `category_list`
+-- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `category_list`
+ALTER TABLE `categories`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --

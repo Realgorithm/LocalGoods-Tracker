@@ -50,7 +50,7 @@
 									<?php
 									$i = 1;
 									$conn->select_db('central_db');
-									$cats = $conn->query("SELECT * FROM category_list ORDER BY name ASC");
+									$cats = $conn->query("SELECT * FROM categories ORDER BY name ASC");
 									while ($row = $cats->fetch_assoc()) :
 									?>
 										<tr>
@@ -91,6 +91,7 @@
 				processData: false,
 				method: 'POST',
 				success: function(resp) {
+					console.log(resp)
 					alert_toast(resp == 1 ? "Data successfully added" : "Data successfully updated", 'success');
 					setTimeout(function() {
 						location.reload();

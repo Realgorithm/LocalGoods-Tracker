@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
 									<option value=""></option>
 									<?php
 									$conn->select_db('central_db');
-									$cat = $conn->query("SELECT * FROM category_list order by name asc");
+									$cat = $conn->query("SELECT * FROM categories order by name asc");
 									while ($row = $cat->fetch_assoc()) :
 										$cat_arr[$row['id']] = $row['name'];
 									endwhile;

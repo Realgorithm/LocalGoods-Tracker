@@ -17,7 +17,7 @@
                                 <select name="category_id" id="category" class="form-select">
                                     <?php
                                     $conn->select_db('central_db');
-                                    $cat = $conn->query("SELECT * FROM category_list ORDER BY name ASC");
+                                    $cat = $conn->query("SELECT * FROM categories ORDER BY name ASC");
                                     while ($row = $cat->fetch_assoc()) {
                                         $cat_arr[$row['id']] = $row['name'];
                                         echo "<option value='{$row['id']}'>{$row['name']}</option>";
@@ -27,7 +27,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="product_name" required>
+                                <input type="text" class="form-control" name="name" required>
                             </div>
                             <div class="mb-3 save_image">
                                 <label for="img" class="form-label" style=" text-align:left">Shop Image</label>
@@ -81,8 +81,7 @@
                                             <td>
                                                 <?php echo $row['name'] ?>
                                             </td>
-                                            <td style="width: 100px; height: 60px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview"><img src="<?php echo $row['img_path'] != '' ? 'assets/img/' . $row['img_path'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
-
+                                            <td style="width: 100px; height: 60px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to Preview"><img class="product-image" src="<?php echo $row['img_path'] != '' ? 'assets/img/' . $row['img_path'] : 'assets/img/1600398180_no-image-available.png' ?>" alt="" width="100%" length="100%"></td>
                                             <td>
                                                 <?php echo $cat_arr[$row['category_id']] ?>
                                             </td>
@@ -157,16 +156,23 @@
         $(document).on('click', '.edit_product', function() {
             start_load()
             var cat = $('#manage-add-product')
-            $(".save_image").hide();
-            $(".edit_image").show();
             cat.trigger('reset')
                 .find("[name='id']").val($(this).data('id')).end()
-                .find("[name='product_name']").val($(this).data('name')).end()
+                .find("[name='name']").val($(this).data('name')).end()
                 .find('input[name="img"][type="text"]').val($(this).data('img')).end()
                 .find("[name='category_id']").val($(this).data('category_id')).end()
 
-            var imgPath = 'assets/img/' + $(this).data('img');
-            $("#product_img").attr('src', imgPath);
+            checkImage(($(this).data('img')), function(exists) {
+                if (exists) {
+                    $(".save_image").hide();
+                    $(".edit_image").show();
+                    var imgPath = 'assets/img/' + $(this).data('img');
+                    $("#product_img").attr('src', imgPath);
+                } else {
+                    $(".save_image").show();
+                    $(".edit_image").hide();
+                }
+            })
             end_load()
         });
 
@@ -175,7 +181,19 @@
         })
     });
 
-    function delete_product($id) {
+    function checkImage(url, callback) {
+        var img = new Image();
+        img.onload = function() {
+            callback(true);
+        };
+        img.onerror = function() {
+            callback(false);
+        };
+        img.src = url;
+    }
+
+
+    function remove_product($id) {
         start_load()
         $.ajax({
             url: 'ajax.php?action=remove_product',

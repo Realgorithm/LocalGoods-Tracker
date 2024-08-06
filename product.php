@@ -95,7 +95,7 @@ while ($i == 1) {
 								<select name="category_id" id="category" class="custom-select browser-default form-select">
 									<?php
 									$conn->select_db('central_db');
-									$cat = $conn->query("SELECT * FROM category_list ORDER BY name ASC");
+									$cat = $conn->query("SELECT * FROM categories ORDER BY name ASC");
 									while ($row = $cat->fetch_assoc()) {
 										$cat_arr[$row['id']] = $row['name'];
 										echo "<option value='{$row['id']}'>{$row['name']}</option>";

@@ -249,6 +249,9 @@ class Action
         $id = $this->sanitize($_POST['id'] ?? '');
 
         $data = "name = '$name'";
+        echo $data;
+        echo $id;
+        $this->db->select_db('central_db');
         if (empty($id)) {
             $save = $this->db->query("INSERT INTO categories SET $data");
             $returnValue = 1;
@@ -261,7 +264,8 @@ class Action
 
     function delete_category()
     {
-        $id = $this->sanitize($_POST['id']);
+        $id = $this->sanitize($_POST['id']);        
+        $this->db->select_db('central_db');
         $delete = $this->db->query("DELETE FROM categories WHERE id = $id");
         return $delete ? 1 : 0;
     }
@@ -360,17 +364,19 @@ class Action
         $name = $this->sanitize($_POST['name']);
         $img_path = $this->sanitize($_POST['img']);
         $category_id = $this->sanitize($_POST['category_id']);
+        $id = $this->sanitize($_POST['id'] ?? '');
 
         $data = "name = '$name', category_id = '$category_id'";
 
         if ($_FILES['img']['tmp_name'] != '') {
             $fname = $_FILES['img']['name'];
-            $fname = strtolower($fname);
+            $fname = strtolower($name);
             $fname = str_replace(' ', '_', $fname);
             move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
             $data .= ", img_path = '$fname'";
+        } else {
+            $data .= ", img_path = '$img_path'";
         }
-        $data .= ", img_path = '$img_path'";
 
         $this->db->select_db('central_db');
 
