@@ -5,10 +5,10 @@
         <div class="row">
             <!-- FORM Panel -->
             <div class="col-md-4 mb-3">
-                <form action="" id="manage-add-product" enctype="multipart/form-data" method="POST">
+                <form action="" id="manage-add-product" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
                     <div class="card">
                         <div class="card-header">
-                            <h5>Add Product</h5>
+                            <h5><i class="fa fa-plus-square"></i> Add Product</h5>
                         </div>
                         <div class="card-body">
                             <input type="hidden" name="id">
@@ -28,14 +28,18 @@
                             <div class="mb-3">
                                 <label class="form-label">Product Name</label>
                                 <input type="text" class="form-control" name="name" required>
+                                <div class="invalid-feedback">
+                                    Please Enter the product name.
+                                </div>
                             </div>
                             <div class="mb-3 save_image">
                                 <label for="img" class="form-label" style=" text-align:left">Shop Image</label>
-                                <input type="file" name="img" id="img" class="form-control" accept=".jpg, .jpeg, .png, .gif">
+                                <input type="file" name="p_img" id="p_img" class="form-control" accept=".jpg, .jpeg, .png, .gif">
                             </div>
                             <div class="mb-3 edit_image" style="display: none;">
                                 <img id="product_img" name="product_img" src="" alt="Product Image" style="width: 150px; height: 100px;">
-                                <input type="text" name="img" id="img" value="" hidden>
+                                <input type="text" name="img" id="img" value="" hidden required>
+
                             </div>
                         </div>
                         <div class="card-footer">
@@ -55,7 +59,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4><b>Products</b></h4>
+                        <h4><b><i class="fa fa-cart-plus"></i> Products</b></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive-sm">
@@ -109,42 +113,65 @@
         $('table').dataTable()
         $(".save_image").show();
         $(".edit_image").hide();
+        'use strict';
 
-        $('#manage-add-product').submit(function(e) {
-            e.preventDefault()
-            start_load()
-            var fileInput = $('#img')[0]; // Access the DOM element
-            var file = fileInput.files[0];
-
-            if (file && file.size > 1 * 512 * 1024) { // 2MB in bytes
-                alert_toast('The selected file is too large. Please select a file less than 512kb.', 'warning');
-                end_load()
-                return false;
-            }
-            $.ajax({
-                url: 'ajax.php?action=add_product',
-                data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                success: function(resp) {
-                    console.log(resp)
-                    if (resp == 1) {
-                        alert_toast("Data successfully added", 'success')
-                        setTimeout(function() {
-                            location.reload()
-                        }, 1500)
-
-                    } else if (resp == 2) {
-                        alert_toast("Data successfully updated", 'success')
-                        setTimeout(function() {
-                            location.reload()
-                        }, 1500)
-
-                    }
+        $('#manage-add-product').each(function() {
+            var form = $(this);
+            form.on('submit', function(e) {
+                e.preventDefault()
+                start_load()
+                // Check if the form is valid
+                if (form[0].checkValidity() === false) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    end_load();
+                    form.addClass('was-validated');
+                    return false;
                 }
+
+                var fileInput = $('#p_img')[0]; // Access the DOM element
+                var file = fileInput.files[0];
+
+                if (file && file.size > 1 * 512 * 1024) { // 512 in bytes
+                    alert_toast('The selected file is too large. Please select a file less than 512kb.', 'warning');
+                    end_load()
+                    return false;
+                }
+                $('#p_img').on('change', function() {
+                    var fileName = $(this).val().split('\\').pop();
+                    $('#img').val(fileName);
+                });
+                $.ajax({
+                    url: 'ajax.php?action=add_product',
+                    data: new FormData($(this)[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    type: 'POST',
+                    success: function(resp) {
+                        if (resp == 1) {
+                            alert_toast("Data successfully added", 'success')
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+
+                        } else if (resp == 2) {
+                            alert_toast("Data successfully updated", 'success')
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+
+                        } else {
+                            alert_toast("An error occurred. Please try again.", 'danger')
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+                        }
+                    }
+                })
+                form.addClass('was-validated');
+                e.preventDefault(); // Prevent default form submission
             })
         });
 
@@ -162,11 +189,13 @@
                 .find('input[name="img"][type="text"]').val($(this).data('img')).end()
                 .find("[name='category_id']").val($(this).data('category_id')).end()
 
-            checkImage(($(this).data('img')), function(exists) {
+            var url = "assets/img/" + $(this).data('img');
+
+            checkImage(url, function(exists) {
                 if (exists) {
                     $(".save_image").hide();
                     $(".edit_image").show();
-                    var imgPath = 'assets/img/' + $(this).data('img');
+                    var imgPath = url;
                     $("#product_img").attr('src', imgPath);
                 } else {
                     $(".save_image").show();
@@ -202,17 +231,16 @@
                 id: $id
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp == 1) {
                     alert_toast("Data successfully deleted", 'success')
                     setTimeout(function() {
                         location.reload()
                     }, 1500)
                 } else {
-                    alert_toast("Some error occur", 'danger');
+                    alert_toast("An error occurred. Please try again.", 'danger')
                     setTimeout(function() {
                         location.reload()
-                    }, 1500);
+                    }, 1500)
                 }
             }
         })

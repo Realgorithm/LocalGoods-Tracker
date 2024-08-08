@@ -21,7 +21,7 @@ a {
 }
 
 a:hover {
-  color: #3291e6;
+  color: #004d40;
   text-decoration: none;
 }
 
@@ -33,6 +33,12 @@ h5,
 h6 {
   font-family: "Raleway", sans-serif;
 }
+h4{
+  font-family: "Pacifico", sans-serif;
+}
+p{
+  font-family: 'Poppins', sans-serif;
+}
 .logo {
   border-radius: 8px;
   border: 1px solid white;
@@ -43,11 +49,13 @@ nav{
 
 td {
   vertical-align: middle !important;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Ga Maamli", sans-serif;
 }
 td p {
   margin: unset;
 }
+
+
 
 @media screen and (max-width: 640px) and (min-width: 642px) and (max-width: 800px) {
   body,
@@ -60,8 +68,18 @@ td p {
     padding-left: 1px;
     padding-right: 1px;
   }
+  .form-switch{
+    padding-top: 5px;
+  }
 }
 
+[data-bs-theme='dark'] .nav-style {
+  background-color: #004d40;
+}
+
+[data-bs-theme='light'] .nav-style {
+  background-color: #6499db;
+}
 /*--------------------------------------------------------------
 # Login
 --------------------------------------------------------------*/

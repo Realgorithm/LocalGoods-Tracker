@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>Purchases</b></h4>
+						<h4><b><i class="fa fa-shopping-basket"></i> Purchases</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -84,6 +84,11 @@
 						location.reload()
 					}, 1500)
 
+				}else {
+					alert_toast("An error occurred. Please try again.",'danger');
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
 				}
 			}
 		})

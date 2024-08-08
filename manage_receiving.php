@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
 		<form action="" id="manage-receiving" method="POST" enctype="multipart/form-data">
 			<div class="card">
 				<div class="card-header">
-					<h4>Manage Purchase</h4>
+					<h4><b><i class="fa fa-shopping-bag"></i> Manage Purchase</b></h4>
 				</div>
 				<div class="card-body">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
@@ -260,12 +260,12 @@ if (isset($_GET['id'])) {
 			var s_price = $('#s_price').val();
 
 			if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
-				alert_toast("Product already on the list", 'danger')
+				alert_toast("Product already on the list", 'warning')
 				return false;
 			}
 
 			if (!product || !qty) {
-				alert_toast("Please complete the fields first", 'danger')
+				alert_toast("Please complete the fields first", 'info')
 				return false;
 			}
 
@@ -314,7 +314,7 @@ if (isset($_GET['id'])) {
 			}
 
 			if ($("#list .item-row").length <= 0) {
-				alert_toast("Please insert atleast 1 item first.", 'danger');
+				alert_toast("Please insert atleast 1 item first.", 'info');
 				end_load();
 				return false;
 			}
@@ -373,11 +373,16 @@ if (isset($_GET['id'])) {
 					setTimeout(function() {
 						location.href = "index.php?page=receiving";
 					}, 1500);
-				} else {
+				} else if (resp == 2) {
 					alert_toast("Data successfully updated", 'success');
 					setTimeout(function() {
 						location.href = "index.php?page=receiving";
 					}, 1500);
+				} else {
+					alert_toast("An error occurred. Please try again.",'danger');
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
 				}
 			}
 		});

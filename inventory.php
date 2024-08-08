@@ -4,7 +4,7 @@
 		<div class="col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h4><b>Inventory</b></h4>
+					<h4><b><i class="fa fa-cube"></i> Inventory</b></h4>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive-sm">

@@ -5,16 +5,19 @@
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4 mb-3">
-				<form action="" id="manage-expenses">
+				<form action="" id="manage-expenses" class="needs-validation" novalidate>
 					<div class="card">
 						<div class="card-header">
-							<h5>Expenses Form</h5>
+							<h5><i class="fa fa-edit"></i> Expenses Form</h5>
 						</div>
 						<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="mb-3">
 								<label class="form-label">Expense For</label>
 								<input type="text" class="form-control" name="expense" required>
+								<div class="invalid-feedback">
+									Please provide the expense name.
+								</div>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Description</label>
@@ -23,6 +26,9 @@
 							<div class="mb-3">
 								<label class="form-label">Expense Price</label>
 								<input type="text" class="form-control" name="amount" required>
+								<div class="invalid-feedback">
+									Please Enter the Price of the expense.
+								</div>
 							</div>
 						</div>
 						<div class="card-footer">
@@ -42,7 +48,7 @@
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>Expense List</b></h4>
+						<h4><b><i class="fa fa-money-bill-wave"></i> Expense List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -90,34 +96,51 @@
 <script>
 	$(document).ready(function() {
 		$('table').dataTable()
-		$('#manage-expenses').submit(function(e) {
-			e.preventDefault()
-			start_load()
-			console.log("clicked")
-			$.ajax({
-				url: 'ajax.php?action=save_expenses',
-				data: new FormData($(this)[0]),
-				cache: false,
-				contentType: false,
-				processData: false,
-				method: 'POST',
-				type: 'POST',
-				success: function(resp) {
-					console.log(resp);
-					if (resp == 1) {
-						alert_toast("Data successfully added", 'success')
-						setTimeout(function() {
-							location.reload()
-						}, 1500)
 
-					} else if (resp == 2) {
-						alert_toast("Data successfully updated", 'success')
-						setTimeout(function() {
-							location.reload()
-						}, 1500)
-
-					}
+		$('#manage-expenses').each(function() {
+			var form = $(this);
+			form.on('submit', function(e) {
+				e.preventDefault()
+				start_load()
+				// Check if the form is valid
+				if (form[0].checkValidity() === false) {
+					e.preventDefault();
+					e.stopPropagation();
+					end_load();
+					form.addClass('was-validated');
+					return false;
 				}
+				$.ajax({
+					url: 'ajax.php?action=save_expenses',
+					data: new FormData($(this)[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					type: 'POST',
+					success: function(resp) {
+						if (resp == 1) {
+							alert_toast("Data successfully added", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						} else if (resp == 2) {
+							alert_toast("Data successfully updated", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						} else {
+							alert_toast("An error occurred. Please try again.", 'danger')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+						}
+					}
+				})
+				form.addClass('was-validated');
+				e.preventDefault(); // Prevent default form submission
 			})
 		});
 
@@ -154,6 +177,11 @@
 						location.reload()
 					}, 1500)
 
+				} else {
+					alert_toast("An error occurred. Please try again.", 'danger')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
 				}
 			}
 		})

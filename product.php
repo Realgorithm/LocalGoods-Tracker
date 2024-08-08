@@ -79,10 +79,10 @@ while ($i == 1) {
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4 mb-3">
-				<form action="" id="manage-product">
+				<form action="" id="manage-product" class="needs-validation" novalidate>
 					<div class="card">
 						<div class="card-header">
-							<h5>Product Form</h5>
+							<h5><i class="fas fa-edit"></i> Product Form</h5>
 						</div>
 						<div class="card-body">
 							<input type="hidden" name="id">
@@ -105,10 +105,13 @@ while ($i == 1) {
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Product Name</label>
-								<select name="product_name" id="product_name" class="custom-select browser-default form-select" onchange="updateImage()">
+								<select name="product_name" id="product_name" class="custom-select browser-default form-select" onchange="updateImage()" required>
 									<!-- Product options will be populated here based on the selected category -->
 									<option value=""><?php echo $row['name'] ?></option>
 								</select>
+								<div class="invalid-feedback">
+									Select a category which has product.
+								</div>
 							</div>
 							<div id="product-img-container">
 								<img id="product_img" name="product_img" src="" alt="Product Image" style="width: 150px; height: 100px;">
@@ -121,6 +124,9 @@ while ($i == 1) {
 							<div class="mb-3">
 								<label class="form-label">M.R.P</label>
 								<input type="number" step="any" class="form-control" name="price" required>
+								<div class="invalid-feedback">
+									Please Enter the M.R.P for product.
+								</div>
 							</div>
 							<div class="mb-3" style="display: none;">
 								<label class="form-label">Bill Price</label>
@@ -129,6 +135,9 @@ while ($i == 1) {
 							<div class="mb-3">
 								<label class="form-label">Last Price</label>
 								<input type="number" class="form-control" step="any" name="l_price" required>
+								<div class="invalid-feedback">
+									Please Enter Last price for the product.
+								</div>
 							</div>
 						</div>
 						<div class="card-footer">
@@ -150,7 +159,7 @@ while ($i == 1) {
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>Product List</b></h4>
+						<h4><b><i class="fa fa-box-open"></i> Product List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -206,56 +215,80 @@ while ($i == 1) {
 	</div>
 </div>
 <script>
-	$('#manage-product').submit(function(e) {
-		e.preventDefault()
-		var imgSrc = $('#product_img').attr('src'); // Get the src attribute of the img element
-		$('#img').val(imgSrc); // Set the value of the hidden input field
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=save_product',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
-			method: 'POST',
-			type: 'POST',
-			success: function(resp) {
-				console.log(resp)
-				if (resp == 1) {
-					alert_toast("Data successfully added", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
+	$(document).ready(function() {
+		'use strict';
 
-				} else if (resp == 2) {
-					alert_toast("Data successfully updated", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
-
+		$('#manage-product').each(function() {
+			var form = $(this);
+			form.on('submit', function(e) {
+				e.preventDefault()
+				start_load()
+				// Check if the form is valid
+				if (form[0].checkValidity() === false) {
+					e.preventDefault();
+					e.stopPropagation();
+					end_load();
+					form.addClass('was-validated');
+					return false;
 				}
-			}
+
+				var imgSrc = $('#product_img').attr('src'); // Get the src attribute of the img element
+				$('#img').val(imgSrc); // Set the value of the hidden input field
+
+				$.ajax({
+					url: 'ajax.php?action=save_product',
+					data: new FormData($(this)[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					type: 'POST',
+					success: function(resp) {
+						console.log(resp)
+						if (resp == 1) {
+							alert_toast("Data successfully added", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						} else if (resp == 2) {
+							alert_toast("Data successfully updated", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						} else {
+							alert_toast("An error occurred. Please try again.", 'danger')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+						}
+					}
+				})
+				form.addClass('was-validated');
+				e.preventDefault(); // Prevent default form submission
+			})
 		})
-	})
-	$(document).on('click', '.edit_product', function() {
-		start_load()
-		var cat = $('#manage-product')
-		cat.trigger('reset')
-			.find("[name='id']").val($(this).data('id')).end()
-			.find("[name='product_name']").val($(this).data('name')).end()
-			.find("[name='product_img']").val($(this).data('img')).end()
-			.find("[name='sku']").val($(this).data('sku')).end()
-			.find("[name='category_id']").val($(this).data('category_id')).end()
-			.find("[name='description']").val($(this).data('description')).end()
-			.find("[name='price']").val($(this).data('price')).end()
-			.find("[name='b_price']").val($(this).data('bprice')).end()
-			.find("[name='l_price']").val($(this).data('lprice')).end();
-		updateProducts($(this).data('name'))
-		end_load()
-	})
-	$(document).on('click', '.delete_product', function() {
-		_conf("Are you sure to delete this product?", "delete_product", [$(this).data('id')])
-	})
+		$(document).on('click', '.edit_product', function() {
+			start_load()
+			var cat = $('#manage-product')
+			cat.trigger('reset')
+				.find("[name='id']").val($(this).data('id')).end()
+				.find("[name='product_name']").val($(this).data('name')).end()
+				.find("[name='product_img']").val($(this).data('img')).end()
+				.find("[name='sku']").val($(this).data('sku')).end()
+				.find("[name='category_id']").val($(this).data('category_id')).end()
+				.find("[name='description']").val($(this).data('description')).end()
+				.find("[name='price']").val($(this).data('price')).end()
+				.find("[name='b_price']").val($(this).data('bprice')).end()
+				.find("[name='l_price']").val($(this).data('lprice')).end();
+			updateProducts($(this).data('name'))
+			end_load()
+		})
+		$(document).on('click', '.delete_product', function() {
+			_conf("Are you sure to delete this product?", "delete_product", [$(this).data('id')])
+		})
+	});
 
 	function delete_product($id) {
 		start_load()
@@ -273,6 +306,11 @@ while ($i == 1) {
 						location.reload()
 					}, 1500)
 
+				} else {
+					alert_toast("An error occurred. Please try again.", 'danger')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
 				}
 			}
 		})

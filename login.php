@@ -8,44 +8,58 @@
 	<title>Admin | Groceries Sales and Inventory System</title>
 
 
-	<?php include('./header.php'); ?>
-	<?php include('./db_connect.php'); ?>
 	<?php
-	$title = "";
-	$body = "";
-	session_start();
-	if (isset($_SESSION['login_id']))
-		header("location:index.php?page=dashboard");
+	include 'header.php';
+	ob_start(); // Start output buffering
 
-	if (isset($_GET['shop_url']) and $_GET['shop_url'] != '') {
+	include 'db_connect.php';
 
-		$shop_url = $_GET['shop_url'];
+	$response = ob_get_clean(); // Get the output and clear the buffer
 
-		$conn->select_db('central_db');
-		$query = $conn->prepare("SELECT * FROM shops WHERE shop_url = ?");
-		$query->bind_param("s", $shop_url);
-		$query->execute();
-		$result = $query->get_result();
-		$shop = $result->fetch_assoc();
+	$title = '';
+	$body = '';
 
-		if (!$shop) {
-			$title = "Shop not found.";
-			$body = "The URL you enter is wrong or contact to the administrative. please check your URL before contact with us.";
-		} else {
-			// $query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
-			foreach ($shop as $key => $value) {
-				$meta[$key] = $value;
-			}
-			$_SESSION['shop_name'] = $meta['shop_name'];
-			$_SESSION['shop_img'] = $meta['cover_img'];
-		}
+	// Check if response is a valid JSON
+	if ($json_response = json_decode($response, true)) {
+		$title = $json_response['title'];
+		$body = $json_response['body'];
 	} else {
-		$title = "shop url is missing";
-		$body = "Please enter your shop url after login.php?shopurl='yourshopurl' or go to home page and enter url their to go to login page.";
-	}
+
+		session_start();
+
+		if (isset($_SESSION['login_id']))
+			header("location:index.php?page=dashboard");
+
+		if (isset($_GET['shop_url']) and $_GET['shop_url'] != '') {
+
+			$shop_url = $_GET['shop_url'];
+
+			$conn->select_db('central_db');
+			$query = $conn->prepare("SELECT * FROM shops WHERE shop_url = ?");
+			$query->bind_param("s", $shop_url);
+			$query->execute();
+			$result = $query->get_result();
+			$shop = $result->fetch_assoc();
+
+			if (!$shop) {
+				$title = "Shop not found.";
+				$body = "The URL you enter is wrong or contact to the administrative. please check your URL before contact with us.";
+			} else {
+				// $query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
+				foreach ($shop as $key => $value) {
+					$meta[$key] = $value;
+				}
+				$_SESSION['shop_name'] = $meta['shop_name'];
+				$_SESSION['shop_img'] = $meta['cover_img'];
+			}
+		} else {
+			$title = "shop url is missing";
+			$body = "Please enter your shop url after login.php?shopurl='yourshopurl' or go to home page and enter url their to go to login page.";
+		}
+	} ?>
+	<?php
 	if ($title != '' and $body != '') : ?>
 		<script>
-			console.log("in");
 			$(document).ready(function() {
 				$('.login-fail').show();
 				$('.main-content').hide();
@@ -55,10 +69,10 @@
 		</script>
 	<?php endif; ?>
 
-
 </head>
 
 <body>
+
 	<!-- Main Content -->
 	<?php include 'loader.php' ?>
 	<div class="container-fluid">
@@ -85,7 +99,7 @@
 				<h5><?php echo isset($meta['shop_tagline']) ? $meta['shop_tagline'] : '' ?></h5>
 			</div>
 			<div class="col-md-8 col-sm-8 col-12 login_form d-flex flex-column justify-content-between">
-				<h2>Log In</h2>
+				<h2 class="py-2"><b>LOGIN</b></h2>
 				<form control="" class="needs-validation" id="login-form" novalidate>
 					<div class="row">
 						<input type="text" name="username" id="username" class="form-control form__input" placeholder="Username" required>

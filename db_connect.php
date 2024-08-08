@@ -70,7 +70,7 @@ function createShopDatabase($dbName)
             customer_id INT(30) NOT NULL,
             actual_amount DOUBLE NOT NULL,
             total_amount DOUBLE NOT NULL,
-            paymode INT(11) NOT NULL,
+            paymode INT(11) NOT NULL COMMENT '1=cash, 2=credit',
             amount_tendered DOUBLE NOT NULL,
             amount_change DOUBLE NOT NULL,
             date_updated DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -111,9 +111,23 @@ function shopConn($dbName)
     return $shopConn;
 }
 
-// Create a connection to MySQL
-$conn = new mysqli('localhost', 'root', '');
+try {
+    // Create a connection to MySQL
+    $conn = new mysqli('localhost', 'root', '');
 
-if ($conn->connect_error) {
-    die("Could not connect to MySQL: " . $conn->connect_error);
+    // Check connection
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
+    // Proceed with your database operations here...
+} catch (Throwable $th) {
+    $title = "Database Connection Error";
+    $body = "Could not connect to the database. Error details: " . $th->getMessage();
+
+    // Return or display the error message as JSON
+    echo json_encode(["title" => $title, "body" => $body]);
+
+    // Optionally, you can log the error or perform other error-handling tasks
+    // exit; // Ensure script stops execution after an error
 }

@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4>Udhar</h4>
+                <h4><b><i class="fa fa-handshake"></i> Udhaar</b></h4>
             </div>
             <div class="card-body">
                 <form action="" id="manage-credit">
@@ -102,9 +102,9 @@
                                                 <th>Paid</th>
                                                 <th><input type="text" name="paid" id="paid" value="<?php echo $paid ?>" class="form-control" readonly=""></th>
                                                 <th>To PAY</th>
-                                                <th colspan="2"><input type="text" name="to_pay" id="to_pay" value="<?php echo $to_pay?>" class="form-control" readonly=""></th>
+                                                <th colspan="2"><input type="text" name="to_pay" id="to_pay" value="<?php echo $to_pay ?>" class="form-control" readonly=""></th>
                                             </tr>
-                                            
+
                                             <tr>
                                                 <th colspan="3">Pay Now</th>
                                                 <th colspan="2"><input type="number" name="paying" id="paying" value="" class="form-control pay"> </th>
@@ -133,7 +133,7 @@
             start_load();
 
             if ($("#list .item-row").length <= 0) {
-                alert_toast("Please insert at least 1 item first.", 'danger');
+                alert_toast("Please insert at least 1 item first.", 'info');
                 end_load();
                 return false;
             }
@@ -142,13 +142,13 @@
             var to_pay = parseFloat($('#to_pay').val());
 
             if (isNaN(paying) || isNaN(to_pay) || paying > to_pay) {
-                alert_toast("Please insert a valid amount.", 'danger');
+                alert_toast(" You insert a invalid amount.", 'warning');
                 end_load();
                 return false;
             }
 
             if (paying === 0) {
-                alert_toast("Please insert the amount.", 'danger');
+                alert_toast("Please insert the amount.", 'info');
                 end_load();
                 return false;
             }
@@ -179,6 +179,11 @@
                     setTimeout(function() {
                         location.reload();
                     }, 1500);
+                } else {
+                    alert_toast("An error occurred. Please try again.", 'danger');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1500)
                 }
             }
         });

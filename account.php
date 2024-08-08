@@ -6,14 +6,13 @@ $user = $conn->query("SELECT * FROM shops where shop_url='" . $url . "'")->fetch
 foreach ($user as $k => $v) {
     $$k = $v;
 }
-echo $_SESSION['shop_url']
 ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 mb-3">
             <div class="card">
                 <div class="card-header">
-                    <h4><b>Account Info</b></h4>
+                    <h4><b><i class="fas fa-user-circle"></i> Account Info</b></h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
@@ -59,27 +58,36 @@ echo $_SESSION['shop_url']
                 <div class="card-footer"></div>
             </div>
         </div>
-        <form action="" id="manage-account" style="display: none;" enctype="multipart/form-data" method="POST">
+        <form action="" id="manage-account" style="display: none;" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
             <div class="card">
                 <div class="card-header">
-                    Account Form
+                    <i class="fas fa-user-lock"></i> Account Form
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <label class="form-label">Shop Name:</label>
-                        <input type="text" id="name" class="form-control" name="name">
+                        <input type="text" id="name" class="form-control" name="name" required>
+                        <div class="invalid-feedback">
+                            Please provide your shop name.
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" class="form-control" name="email" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid email.
+                        </div>
                     </div>
-                    <div class="mb-3" >
-                        <label class="form-label" >Cover Image:</label>
+                    <div class="mb-3">
+                        <label class="form-label">Cover Image:</label>
                         <input type="file" class="form-control" name="img" id="img" accept=".jpg, .jpeg, .png, .gif">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Contact:</label>
-                        <input type="text" class="form-control" name="contact">
+                        <input type="text" class="form-control" name="contact" pattern="\d{10}" required>
+                        <div class="invalid-feedback">
+                            Contact number should be exactly 10 digits long.
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Tagline:</label>
@@ -115,42 +123,60 @@ echo $_SESSION['shop_url']
             end_load();
         });
 
-        $('#manage-account').submit(function(e) {
-            e.preventDefault();
-            start_load();
-
-            var fileInput = $('#img')[0]; // Access the DOM element
-            var file = fileInput.files[0];
-
-            if (file && file.size > 1 * 1024 * 1024) { // 2MB in bytes
-                alert_toast('The selected file is too large. Please select a file less than 1MB.', 'warning');
-                end_load()
-                return false;
-            }
-
-            $.ajax({
-                url: 'ajax.php?action=save_settings',
-                data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                success: function(resp) {
-                    if (resp == 1) {
-                        alert_toast("Data successfully added", 'success');
-                        setTimeout(function() {
-                            location.reload();
-                        }, 1500);
-
-                    } else if (resp == 2) {
-                        alert_toast("Data successfully updated", 'success')
-                        setTimeout(function() {
-                            location.reload()
-                        }, 1500)
-
-                    }
+        $('#manage-account').each(function() {
+            var form = $(this);
+            form.on('submit', function(e) {
+                e.preventDefault()
+                start_load()
+                // Check if the form is valid
+                if (form[0].checkValidity() === false) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    end_load();
+                    form.addClass('was-validated');
+                    return false;
                 }
-            });
+
+                var fileInput = $('#img')[0]; // Access the DOM element
+                var file = fileInput.files[0];
+
+                if (file && file.size > 1 * 1024 * 1024) { // 2MB in bytes
+                    alert_toast('The selected file is too large. Please select a file less than 1MB.', 'warning');
+                    end_load()
+                    return false;
+                }
+
+                $.ajax({
+                    url: 'ajax.php?action=save_account',
+                    data: new FormData($(this)[0]),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    success: function(resp) {
+                        if (resp == 1) {
+                            alert_toast("Data successfully added", 'success');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+
+                        } else if (resp == 2) {
+                            alert_toast("Data successfully updated", 'success')
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+
+                        } else {
+                            alert_toast("An error occurred. Please try again.", 'danger')
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+                        }
+                    }
+                });
+                form.addClass('was-validated');
+                e.preventDefault(); // Prevent default form submission
+            })
         });
 
         $(document).on('click', 'img', function() {

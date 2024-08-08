@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>User Info</b></h4>
+						<h4><b><i class="fas fa-user-shield"></i> User Info</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -82,11 +82,11 @@
 	})
 
 	$(document).on('click', '#new_user', function() {
-		uni_modal('New User', 'manage_user.php')
+		uni_modal('<i class="fas fa-users-cog"></i> New User', 'manage_user.php')
 
 	})
 	$(document).on('click', '.edit_user', function() {
-		uni_modal('Edit User', 'manage_user.php?id=' + $(this).data('id'))
+		uni_modal('<i class="fas fa-user-cog"></i> Edit User', 'manage_user.php?id=' + $(this).data('id'))
 	})
 	$(document).on('click', '.delete_user', function() {
 		_conf("Are you sure to delete this user?", "delete_user", [$(this).data('id')])
@@ -107,6 +107,11 @@
 						location.reload()
 					}, 1500)
 
+				} else {
+					alert_toast("An error occurred. Please try again.", 'danger')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
 				}
 			}
 		})

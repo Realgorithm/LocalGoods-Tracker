@@ -6,7 +6,7 @@ include('db_connect.php');
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4><b>Shops Info</b></h4>
+                    <h4><b><i class="fa fa-store-alt"></i> Shops Info</b></h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
@@ -95,8 +95,13 @@ include('db_connect.php');
                         location.reload()
                     }, 1500)
 
-                } else {
+                } else if (resp == 2) {
                     alert_toast("User deleted, but profile picture not found.", 'warning');
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1500)
+                } else {
+                    alert_toast("An error occurred. Please try again.", 'danger');
                     setTimeout(function() {
                         location.reload()
                     }, 1500)

@@ -9,7 +9,7 @@
     <?php
     session_start();
 
-    $firstLogin = $_SESSION ['login_type'];
+    $firstLogin = $_SESSION['login_type'];
     if (($_SESSION['login_type'] != 3)) {
         if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db'])) {
             $firstLogin = '';
@@ -63,10 +63,13 @@
         }
         ?>
 
-        <?php include $page . '.php' ?>
-        <div class="text-center mt-3">
-            <button id="start-tour-again" style="display:none;" class="btn btn-outline-info text-center">Take a Tour</button>
-        </div>
+        <?php include $page . '.php';
+
+        if (($_SESSION['login_type'] != 3)) : ?>
+            <div class="text-center mt-3">
+                <button id="start-tour-again" style="display:none;" class="btn btn-outline-info text-center"><i class="fa fa-user-ninja"></i> Take a Tour</button>
+            </div>
+        <?php endif ?>
     </main>
 
     <footer class="bg-body-tertiary text-center mt-3">
@@ -189,7 +192,7 @@
             $('#alert_toast').addClass('bg-' + bg);
             $('#alert_toast .toast-body').html(msg);
             $('#alert_toast').toast({
-                delay: 3000
+                delay: 2000
             }).toast('show');
         }
     </script>

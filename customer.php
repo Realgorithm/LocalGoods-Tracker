@@ -5,24 +5,33 @@
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4 mb-3">
-				<form action="" id="manage-customer">
+				<form action="" id="manage-customer" class="needs-validation" novalidate>
 					<div class="card">
 						<div class="card-header">
-							<h5>Customer Form</h5>
+							<h5><i class="fa fa-file-alt"></i> Customer Form</h5>
 						</div>
 						<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="mb-3">
 								<label class="form-label">Customer Name</label>
 								<input type="text" class="form-control" name="name" required>
+								<div class="invalid-feedback">
+									Please enter the customer name.
+								</div>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Contact</label>
-								<input type="text" class="form-control" name="contact" required>
+								<input type="text" class="form-control" name="contact"  pattern="\d{10}" required>
+								<div class="invalid-feedback">
+									Please enter a valid contact number.
+								</div>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Address</label>
 								<textarea class="form-control" cols="30" rows="3" name="address" required></textarea>
+								<div class="invalid-feedback">
+									Please enter the customer address.
+								</div>
 							</div>
 						</div>
 						<div class="card-footer">
@@ -42,7 +51,7 @@
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
-						<h4><b>Customer List</b></h4>
+						<h4><b><i class="fa fa-user-tie"></i> Customer List</b></h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -90,33 +99,47 @@
 	$(document).ready(function() {
 		$('table').dataTable()
 
-		$('#manage-customer').submit(function(e) {
-			e.preventDefault()
-			start_load()
-			$.ajax({
-				url: 'ajax.php?action=save_customer',
-				data: new FormData($(this)[0]),
-				cache: false,
-				contentType: false,
-				processData: false,
-				method: 'POST',
-				type: 'POST',
-				success: function(resp) {
-					if (resp == 1) {
-						alert_toast("Data successfully added", 'success')
-						setTimeout(function() {
-							location.reload()
-						}, 1500)
-
-					} else if (resp == 2) {
-						alert_toast("Data successfully updated", 'success')
-						setTimeout(function() {
-							location.reload()
-						}, 1500)
-
-					}
+		'use strict';
+		$('#manage-customer').each(function() {
+			var form = $(this);
+			form.on('submit', function(e) {
+				e.preventDefault()
+				start_load()
+				// Check if the form is valid
+				if (form[0].checkValidity() === false) {
+					e.preventDefault();
+					e.stopPropagation();
+					end_load();
+					form.addClass('was-validated');
+					return false;
 				}
-			})
+				$.ajax({
+					url: 'ajax.php?action=save_customer',
+					data: new FormData($(this)[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					type: 'POST',
+					success: function(resp) {
+						if (resp == 1) {
+							alert_toast("Data successfully added", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						} else if (resp == 2) {
+							alert_toast("Data successfully updated", 'success')
+							setTimeout(function() {
+								location.reload()
+							}, 1500)
+
+						}
+					}
+				})
+				form.addClass('was-validated');
+				e.preventDefault(); // Prevent default form submission
+			});
 		});
 
 		$(document).on('click', '.edit_customer', function() {

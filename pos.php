@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
 		<form action="" id="manage-sales">
 			<div class="card">
 				<div class="card-header">
-					<h4>Sales</h4>
+					<h4><b><i class="fa fa-bugs"></i> Manage Sales</b></h4>
 				</div>
 				<div class="card-body">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
@@ -250,7 +250,7 @@ if (isset($_GET['id'])) {
 
 		$('#pay').click(function() {
 			if ($("#list .item-row").length <= 0) {
-				alert_toast("Please insert atleast 1 item first.", 'danger');
+				alert_toast("Please insert atleast 1 item first.", 'info');
 				end_load();
 				return false;
 			}
@@ -281,12 +281,12 @@ if (isset($_GET['id'])) {
 			var s_price = $('#s_price').val();
 
 			if ($('#list').find('tr[data-id="' + product + '"]').length > 0) {
-				alert_toast("Product already on the list", 'danger')
+				alert_toast("Product already on the list", 'warning')
 				return false;
 			}
 
 			if (!product || !qty) {
-				alert_toast("Please complete the fields first", 'danger')
+				alert_toast("Please complete the fields first", 'info')
 				return false;
 			}
 			$.ajax({
@@ -328,10 +328,10 @@ if (isset($_GET['id'])) {
 							$('#qty').val('')
 							$('#s_price').val('')
 						} else {
-							alert_toast("You enter a wrong price.", 'danger')
+							alert_toast("You enter a wrong price.", 'warning')
 						}
 					} else {
-						alert_toast("Product quantity is greater than available stock.", 'danger')
+						alert_toast("Product quantity is greater than available stock.", 'warning')
 					}
 				}
 			});
@@ -348,7 +348,7 @@ if (isset($_GET['id'])) {
 			e.preventDefault()
 			start_load()
 			if ($("#list .item-row").length <= 0) {
-				alert_toast("Please insert atleast 1 item first.", 'danger');
+				alert_toast("Please insert atleast 1 item first.", 'info');
 				end_load();
 				return false;
 			}
@@ -366,8 +366,12 @@ if (isset($_GET['id'])) {
 							backdrop: 'static',
 							keyboard: false
 						})
-
-					}
+					}else {
+					alert_toast("An error occurred. Please try again.",'danger');
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
+				}
 
 				}
 			})

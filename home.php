@@ -13,25 +13,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        .navbar {
-            margin-bottom: 0;
-        }
-
-        [data-bs-theme='dark'] .nav-style {
-            background-color: #004d40;
-        }
-
-        [data-bs-theme='light'] .nav-style {
-            background-color: #6499db;
-        }
-
         [data-bs-theme='dark'] .hero-section {
             color: #597445;
         }
 
         [data-bs-theme='light'] .hero-section {
-            color: #77925f;
+            color: #6490d0;
         }
 
         .hero-section {
@@ -222,7 +209,7 @@
                                 <label for="message" class="form-label">Message</label>
                                 <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
+                            <button type="submit" class="btn btn-success">Send Message</button>
                         </form>
                     </div>
                     <div class="col-md-3 col-sm-4 col-12">

@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4><?php echo "Welcome back <b>" . $_SESSION['login_name'] . "</b>"  ?></h4>
+                    <h4><i class="fa fa-tachometer-alt"></i> <?php echo "Welcome back <b>" . $_SESSION['login_name'] . "</b>"  ?></h4>
                 </div>
                 <div class="card-body">
                     <div class="row">

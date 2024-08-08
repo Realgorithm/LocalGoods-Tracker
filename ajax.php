@@ -34,8 +34,8 @@ switch ($action) {
     case 'delete_user':
         $response = $crud->delete_user();
         break;
-    case 'save_settings':
-        $response = $crud->save_settings();
+    case 'save_account':
+        $response = $crud->save_account();
         break;
     case 'save_category':
         $response = $crud->save_category();

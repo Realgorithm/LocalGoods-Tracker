@@ -20,8 +20,8 @@
                 <h4 class="company_title">LocalGoods-Tracker</h4>
             </div>
             <div class="col-md-9 col-sm-8 col-12 login_form ">
-                <h2>Sign Up</h2>
-                <form id="signup-form" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
+            <h2 class="py-2"><b>SIGNUP</b></h2>
+            <form id="signup-form" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
                     <div class="row">
                         <div class="col-md-6">
                             <input type="text" name="name" id="name" class="form-control form__input" placeholder="Name" required>

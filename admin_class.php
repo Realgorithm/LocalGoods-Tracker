@@ -30,6 +30,122 @@ class Action
         return htmlspecialchars(strip_tags($input));
     }
 
+    private function generate_ref_no($ref_no, $type)
+    {
+        $ref_no = sprintf("%'.08d\n", $ref_no);
+        $i = 1;
+
+        while ($i == 1) {
+            $chk = $this->db_conn->query(" SELECT * FROM $type WHERE ref_no = $ref_no ")->num_rows;
+            if ($chk > 0) {
+                $ref_no = mt_rand(1, 99999999);
+                $ref_no = sprintf("%'.08d\n", $ref_no);
+            } else {
+                $i = 0;
+            }
+        }
+        return $ref_no;
+    }
+
+    private function save_inventory($id, $product_ids, $qtys, $type, $from, $prices, $b_prices, $s_prices, $remarks, $ref_no, $inv_ids = [])
+    {
+        foreach ($product_ids as $k => $v) {
+            $data = [
+                'form_id' => $id,
+                'product_id' => $product_ids[$k],
+                'qty' => $qtys[$k],
+                'type' => $type,
+                'stock_from' => $from,
+                'other_details' => json_encode(['price' => $prices[$k], 'b_price' => $b_prices[$k], 's_price' => $s_prices[$k], 'qty' => $qtys[$k]]),
+                'remarks' => 'Stock ' . $remarks . '-' . $ref_no,
+            ];
+
+            $columns = implode(", ", array_keys($data));
+            $values = implode("', '", array_values($data));
+            if (!empty($inv_ids[$k])) {
+                $query = "UPDATE inventory SET $columns = '$values' WHERE id = " . $inv_ids[$k];
+            } else {
+                $query = "INSERT INTO inventory ($columns) VALUES ('$values')";
+            }
+            $save2[] = $this->db_conn->query($query);
+
+            $this->db_conn->query("UPDATE products SET b_price = '$b_prices[$k]', s_price = '$s_prices[$k]' WHERE id = '$product_ids[$k]'");
+        }
+        return $save2;
+    }
+
+    function signup()
+    {
+        $name = $this->sanitize($_POST['name']);
+        $username = $this->sanitize($_POST['username']);
+        $password = md5($this->sanitize($_POST['password']));
+        $shop_name = $this->sanitize($_POST['shop_name']);
+        $email = $this->sanitize($_POST['email']);
+        $contact = $this->sanitize($_POST['contact']);
+        $shop_tagline = $this->sanitize($_POST['shop_tagline']);
+        $url = $this->sanitize($_POST['url']);
+
+        $data1 = "name = '$name', username = '$username', password = '$password', type = 1";
+        $data = "shop_name = '$shop_name', email = '$email', contact = '$contact', shop_tagline = '$shop_tagline', shop_url = '$url'";
+
+        if ($_FILES['img']['tmp_name'] != '') {
+            $fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['img']['name'];
+            move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
+            $data .= ", cover_img = '$fname'";
+        }
+
+        $dbName = strtolower(str_replace(' ', '_', $shop_name)) . '_' . rand(1000, 9999);
+        $data .= ", db_name = '$dbName'";
+
+        $this->db->select_db('central_db');
+        $chk = $this->db->query("SELECT * FROM shops WHERE email = '$email'");
+        if ($chk->num_rows > 0) {
+            $row = $chk->fetch_assoc();
+            $existingDBName = $row['db_name'];
+
+            $stmt = $this->db->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?");
+            $stmt->bind_param("s", $existingDBName);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                if (createShopDatabase($existingDBName)) {
+                    $chk1 = shopConn($existingDBName)->query("SELECT * FROM users WHERE username = '$username'")->num_rows;
+                    if ($chk1 > 0) {
+                        echo 0;
+                        exit;
+                    } else {
+                        $save2 = shopConn($existingDBName)->query("INSERT INTO users SET $data1");
+                        $data .= ", db_name = '$existingDBName'";
+                        $save = $this->db->query("UPDATE shops SET $data WHERE email = '$email'");
+                        if ($save2 && $save) {
+                            echo 1;
+                            exit;
+                        } else {
+                            echo 0;
+                            exit;
+                        }
+                    }
+                } else {
+                    echo "error";
+                    exit;
+                }
+            } else {
+                echo 2;
+                exit;
+            }
+            $stmt->close();
+        } else {
+            $save = $this->db->query("INSERT INTO shops SET $data");
+            if ($save) {
+                echo 2;
+                exit;
+            } else {
+                echo "error";
+            }
+        }
+    }
+
     function login()
     {
         $username = $this->sanitize($_POST['username']);
@@ -135,79 +251,7 @@ class Action
         return $delete ? 1 : 0;
     }
 
-    function signup()
-    {
-        $name = $this->sanitize($_POST['name']);
-        $username = $this->sanitize($_POST['username']);
-        $password = md5($this->sanitize($_POST['password']));
-        $shop_name = $this->sanitize($_POST['shop_name']);
-        $email = $this->sanitize($_POST['email']);
-        $contact = $this->sanitize($_POST['contact']);
-        $shop_tagline = $this->sanitize($_POST['shop_tagline']);
-        $url = $this->sanitize($_POST['url']);
-
-        $data1 = "name = '$name', username = '$username', password = '$password', type = 1";
-        $data = "shop_name = '$shop_name', email = '$email', contact = '$contact', shop_tagline = '$shop_tagline', shop_url = '$url'";
-
-        if ($_FILES['img']['tmp_name'] != '') {
-            $fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['img']['name'];
-            move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
-            $data .= ", cover_img = '$fname'";
-        }
-
-        $dbName = strtolower(str_replace(' ', '_', $shop_name)) . '_' . rand(1000, 9999);
-        $data .= ", db_name = '$dbName'";
-
-        $this->db->select_db('central_db');
-        $chk = $this->db->query("SELECT * FROM shops WHERE email = '$email'");
-        if ($chk->num_rows > 0) {
-            $row = $chk->fetch_assoc();
-            $existingDBName = $row['db_name'];
-
-            $stmt = $this->db->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?");
-            $stmt->bind_param("s", $existingDBName);
-            $stmt->execute();
-            $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                if (createShopDatabase($existingDBName)) {
-                    $chk1 = shopConn($existingDBName)->query("SELECT * FROM users WHERE username = '$username'")->num_rows;
-                    if ($chk1 > 0) {
-                        echo 0;
-                        exit;
-                    } else {
-                        $save2 = shopConn($existingDBName)->query("INSERT INTO users SET $data1");
-                        $data .= ", db_name = '$existingDBName'";
-                        $save = $this->db->query("UPDATE shops SET $data WHERE email = '$email'");
-                        if ($save2 && $save) {
-                            echo 1;
-                            exit;
-                        } else {
-                            echo 0;
-                            exit;
-                        }
-                    }
-                } else {
-                    echo "error";
-                    exit;
-                }
-            } else {
-                echo 2;
-                exit;
-            }
-            $stmt->close();
-        } else {
-            $save = $this->db->query("INSERT INTO shops SET $data");
-            if ($save) {
-                echo 2;
-                exit;
-            } else {
-                echo "error";
-            }
-        }
-    }
-
-    function save_settings()
+    function save_account()
     {
         $name = $this->sanitize($_POST['name']);
         $email = $this->sanitize($_POST['email']);
@@ -368,11 +412,11 @@ class Action
 
         $data = "name = '$name', category_id = '$category_id'";
 
-        if ($_FILES['img']['tmp_name'] != '') {
-            $fname = $_FILES['img']['name'];
+        if ($_FILES['p_img']['tmp_name'] != '') {
+            $fname = $_FILES['p_img']['name'];
             $fname = strtolower($name);
             $fname = str_replace(' ', '_', $fname);
-            move_uploaded_file($_FILES['img']['tmp_name'], 'assets/img/' . $fname);
+            move_uploaded_file($_FILES['p_img']['tmp_name'], 'assets/img/' . $fname);
             $data .= ", img_path = '$fname'";
         } else {
             $data .= ", img_path = '$img_path'";
@@ -458,51 +502,6 @@ class Action
         }
     }
 
-    private function generate_ref_no($ref_no, $type)
-    {
-        $ref_no = sprintf("%'.08d\n", $ref_no);
-        $i = 1;
-
-        while ($i == 1) {
-            $chk = $this->db_conn->query(" SELECT * FROM $type WHERE ref_no = $ref_no ")->num_rows;
-            if ($chk > 0) {
-                $ref_no = mt_rand(1, 99999999);
-                $ref_no = sprintf("%'.08d\n", $ref_no);
-            } else {
-                $i = 0;
-            }
-        }
-        return $ref_no;
-    }
-
-    private function save_inventory($id, $product_ids, $qtys, $type, $from, $prices, $b_prices, $s_prices, $remarks, $ref_no, $inv_ids = [])
-    {
-        foreach ($product_ids as $k => $v) {
-            $data = [
-                'form_id' => $id,
-                'product_id' => $product_ids[$k],
-                'qty' => $qtys[$k],
-                'type' => $type,
-                'stock_from' => $from,
-                'other_details' => json_encode(['price' => $prices[$k], 'b_price' => $b_prices[$k], 's_price' => $s_prices[$k], 'qty' => $qtys[$k]]),
-                'remarks' => 'Stock ' . $remarks . '-' . $ref_no,
-            ];
-
-            $columns = implode(", ", array_keys($data));
-            $values = implode("', '", array_values($data));
-            if (!empty($inv_ids[$k])) {
-                $query = "UPDATE inventory SET $columns = '$values' WHERE id = " . $inv_ids[$k];
-            } else {
-                $query = "INSERT INTO inventory ($columns) VALUES ('$values')";
-            }
-            $save2[] = $this->db_conn->query($query);
-
-            $this->db_conn->query("UPDATE products SET b_price = '$b_prices[$k]', s_price = '$s_prices[$k]' WHERE id = '$product_ids[$k]'");
-        }
-        return $save2;
-    }
-
-
     function delete_receiving()
     {
         $id = $this->sanitize($_POST['id']);
@@ -574,8 +573,6 @@ class Action
         $s_prices = $_POST['s_price'];
         $inv_ids = $_POST['inv_id'] ?? [];
 
-        // $data = "customer_id = '$customer_id', actual_amount = '$actual_amount', total_amount = '$total_amount', 
-        //      paymode = '$paymode', amount_tendered = '$amount_tendered', amount_change = '$change'";
 
         $data = "customer_id = '$customer_id', actual_amount = '$actual_amount', total_amount = '$total_amount', 
               amount_tendered = '$amount_tendered', amount_change = '$change'";
@@ -614,6 +611,7 @@ class Action
             return 1;
         }
     }
+
     function delete_shop()
     {
         $id = $this->sanitize($_POST['id']);
@@ -631,6 +629,7 @@ class Action
             }
         }
     }
+
     function save_credit()
     {
         // Extract and sanitize input data
