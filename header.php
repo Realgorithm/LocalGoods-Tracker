@@ -30,7 +30,7 @@
 <link href="assets/css/style.css" rel="stylesheet">
 
 
-  <!-----------------------------------------Javascript----------------------------------------------- -->
+<!-----------------------------------------Javascript----------------------------------------------- -->
 <!-- Fontawesome JS -->
 <script src="assets/fontawesome/js/all.min.js"></script>
 

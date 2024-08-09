@@ -13,6 +13,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         [data-bs-theme='dark'] .hero-section {
             color: #597445;
         }

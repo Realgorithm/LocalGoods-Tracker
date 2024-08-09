@@ -379,7 +379,7 @@ if (isset($_GET['id'])) {
 						location.href = "index.php?page=receiving";
 					}, 1500);
 				} else {
-					alert_toast("An error occurred. Please try again.",'danger');
+					alert_toast("An error occurred. Please try again.", 'danger');
 					setTimeout(function() {
 						location.reload()
 					}, 1500)

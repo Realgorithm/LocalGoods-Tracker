@@ -22,7 +22,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Contact</label>
-								<input type="text" class="form-control" name="contact"  pattern="\d{10}" required>
+								<input type="text" class="form-control" name="contact" pattern="\d{10}" required>
 								<div class="invalid-feedback">
 									Please enter a valid contact number.
 								</div>

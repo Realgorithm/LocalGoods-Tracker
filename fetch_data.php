@@ -8,7 +8,7 @@ if (isset($_POST['date_range'])) {
     $dateRange = $_POST['date_range'];
     $totalSales = 0;
     $totalPurchases = 0;
-    $totalUdhaar= 0;
+    $totalUdhaar = 0;
     $totalActual = 0;
     $totalExpense = 0;
 
@@ -49,7 +49,7 @@ if (isset($_POST['date_range'])) {
         $totalSales = $row['total_sales'] ?? 0;
         $totalActual = $row['total_actual'] ?? 0;
     }
-    
+
     // Check if sales data is fetched
     if ($purchasesResult && $purchasesResult->num_rows > 0) {
         $row = $purchasesResult->fetch_assoc();

@@ -31,6 +31,6 @@
 ## admin class
 
         <?php
-         $data = "customer_id = '$customer_id', actual_amount = '$actual_amount', total_amount = '$total_amount', 
+         $data = "customer_id = '$customer_id', actual_amount = '$actual_amount', total_amount = '$total_amount',
         //paymode = '$paymode', amount_tendered = '$amount_tendered', amount_change = '$change'";
         ?>

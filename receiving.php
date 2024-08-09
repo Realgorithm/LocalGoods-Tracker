@@ -84,8 +84,8 @@
 						location.reload()
 					}, 1500)
 
-				}else {
-					alert_toast("An error occurred. Please try again.",'danger');
+				} else {
+					alert_toast("An error occurred. Please try again.", 'danger');
 					setTimeout(function() {
 						location.reload()
 					}, 1500)
