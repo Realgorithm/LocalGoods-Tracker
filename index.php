@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-   <?php $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; ?>
+    <?php $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; ?>
     <title>Localgoods-Tracker - <?php echo $page ?></title>
 
     <?php

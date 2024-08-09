@@ -1,8 +1,12 @@
 <meta content="" name="descriptison">
 <meta content="" name="keywords">
 
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+
 <!-- favicon icon -->
-<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
 
 <!-- Google Fonts -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Ga+Maamli:300,300i,400,400i,600,600i,700,700i" rel="stylesheet"> -->
