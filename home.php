@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocalGoods-Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <style>
         /* General styles */
         body {
@@ -262,6 +267,20 @@
 </body>
 <script>
     $(document).ready(function() {
+
+        if ('serviceWorker' in navigator) {
+            console.log("Service Worker supported, attempting to register...");
+            navigator.serviceWorker.register('sw.js')
+                .then(function(registration) {
+                    console.log("Service Worker registered with scope:", registration.scope);
+                }).catch(function(error) {
+                    console.error("Service Worker registration failed:", error);
+                });
+        } else {
+            console.warn("Service Worker not supported in this browser.");
+        }
+
+
 
         $('#already-user').submit(function(e) {
             e.preventDefault()
