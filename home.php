@@ -7,7 +7,7 @@
     <title>LocalGoods-Tracker</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
@@ -233,19 +233,19 @@
                 <!-- Section: Social media -->
                 <section class="mb-4">
                     <!-- Facebook -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#" role="button"><i class="fab fa-facebook-f"></i></a>
 
                     <!-- Twitter -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#" role="button"><i class="fab fa-twitter"></i></a>
 
                     <!-- Google -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#" role="button"><i class="fab fa-google"></i></a>
 
                     <!-- Instagram -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#" role="button"><i class="fab fa-instagram"></i></a>
 
                     <!-- Linkedin -->
-                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                    <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#" role="button"><i class="fab fa-linkedin-in"></i></a>
                     <!-- Github -->
                     <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="https://github.com/Realgorithm" target="_blank" role="button"><i class="fab fa-github"></i></a>
 
@@ -256,6 +256,8 @@
             </div>
             <!-- Grid container -->
 
+            <button id="install" style="display: none;" class="btn btn-info"><i class="fab fa-google-play"></i> Install the app</button>
+            <script src="script.js"></script>
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
                 © 2020 Copyright:
@@ -267,20 +269,6 @@
 </body>
 <script>
     $(document).ready(function() {
-
-        if ('serviceWorker' in navigator) {
-            console.log("Service Worker supported, attempting to register...");
-            navigator.serviceWorker.register('sw.js')
-                .then(function(registration) {
-                    console.log("Service Worker registered with scope:", registration.scope);
-                }).catch(function(error) {
-                    console.error("Service Worker registration failed:", error);
-                });
-        } else {
-            console.warn("Service Worker not supported in this browser.");
-        }
-
-
 
         $('#already-user').submit(function(e) {
             e.preventDefault()

@@ -209,8 +209,16 @@ class Action
 
     function logout()
     {
+        // Retrieve the shop_url before destroying the session
+        $shop_url = isset($_SESSION['shop_url']) ? $_SESSION['shop_url'] : '';
+
+
+        // Destroy the session
         session_destroy();
-        header("location:login.php?shop_url=" . $_SESSION['shop_url']);
+
+        // Redirect to the login page with the shop_url as a parameter
+        header("location:login.php?shop_url=" . $shop_url);
+        // exit(); // Make sure to call exit() after a header redirection
     }
 
     function admin_logout()
@@ -308,7 +316,7 @@ class Action
 
     function delete_category()
     {
-        $id = $this->sanitize($_POST['id']);        
+        $id = $this->sanitize($_POST['id']);
         $this->db->select_db('central_db');
         $delete = $this->db->query("DELETE FROM categories WHERE id = $id");
         return $delete ? 1 : 0;

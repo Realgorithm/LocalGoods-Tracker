@@ -6,7 +6,10 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 	<title>Login | Localgoods-Tracker</title>
-
+	<link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 	<?php
 	include 'header.php';
@@ -23,6 +26,7 @@
 	if ($json_response = json_decode($response, true)) {
 		$title = $json_response['title'];
 		$body = $json_response['body'];
+
 	} else {
 
 		session_start();
@@ -132,6 +136,8 @@
 	</div>
 	<!-- Footer -->
 	<div class="container-fluid text-center footer">
+	<button id="install" style="display: none;" class="btn btn-info"><i class="fab fa-google-play"></i> Install the app</button>
+	<script src="script.js"></script>
 		Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a></p>
 	</div>
 
@@ -173,7 +179,7 @@
 						// Handle successful response
 						switch (resp) {
 							case '1':
-								location.href = 'index.php?page=dashboard';
+								location.href = 'index.php';
 								break;
 							case '2':
 								location.href = 'error.html';

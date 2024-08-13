@@ -6,19 +6,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <?php $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; ?>
     <title>Localgoods-Tracker - <?php echo $page ?></title>
-
-    <?php
-    session_start();
-
-    $firstLogin = $_SESSION['login_type'];
-    if (($_SESSION['login_type'] != 3)) {
-        if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db'])) {
-            $firstLogin = '';
-            header('location:home.php');
-        }
-    }
-    include('./header.php');
-    ?>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <?php include('./header.php'); ?>
 
     <style>
         .modalImage {
@@ -44,6 +36,23 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+
+    // Initialize session variables for testing
+    if (!isset($_SESSION['login_type'])) {
+        $_SESSION['login_type'] = 1; // or any appropriate value
+    }
+
+    $firstLogin = $_SESSION['login_type'];
+    if (($_SESSION['login_type'] != 3)) {
+        if (!isset($_SESSION['login_id']) and !isset($_SESSION['shop_db'])) {
+            $firstLogin = '';
+            header('location:home.php');
+            exit;
+        }
+    }
+    ?>
     <?php include 'loader.php' ?>
     <?php include 'navbar.php' ?>
 
@@ -76,15 +85,16 @@
     <footer class="bg-body-tertiary text-center mt-3">
         <div class="container p-4 pb-0">
             <section class="mb-4">
-                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
-                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
-                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#" role="button"><i class="fab fa-facebook-f"></i></a>
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#" role="button"><i class="fab fa-twitter"></i></a>
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#" role="button"><i class="fab fa-google"></i></a>
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#" role="button"><i class="fab fa-instagram"></i></a>
+                <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#" role="button"><i class="fab fa-linkedin-in"></i></a>
                 <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="https://github.com/Realgorithm" target="_blank" role="button"><i class="fab fa-github"></i></a>
             </section>
         </div>
-
+        <button id="install" style="display: none;" class="btn btn-info"><i class="fab fa-google-play"></i> Install the app</button>
+        <script src="script.js"></script>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
             © 2020 Copyright:
             Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a>

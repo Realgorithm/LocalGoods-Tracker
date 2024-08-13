@@ -14,22 +14,22 @@
 						<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="mb-3">
-								<label class="form-label">Supplier</label>
-								<input type="text" class="form-control" name="name" required>
+								<label class="form-label" for="name">Supplier</label>
+								<input type="text" class="form-control" name="name" id="name" required>
 								<div class="invalid-feedback">
 									Please enter the supplier name.
 								</div>
 							</div>
 							<div class="mb-3">
-								<label class="form-label">Contact</label>
-								<input type="text" class="form-control" name="contact" pattern="\d{10}" required>
+								<label class="form-label" for="contact">Contact</label>
+								<input type="text" class="form-control" name="contact" id="contact" pattern="\d{10}" required>
 								<div class="invalid-feedback">
 									Please enter a valid contact number.
 								</div>
 							</div>
 							<div class="mb-3">
-								<label class="form-label">Address</label>
-								<textarea class="form-control" cols="30" rows="3" name="address" required></textarea>
+								<label class="form-label" for="address">Address</label>
+								<textarea class="form-control" cols="30" rows="3" name="address" id="address" required></textarea>
 								<div class="invalid-feedback">
 									Please enter the supplier Address.
 								</div>

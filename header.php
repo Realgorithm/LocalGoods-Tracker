@@ -1,4 +1,4 @@
-<meta content="" name="descriptison">
+<meta content="This is website which helps you to" name="description">
 <meta content="" name="keywords">
 
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">

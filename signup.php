@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup | Localgoods-Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <?php include('./header.php'); ?>
     <?php include('./db_connect.php'); ?>
@@ -119,6 +123,8 @@
     </div>
     <!-- Footer -->
     <div class="container-fluid text-center footer">
+    <button id="install" style="display: none;" class="btn btn-info"><i class="fab fa-google-play"></i> Install the app</button>
+    <script src="script.js"></script>
         Coded with &hearts; by <a href="https://github.com/Realgorithm" target="_blank">Tabish</a>
     </div>
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>

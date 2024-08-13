@@ -1,26 +1,21 @@
 {
-    "short_name": "Local Goods",
-    "name": "LocalGoods-Tracker",
-    "description": "A easy Way to handle goods",
-    "icons": [
-      {
-        "src": "assets/icons/icon-192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "assets/icons/icon-512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "start_url": "index.php",
-    "background_color": "#ffffff",
-    "display": "fullscreen",
-    "scope": "/",
-    "theme_color": "#000000",
-    "orientation": "natural",
-    "display_override": ["window-controls-overlay"]
-
-  }
-  
+	"short_name": "LGT",
+	"name": "LocalGoods-Tracker",
+	"icons": [
+		{
+			"src": "assets/icons/icon-192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "assets/icons/icon-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/?source=site-static-v2",
+	"background_color": "#3367D6",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#3367D6"
+}

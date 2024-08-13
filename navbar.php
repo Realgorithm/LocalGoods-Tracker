@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg sticky-top nav-style mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php?page=dashboard">
-            <img src="assets/img/<?php echo $_SESSION['login_type'] == 3 ? 'company.png' : $_SESSION['shop_img']; ?>" alt="Shop Name" width="35" height="35" class="logo">
+            <img src="assets/img/<?php echo $_SESSION['login_type'] == 3 ? 'company.png' : $_SESSION['shop_img']; ?>" alt="Shop Name" width="33" height="33" class="logo">
             <?php echo $_SESSION['login_type'] == 3 ? 'Localgoods-Tracker' : "  " . $_SESSION['shop_name']; ?>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
